@@ -6,6 +6,8 @@ A multi-agent marketing system built with **n8n** and **Google Gemini**. A centr
 ![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-4285F4?logo=googlegemini&logoColor=white)
 ![Workflows](https://img.shields.io/badge/workflows-11-blue)
 
+![Marketing Command Center (Orchestrator)](screenshots/00-orchestrator.png)
+
 ## How it fits together
 
 ```mermaid
@@ -49,6 +51,56 @@ flowchart TD
 
 ### `archive/`
 Earlier versions and test workflows, kept for reference.
+
+## Screenshots
+
+<details>
+<summary><b>01 · Strategic Planning Agent</b></summary>
+
+![Strategic Planning Agent](screenshots/01-strategic-planning-agent.png)
+</details>
+
+<details>
+<summary><b>02 · Market Intelligence Agent</b></summary>
+
+![Market Intelligence Agent](screenshots/02-market-intelligence-agent.png)
+</details>
+
+<details>
+<summary><b>03 · Content Creation Agent</b></summary>
+
+![Content Creation Agent](screenshots/03-content-creation-agent.png)
+</details>
+
+<details>
+<summary><b>04 · SEO Agent</b></summary>
+
+![SEO Agent](screenshots/04-seo-agent.png)
+</details>
+
+<details>
+<summary><b>05 · Paid Media Agent</b></summary>
+
+![Paid Media Agent](screenshots/05-paid-media-agent.png)
+</details>
+
+<details>
+<summary><b>06 · Social Media Agent</b></summary>
+
+![Social Media Agent](screenshots/06-social-media-agent.png)
+</details>
+
+<details>
+<summary><b>07 · L4 Lead Nurturing Agent</b></summary>
+
+![L4 Lead Nurturing Agent](screenshots/07-lead-nurturing-agent.png)
+</details>
+
+<details>
+<summary><b>08 · L5 Performance Agent</b></summary>
+
+![L5 Performance Agent](screenshots/08-performance-agent.png)
+</details>
 
 ## How to import
 
