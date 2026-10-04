@@ -1,0 +1,2246 @@
+{
+    "updatedAt":  "2026-10-01T04:33:52.167Z",
+    "createdAt":  "2026-09-30T04:32:00.193Z",
+    "id":  "3Dre32nFHVK0jN1f",
+    "name":  "Social Media Agent",
+    "description":  "Social Media Agent: AI captions + approval page, publishes/schedules to Facebook Page, Instagram and TikTok. Every 2h: reads FB/IG/TikTok comments, AI drafts replies, Gmail approval, posts replies and logs them.",
+    "active":  false,
+    "isArchived":  false,
+    "nodes":  [
+                  {
+                      "id":  "0a0f30a7-c04e-40ed-9de2-4ec50a48a2ec",
+                      "name":  "Social Post Form",
+                      "type":  "n8n-nodes-base.formTrigger",
+                      "typeVersion":  2.6,
+                      "position":  [
+                                       0,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "formTitle":  "Social Media Agent - Publish",
+                                         "formDescription":  "Write a brief (or a ready caption), choose the platforms and the media. The agent writes platform-native captions, shows you a preview to edit and approve, then publishes to your Facebook Page, Instagram and TikTok - now or at a scheduled time. Snapchat has no public organic-posting API, so Snapchat is handled by the Paid Media Agent.",
+                                         "formFields":  {
+                                                            "values":  [
+                                                                           {
+                                                                               "fieldLabel":  "What do you want to post?",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "brief",
+                                                                               "requiredField":  true,
+                                                                               "placeholder":  "A brief for the AI, or your final caption"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Captions",
+                                                                               "fieldType":  "radio",
+                                                                               "fieldName":  "caption_mode",
+                                                                               "defaultValue":  "Write platform captions for me (AI)",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Write platform captions for me (AI)"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Use my text as-is"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Platforms",
+                                                                               "fieldType":  "checkbox",
+                                                                               "fieldName":  "platforms",
+                                                                               "requiredField":  true,
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Facebook"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Instagram"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "TikTok"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Media",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "media_type",
+                                                                               "defaultValue":  "Image",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "None - text only"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Image"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Video"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Public media URL (image .jpg/.png or video .mp4)",
+                                                                               "fieldName":  "media_url",
+                                                                               "placeholder":  "https://... (Instagram and TikTok need an image or video)"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Link to include (optional)",
+                                                                               "fieldName":  "link",
+                                                                               "placeholder":  "https://..."
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "When",
+                                                                               "fieldType":  "radio",
+                                                                               "fieldName":  "publish_when",
+                                                                               "defaultValue":  "Publish now (after my approval)",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Publish now (after my approval)"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Schedule"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Schedule date \u0026 time (YYYY-MM-DD HH:mm, your timezone)",
+                                                                               "fieldName":  "schedule_at",
+                                                                               "placeholder":  "2026-10-05 19:30"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Language",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "language",
+                                                                               "defaultValue":  "Arabic (Egyptian)",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Arabic (Egyptian)"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Arabic (MSA)"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "English"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           }
+                                                                       ]
+                                                        },
+                                         "responseMode":  "lastNode",
+                                         "options":  {
+                                                         "appendAttribution":  false,
+                                                         "buttonLabel":  "Prepare posts",
+                                                         "path":  "social-agent"
+                                                     }
+                                     },
+                      "webhookId":  "cb69f09f-10d7-411d-8497-c1b36df68b30"
+                  },
+                  {
+                      "id":  "b439b873-7c22-4872-bdbe-49634cb24e48",
+                      "name":  "Social Settings",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       240,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  true,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "s1",
+                                                                                     "name":  "facebook_page_id",
+                                                                                     "value":  "",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "s2",
+                                                                                     "name":  "instagram_business_id",
+                                                                                     "value":  "",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "s3",
+                                                                                     "name":  "tiktok_business_id",
+                                                                                     "value":  "",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "s4",
+                                                                                     "name":  "tiktok_privacy",
+                                                                                     "value":  "SELF_ONLY",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "s5",
+                                                                                     "name":  "approval_email",
+                                                                                     "value":  "",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "s6",
+                                                                                     "name":  "graph_version",
+                                                                                     "value":  "v25.0",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "s7",
+                                                                                     "name":  "timezone",
+                                                                                     "value":  "Africa/Cairo",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "s8",
+                                                                                     "name":  "brand_name",
+                                                                                     "value":  "",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "s9",
+                                                                                     "name":  "brand_voice",
+                                                                                     "value":  "Friendly, helpful, concise. Reply in the same language and dialect as the commenter.",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         }
+                                     }
+                  },
+                  {
+                      "id":  "c5ce78cb-45a6-4796-9c26-344db9bc2a17",
+                      "name":  "Called by Orchestrator",
+                      "type":  "n8n-nodes-base.executeWorkflowTrigger",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       0,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "inputSource":  "passthrough"
+                                     }
+                  },
+                  {
+                      "id":  "3b563dc9-0c9f-4c5f-927b-aa1348f9695a",
+                      "name":  "Every 2 Hours (Community)",
+                      "type":  "n8n-nodes-base.scheduleTrigger",
+                      "typeVersion":  1.3,
+                      "position":  [
+                                       0,
+                                       400
+                                   ],
+                      "parameters":  {
+                                         "rule":  {
+                                                      "interval":  [
+                                                                       {
+                                                                           "field":  "hours",
+                                                                           "hoursInterval":  2,
+                                                                           "triggerAtMinute":  5
+                                                                       }
+                                                                   ]
+                                                  }
+                                     }
+                  },
+                  {
+                      "id":  "d98e486a-7e35-4c20-856a-906654221171",
+                      "name":  "Normalize Social Request",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       480,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const j = $input.first().json;\nconst route = j.mode ? String(j.mode) : ((j.submittedAt || j.formMode) ? \u0027form\u0027 : \u0027community\u0027);\nconst pl = [].concat(j.platforms || [\u0027Facebook\u0027, \u0027Instagram\u0027]).map(p =\u003e String(p).toLowerCase()).filter(p =\u003e [\u0027facebook\u0027, \u0027instagram\u0027, \u0027tiktok\u0027].includes(p));\nconst mt = String(j.media_type || \u0027none\u0027).toLowerCase();\nconst media_type = mt.startsWith(\u0027image\u0027) ? \u0027image\u0027 : mt.startsWith(\u0027video\u0027) ? \u0027video\u0027 : \u0027none\u0027;\nlet brief = String(j.brief || j.post_text || \u0027\u0027).trim();\nif (!brief \u0026\u0026 Array.isArray(j.social_posts)) brief = JSON.stringify(j.social_posts.filter(p =\u003e /facebook|instagram|tiktok/i.test(p.platform || \u0027\u0027)).slice(0, 6));\nreturn [{ json: {\n  route,\n  brief,\n  ai_captions: j.caption_mode ? /AI/i.test(j.caption_mode) : true,\n  platforms: pl,\n  platform_labels: pl.map(p =\u003e p === \u0027tiktok\u0027 ? \u0027TikTok\u0027 : p.charAt(0).toUpperCase() + p.slice(1)).join(\u0027,\u0027),\n  media_type,\n  media_url: String(j.media_url || \u0027\u0027).trim(),\n  link: String(j.link || \u0027\u0027).trim(),\n  when: /schedule/i.test(String(j.publish_when || \u0027\u0027)) ? \u0027schedule\u0027 : \u0027now\u0027,\n  schedule_at: String(j.schedule_at || \u0027\u0027).trim(),\n  language: j.language || \u0027Arabic (Egyptian)\u0027,\n  captions: j.captions || null,\n  campaign_context: String(j.campaign_context || \u0027\u0027)\n} }];"
+                                     }
+                  },
+                  {
+                      "id":  "6661a4a9-fe65-4ca8-83f0-a3795a975453",
+                      "name":  "Route Request",
+                      "type":  "n8n-nodes-base.switch",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       720,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "mode":  "rules",
+                                         "rules":  {
+                                                       "values":  [
+                                                                      {
+                                                                          "outputKey":  "draft",
+                                                                          "renameOutput":  true,
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  false,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "loose"
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "leftValue":  "={{ [\"form\", \"plan\"].includes($json.route) }}",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "boolean",
+                                                                                                                                     "operation":  "true",
+                                                                                                                                     "singleValue":  true
+                                                                                                                                 }
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         }
+                                                                      },
+                                                                      {
+                                                                          "outputKey":  "execute",
+                                                                          "renameOutput":  true,
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  false,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "loose"
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "leftValue":  "={{ $json.route }}",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "string",
+                                                                                                                                     "operation":  "equals"
+                                                                                                                                 },
+                                                                                                                    "rightValue":  "execute"
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         }
+                                                                      },
+                                                                      {
+                                                                          "outputKey":  "community",
+                                                                          "renameOutput":  true,
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  false,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "loose"
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "leftValue":  "={{ $json.route }}",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "string",
+                                                                                                                                     "operation":  "equals"
+                                                                                                                                 },
+                                                                                                                    "rightValue":  "community"
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         }
+                                                                      }
+                                                                  ]
+                                                   }
+                                     }
+                  },
+                  {
+                      "id":  "c05627d7-5aab-4c01-8802-58d1ab7890e7",
+                      "name":  "Social Media Agent (Captions)",
+                      "type":  "@n8n/n8n-nodes-langchain.googleGemini",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       960,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "resource":  "text",
+                                         "operation":  "message",
+                                         "modelId":  {
+                                                         "__rl":  true,
+                                                         "mode":  "id",
+                                                         "value":  "models/gemini-3-flash-preview"
+                                                     },
+                                         "messages":  {
+                                                          "values":  [
+                                                                         {
+                                                                             "content":  "=BRAND: {{ $(\"Social Settings\").first().json.brand_name || \"the brand\" }}\nBRAND VOICE: {{ $(\"Social Settings\").first().json.brand_voice }}\nPLATFORMS: {{ $json.platforms.join(\", \") }}\nMEDIA: {{ $json.media_type }}\nLINK: {{ $json.link || \"none\" }}\nCAPTION MODE: {{ $json.ai_captions ? \"WRITE native captions for each platform\" : \"AS-IS: keep the user\u0027s text exactly, only add suitable hashtags\" }}\n{{ $json.campaign_context ? \"CAMPAIGN DIRECTION: \" + $json.campaign_context : \"\" }}\n\nBRIEF / TEXT:\n{{ $json.brief }}\n\nRules: Facebook - conversational, 1-3 short paragraphs, can include the link, 0-3 hashtags. Instagram - strong first line hook, line breaks, emojis in moderation, 5-12 relevant hashtags at the end, links do not work in captions (say \"link in bio\"). TikTok - max 150 characters plus 3-5 trending hashtags. Only fill the platforms listed; leave others empty. Suggest the best posting time for the target market.\n\nJSON shape:\n{\"facebook\":{\"caption\":\"\"},\"instagram\":{\"caption\":\"\",\"first_comment\":\"\"},\"tiktok\":{\"caption\":\"\"},\"best_time\":\"\",\"notes\":\"\"}\nReturn ONLY one valid JSON object. Write captions in {{ $json.language }}{{ $json.language === \"Arabic (Egyptian)\" ? \" (natural Egyptian colloquial Arabic)\" : \"\" }}."
+                                                                         }
+                                                                     ]
+                                                      },
+                                         "builtInTools":  {
+                                                              "googleSearch":  true
+                                                          },
+                                         "options":  {
+                                                         "includeMergedResponse":  true,
+                                                         "systemMessage":  "You are an expert social media manager who writes platform-native, high-engagement captions for MENA audiences.",
+                                                         "maxOutputTokens":  4096,
+                                                         "temperature":  0.7,
+                                                         "maxToolsIterations":  4
+                                                     }
+                                     },
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      },
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  5000
+                  },
+                  {
+                      "id":  "c4931bdc-41ae-4a20-9a17-b38b8246ba57",
+                      "name":  "Prepare Drafts",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1200,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "function textOf(j) {\n  if (!j) return \u0027\u0027;\n  if (typeof j.mergedResponse === \u0027string\u0027 \u0026\u0026 j.mergedResponse) return j.mergedResponse;\n  const parts = (j.content \u0026\u0026 j.content.parts) || (j.candidates \u0026\u0026 j.candidates[0] \u0026\u0026 j.candidates[0].content \u0026\u0026 j.candidates[0].content.parts);\n  if (Array.isArray(parts)) return parts.map(p =\u003e p.text || \u0027\u0027).join(\u0027\u0027);\n  return typeof j.text === \u0027string\u0027 ? j.text : JSON.stringify(j);\n}\nfunction parseJson(t) {\n  const s = String(t || \u0027\u0027).trim().replace(/^\\s*\\x60\\x60\\x60(?:json)?/i, \u0027\u0027).replace(/\\x60\\x60\\x60\\s*$/, \u0027\u0027);\n  const a = s.indexOf(\u0027{\u0027); const b = s.lastIndexOf(\u0027}\u0027);\n  if (a \u003e= 0 \u0026\u0026 b \u003e a) { try { return JSON.parse(s.slice(a, b + 1)); } catch (e) {} }\n  return {};\n}\nconst n = $(\u0027Normalize Social Request\u0027).first().json;\nconst r = parseJson(textOf($input.first().json));\nconst cap = k =\u003e (r[k] \u0026\u0026 r[k].caption) || \u0027\u0027;\nconst has = p =\u003e n.platforms.includes(p);\nconst facebook_caption = has(\u0027facebook\u0027) ? cap(\u0027facebook\u0027) || n.brief : \u0027\u0027;\nconst instagram_caption = has(\u0027instagram\u0027) ? cap(\u0027instagram\u0027) || n.brief : \u0027\u0027;\nconst tiktok_caption = has(\u0027tiktok\u0027) ? cap(\u0027tiktok\u0027) || n.brief.slice(0, 150) : \u0027\u0027;\nfunction esc(v) { return String(v == null ? \u0027\u0027 : v).replace(/\u0026/g, \u0027\u0026amp;\u0027).replace(/\u003c/g, \u0027\u0026lt;\u0027).replace(/\u003e/g, \u0027\u0026gt;\u0027); }\nconst warn = [];\nif ((has(\u0027instagram\u0027) || has(\u0027tiktok\u0027)) \u0026\u0026 n.media_type === \u0027none\u0027) warn.push(\u0027Instagram and TikTok need an image or video - they will be skipped.\u0027);\nif (n.media_type !== \u0027none\u0027 \u0026\u0026 !/^https?:\\/\\//i.test(n.media_url)) warn.push(\u0027The media URL is missing or not public - media posts will fail.\u0027);\nif (has(\u0027tiktok\u0027) \u0026\u0026 n.media_type === \u0027image\u0027) warn.push(\u0027TikTok photo posts need a URL on a domain verified in your TikTok developer app.\u0027);\nconst preview = \u0027\u003cp\u003e\u003cb\u003eMedia:\u003c/b\u003e \u0027 + esc(n.media_type) + (n.media_url ? \u0027 - \u0027 + esc(n.media_url) : \u0027\u0027) + \u0027\u003cbr\u003e\u003cb\u003eWhen:\u003c/b\u003e \u0027 + (n.when === \u0027schedule\u0027 ? esc(n.schedule_at) : \u0027now\u0027) + (r.best_time ? \u0027\u003cbr\u003e\u003cb\u003eAI suggested time:\u003c/b\u003e \u0027 + esc(r.best_time) : \u0027\u0027) + \u0027\u003c/p\u003e\u0027 + (warn.length ? \u0027\u003cp style=\"color:#c4320a\"\u003e\u003cb\u003e\u0027 + warn.map(esc).join(\u0027\u003cbr\u003e\u0027) + \u0027\u003c/b\u003e\u003c/p\u003e\u0027 : \u0027\u0027) + (n.media_type === \u0027image\u0027 \u0026\u0026 n.media_url ? \u0027\u003cp\u003e\u003cimg src=\"\u0027 + esc(n.media_url) + \u0027\" style=\"max-width:100%;max-height:260px;border-radius:8px\"\u003e\u003c/p\u003e\u0027 : \u0027\u0027) + \u0027\u003cp\u003eEdit the captions below if needed, then approve.\u003c/p\u003e\u0027;\nreturn [{ json: { ...n, facebook_caption, instagram_caption, tiktok_caption, instagram_first_comment: (r.instagram \u0026\u0026 r.instagram.first_comment) || \u0027\u0027, best_time: r.best_time || \u0027\u0027, notes: r.notes || \u0027\u0027, warnings: warn, preview_html: preview } }];"
+                                     }
+                  },
+                  {
+                      "id":  "8f9277b9-eb9d-49c8-a97b-45f494fbf5ea",
+                      "name":  "Started From Form? (drafts)",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1440,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.route }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "string",
+                                                                                                    "operation":  "equals"
+                                                                                                },
+                                                                                   "rightValue":  "form"
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "1bbf15b8-778a-4a83-893e-78d650115bc1",
+                      "name":  "Review \u0026 Approve",
+                      "type":  "n8n-nodes-base.form",
+                      "typeVersion":  2.5,
+                      "position":  [
+                                       1680,
+                                       -100
+                                   ],
+                      "parameters":  {
+                                         "operation":  "page",
+                                         "formFields":  {
+                                                            "values":  [
+                                                                           {
+                                                                               "fieldLabel":  "Facebook caption",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "facebook_caption",
+                                                                               "defaultValue":  "={{ $json.facebook_caption }}"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Instagram caption",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "instagram_caption",
+                                                                               "defaultValue":  "={{ $json.instagram_caption }}"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "TikTok caption",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "tiktok_caption",
+                                                                               "defaultValue":  "={{ $json.tiktok_caption }}"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Publish on",
+                                                                               "fieldType":  "checkbox",
+                                                                               "fieldName":  "final_platforms",
+                                                                               "defaultValue":  "={{ $json.platform_labels }}",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Facebook"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Instagram"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "TikTok"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Decision",
+                                                                               "fieldType":  "radio",
+                                                                               "fieldName":  "decision",
+                                                                               "requiredField":  true,
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Approve \u0026 publish"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Cancel"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           }
+                                                                       ]
+                                                        },
+                                         "options":  {
+                                                         "formTitle":  "Review before publishing",
+                                                         "formDescription":  "={{ $json.preview_html }}",
+                                                         "buttonLabel":  "Submit decision"
+                                                     }
+                                     },
+                      "webhookId":  "85e78ae7-d622-4173-a10d-b2cd397095fa"
+                  },
+                  {
+                      "id":  "b52209ff-76c8-4827-8f8b-d5ed1fa3f615",
+                      "name":  "Prepare Publish Jobs",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1920,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const s = $(\u0027Social Settings\u0027).first().json;\nconst n = $(\u0027Normalize Social Request\u0027).first().json;\nlet approved = true;\nlet captions = n.captions || {};\nlet platforms = n.platforms;\nif (n.route === \u0027form\u0027) {\n  const f = $(\u0027Review \u0026 Approve\u0027).first().json;\n  approved = /approve/i.test(String(f.decision || \u0027\u0027));\n  captions = { facebook: f.facebook_caption, instagram: f.instagram_caption, tiktok: f.tiktok_caption };\n  platforms = [].concat(f.final_platforms || []).map(p =\u003e String(p).toLowerCase());\n} else if (!n.captions) {\n  captions = { facebook: n.brief, instagram: n.brief, tiktok: n.brief.slice(0, 150) };\n}\nlet publishAt = $now;\nif (n.when === \u0027schedule\u0027 \u0026\u0026 n.schedule_at) {\n  const dt = DateTime.fromFormat(n.schedule_at, \u0027yyyy-MM-dd HH:mm\u0027, { zone: s.timezone || \u0027UTC\u0027 });\n  if (dt.isValid \u0026\u0026 dt \u003e $now) publishAt = dt;\n}\nconst mt = n.media_type, url = n.media_url;\nconst hasMedia = mt !== \u0027none\u0027 \u0026\u0026 /^https?:\\/\\//i.test(url);\nconst fbText = String(captions.facebook || \u0027\u0027);\nlet fb_edge = \u0027feed\u0027, fb_host = \u0027graph.facebook.com\u0027, fb_body = { message: fbText };\nif (n.link \u0026\u0026 mt === \u0027none\u0027) fb_body.link = n.link;\nif (hasMedia \u0026\u0026 mt === \u0027image\u0027) { fb_edge = \u0027photos\u0027; fb_body = { url, message: fbText }; }\nif (hasMedia \u0026\u0026 mt === \u0027video\u0027) { fb_edge = \u0027videos\u0027; fb_host = \u0027graph-video.facebook.com\u0027; fb_body = { file_url: url, description: fbText }; }\nconst igText = String(captions.instagram || \u0027\u0027);\nconst ig_body = mt === \u0027video\u0027 ? { media_type: \u0027REELS\u0027, video_url: url, caption: igText } : { image_url: url, caption: igText };\nconst ttText = String(captions.tiktok || \u0027\u0027);\nconst privacy = s.tiktok_privacy || \u0027SELF_ONLY\u0027;\nconst tiktok_url = mt === \u0027video\u0027 ? \u0027https://open.tiktokapis.com/v2/post/publish/video/init/\u0027 : \u0027https://open.tiktokapis.com/v2/post/publish/content/init/\u0027;\nconst tiktok_body = mt === \u0027video\u0027\n  ? { post_info: { title: ttText.slice(0, 2200), privacy_level: privacy, disable_comment: false, disable_duet: false, disable_stitch: false }, source_info: { source: \u0027PULL_FROM_URL\u0027, video_url: url } }\n  : { post_info: { title: ttText.slice(0, 90), description: ttText.slice(0, 4000), privacy_level: privacy, disable_comment: false }, source_info: { source: \u0027PULL_FROM_URL\u0027, photo_cover_index: 0, photo_images: [url] }, post_mode: \u0027DIRECT_POST\u0027, media_type: \u0027PHOTO\u0027 };\nconst skipped = [];\nconst do_fb = approved \u0026\u0026 platforms.includes(\u0027facebook\u0027) \u0026\u0026 !!fbText \u0026\u0026 !!s.facebook_page_id;\nif (approved \u0026\u0026 platforms.includes(\u0027facebook\u0027) \u0026\u0026 !s.facebook_page_id) skipped.push(\u0027Facebook: set facebook_page_id in Social Settings\u0027);\nconst do_ig = approved \u0026\u0026 platforms.includes(\u0027instagram\u0027) \u0026\u0026 hasMedia;\nif (approved \u0026\u0026 platforms.includes(\u0027instagram\u0027) \u0026\u0026 !hasMedia) skipped.push(\u0027Instagram: needs a public image or video URL\u0027);\nconst do_tt = approved \u0026\u0026 platforms.includes(\u0027tiktok\u0027) \u0026\u0026 hasMedia;\nif (approved \u0026\u0026 platforms.includes(\u0027tiktok\u0027) \u0026\u0026 !hasMedia) skipped.push(\u0027TikTok: needs a public image or video URL\u0027);\nreturn [{ json: { approved, route: n.route, platforms, media_type: mt, media_url: url, publish_at: publishAt.toISO(), scheduled: publishAt \u003e $now.plus({ minutes: 1 }), do_fb, do_ig, do_tt, fb_edge, fb_host, fb_body, ig_body, tiktok_url, tiktok_body, captions, skipped } }];"
+                                     }
+                  },
+                  {
+                      "id":  "d52027c8-e102-4f20-966b-4461327d10c4",
+                      "name":  "Return Drafts",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       1680,
+                                       100
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  true,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "r1",
+                                                                                     "name":  "agent",
+                                                                                     "value":  "social",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         }
+                                     }
+                  },
+                  {
+                      "id":  "6b781b2f-8df2-4919-8ce0-082ba3b4af42",
+                      "name":  "Get Page Token (Community)",
+                      "type":  "n8n-nodes-base.facebookGraphApi",
+                      "typeVersion":  1,
+                      "position":  [
+                                       960,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "graphApiVersion":  "v25.0",
+                                         "node":  "={{ $(\"Social Settings\").first().json.facebook_page_id }}",
+                                         "options":  {
+                                                         "fields":  {
+                                                                        "field":  [
+                                                                                      {
+                                                                                          "name":  "access_token"
+                                                                                      },
+                                                                                      {
+                                                                                          "name":  "name"
+                                                                                      },
+                                                                                      {
+                                                                                          "name":  "instagram_business_account"
+                                                                                      }
+                                                                                  ]
+                                                                    }
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "08f85751-135d-42b0-a203-e5dcf3f1dd78",
+                      "name":  "Approved?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       2160,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.approved }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "boolean",
+                                                                                                    "operation":  "true",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "b95fa1ed-23fc-4dd9-abd1-e82e78bc18b9",
+                      "name":  "Wait Until Publish Time",
+                      "type":  "n8n-nodes-base.wait",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       2400,
+                                       100
+                                   ],
+                      "parameters":  {
+                                         "resume":  "specificTime",
+                                         "dateTime":  "={{ $json.publish_at }}"
+                                     },
+                      "webhookId":  "5af47462-f218-44ef-aa39-18f57057c71b"
+                  },
+                  {
+                      "id":  "1e6f56d9-37fb-46e0-bf09-0c6e493ee4d1",
+                      "name":  "Get Page Token",
+                      "type":  "n8n-nodes-base.facebookGraphApi",
+                      "typeVersion":  1,
+                      "position":  [
+                                       2640,
+                                       100
+                                   ],
+                      "parameters":  {
+                                         "graphApiVersion":  "v25.0",
+                                         "node":  "={{ $(\"Social Settings\").first().json.facebook_page_id }}",
+                                         "options":  {
+                                                         "fields":  {
+                                                                        "field":  [
+                                                                                      {
+                                                                                          "name":  "access_token"
+                                                                                      },
+                                                                                      {
+                                                                                          "name":  "name"
+                                                                                      },
+                                                                                      {
+                                                                                          "name":  "instagram_business_account"
+                                                                                      }
+                                                                                  ]
+                                                                    }
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "62dce91c-ced1-4ac8-a1d0-f70d842f8029",
+                      "name":  "Post to Facebook?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       2880,
+                                       100
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $(\"Prepare Publish Jobs\").first().json.do_fb }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "boolean",
+                                                                                                    "operation":  "true",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "5083fe52-e01d-4144-a9a3-2d4ddc867e06",
+                      "name":  "Publish to Facebook",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       3120,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "=https://{{ $(\"Prepare Publish Jobs\").first().json.fb_host }}/{{ $(\"Social Settings\").first().json.graph_version }}/{{ $(\"Social Settings\").first().json.facebook_page_id }}/{{ $(\"Prepare Publish Jobs\").first().json.fb_edge }}",
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify(Object.assign({}, $(\"Prepare Publish Jobs\").first().json.fb_body, { access_token: $(\"Get Page Token\").first().json.access_token })) }}",
+                                         "options":  {
+                                                         "timeout":  120000,
+                                                         "response":  {
+                                                                          "response":  {
+                                                                                           "neverError":  true
+                                                                                       }
+                                                                      }
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "a7eb97bb-b79e-4bc3-9dfe-ce5f969128b3",
+                      "name":  "Next: Instagram",
+                      "type":  "n8n-nodes-base.noOp",
+                      "typeVersion":  1,
+                      "position":  [
+                                       3360,
+                                       100
+                                   ],
+                      "parameters":  {
+
+                                     }
+                  },
+                  {
+                      "id":  "5258eecd-76e1-420a-8bec-3172a3f00ca1",
+                      "name":  "Publish Summary",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       5280,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const job = $(\u0027Prepare Publish Jobs\u0027).first().json;\nfunction first(name) { try { return $(name).first().json; } catch (e) { return null; } }\nfunction errOf(r) { if (!r) return null; if (r.error \u0026\u0026 typeof r.error === \u0027object\u0027 \u0026\u0026 r.error.code \u0026\u0026 r.error.code !== \u0027ok\u0027) return r.error.message || JSON.stringify(r.error); if (r.error \u0026\u0026 typeof r.error === \u0027string\u0027) return r.error; if (r.error \u0026\u0026 r.error.message \u0026\u0026 !r.error.code) return r.error.message; return null; }\nconst results = [];\nif (!job.approved) results.push({ platform: \u0027All\u0027, status: \u0027cancelled\u0027, detail: \u0027You cancelled - nothing was published.\u0027 });\nconst tok = first(\u0027Get Page Token\u0027);\nif (job.do_fb) { const r = first(\u0027Publish to Facebook\u0027); const e = errOf(r) || errOf(tok); results.push({ platform: \u0027Facebook\u0027, status: e ? \u0027failed\u0027 : \u0027published\u0027, detail: e || (\u0027Post ID \u0027 + (r.post_id || r.id || \u0027\u0027)) }); }\nif (job.do_ig) { const c = first(\u0027Create Instagram Container\u0027); const r = first(\u0027Publish Instagram Container\u0027); const e = errOf(c) || errOf(r); results.push({ platform: \u0027Instagram\u0027, status: e ? \u0027failed\u0027 : \u0027published\u0027, detail: e || (\u0027Media ID \u0027 + ((r \u0026\u0026 r.id) || \u0027\u0027)) }); }\nif (job.do_tt) { const r = first(\u0027Publish to TikTok\u0027); const e = errOf(r); results.push({ platform: \u0027TikTok\u0027, status: e ? \u0027failed\u0027 : \u0027sent to TikTok\u0027, detail: e || (\u0027Publish ID \u0027 + ((r \u0026\u0026 r.data \u0026\u0026 r.data.publish_id) || \u0027\u0027) + \u0027 - TikTok processes it in a few minutes. Privacy: \u0027 + (($(\u0027Social Settings\u0027).first().json.tiktok_privacy) || \u0027SELF_ONLY\u0027)) }); }\n(job.skipped || []).forEach(s =\u003e results.push({ platform: s.split(\u0027:\u0027)[0], status: \u0027skipped\u0027, detail: s }));\nfunction esc(v) { return String(v == null ? \u0027\u0027 : v).replace(/\u0026/g, \u0027\u0026amp;\u0027).replace(/\u003c/g, \u0027\u0026lt;\u0027).replace(/\u003e/g, \u0027\u0026gt;\u0027); }\nconst color = { published: \u0027#12805c\u0027, \u0027sent to TikTok\u0027: \u0027#12805c\u0027, failed: \u0027#c4320a\u0027, skipped: \u0027#b54708\u0027, cancelled: \u0027#667085\u0027 };\nconst html = \u0027\u003c!DOCTYPE html\u003e\u003chtml\u003e\u003chead\u003e\u003cmeta charset=\"utf-8\"\u003e\u003cmeta name=\"viewport\" content=\"width=device-width,initial-scale=1\"\u003e\u003cstyle\u003ebody{font:15px/1.6 system-ui,Segoe UI,Tahoma,sans-serif;background:#f6f7fb;color:#1d2433;margin:0}.w{max-width:720px;margin:24px auto;padding:0 16px}.c{background:#fff;border:1px solid #e4e7ec;border-radius:12px;padding:16px;margin:10px 0}b.s{color:#fff;border-radius:99px;padding:1px 10px;font-size:12px}\u003c/style\u003e\u003c/head\u003e\u003cbody\u003e\u003cdiv class=\"w\"\u003e\u003ch2\u003ePublishing result\u003c/h2\u003e\u003cp\u003e\u0027 + esc(job.publish_at) + \u0027\u003c/p\u003e\u0027 + results.map(r =\u003e \u0027\u003cdiv class=\"c\"\u003e\u003cb\u003e\u0027 + esc(r.platform) + \u0027\u003c/b\u003e \u003cb class=\"s\" style=\"background:\u0027 + (color[r.status] || \u0027#667085\u0027) + \u0027\"\u003e\u0027 + esc(r.status) + \u0027\u003c/b\u003e\u003cp\u003e\u0027 + esc(r.detail) + \u0027\u003c/p\u003e\u003c/div\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/div\u003e\u003c/body\u003e\u003c/html\u003e\u0027;\nreturn [{ json: { route: job.route, results, html } }];"
+                                     }
+                  },
+                  {
+                      "id":  "5240f5b2-bca5-4fda-97a1-5045bef8e75b",
+                      "name":  "Post to Instagram?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       3600,
+                                       100
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $(\"Prepare Publish Jobs\").first().json.do_ig }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "boolean",
+                                                                                                    "operation":  "true",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "24d1ec08-f154-4887-ad76-55a45ea7b2a6",
+                      "name":  "Create Instagram Container",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       3840,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "=https://graph.facebook.com/{{ $(\"Social Settings\").first().json.graph_version }}/{{ $(\"Social Settings\").first().json.instagram_business_id || ($(\"Get Page Token\").first().json.instagram_business_account || {}).id }}/media",
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify(Object.assign({}, $(\"Prepare Publish Jobs\").first().json.ig_body, { access_token: $(\"Get Page Token\").first().json.access_token })) }}",
+                                         "options":  {
+                                                         "timeout":  120000,
+                                                         "response":  {
+                                                                          "response":  {
+                                                                                           "neverError":  true
+                                                                                       }
+                                                                      }
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "d03e6792-c9f7-453c-8749-5e0b6945cfd0",
+                      "name":  "Wait for Instagram Processing",
+                      "type":  "n8n-nodes-base.wait",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       4080,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "resume":  "timeInterval",
+                                         "amount":  "={{ $(\"Prepare Publish Jobs\").first().json.media_type === \"video\" ? 90 : 10 }}",
+                                         "unit":  "seconds"
+                                     },
+                      "webhookId":  "b24b64ce-cbcf-44af-97ff-b8f53f6b26e0"
+                  },
+                  {
+                      "id":  "db3691de-3c45-4bcd-94a0-fa8ce981b370",
+                      "name":  "Publish Instagram Container",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       4320,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "=https://graph.facebook.com/{{ $(\"Social Settings\").first().json.graph_version }}/{{ $(\"Social Settings\").first().json.instagram_business_id || ($(\"Get Page Token\").first().json.instagram_business_account || {}).id }}/media_publish",
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify({ creation_id: $(\"Create Instagram Container\").first().json.id, access_token: $(\"Get Page Token\").first().json.access_token }) }}",
+                                         "options":  {
+                                                         "timeout":  60000,
+                                                         "response":  {
+                                                                          "response":  {
+                                                                                           "neverError":  true
+                                                                                       }
+                                                                      }
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "270110a8-4762-4e1f-af76-b4e25be32205",
+                      "name":  "Next: TikTok",
+                      "type":  "n8n-nodes-base.noOp",
+                      "typeVersion":  1,
+                      "position":  [
+                                       4560,
+                                       100
+                                   ],
+                      "parameters":  {
+
+                                     }
+                  },
+                  {
+                      "id":  "76ec288e-d7b1-4fad-9dc5-6e6e07f1bf8a",
+                      "name":  "Post to TikTok?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       4800,
+                                       100
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $(\"Prepare Publish Jobs\").first().json.do_tt }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "boolean",
+                                                                                                    "operation":  "true",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "9506f1e0-87bd-4471-a190-818a0126b651",
+                      "name":  "Publish to TikTok",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       5040,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "={{ $(\"Prepare Publish Jobs\").first().json.tiktok_url }}",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpHeaderAuth",
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify($(\"Prepare Publish Jobs\").first().json.tiktok_body) }}",
+                                         "options":  {
+                                                         "timeout":  60000,
+                                                         "response":  {
+                                                                          "response":  {
+                                                                                           "neverError":  true
+                                                                                       }
+                                                                      }
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "8a69fc26-bc22-46a3-95cf-598147ae00a8",
+                      "name":  "Started From Form? (result)",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       5520,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.route }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "string",
+                                                                                                    "operation":  "equals"
+                                                                                                },
+                                                                                   "rightValue":  "form"
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "14a92b61-1f04-4a6a-b2cd-4eff89ddb552",
+                      "name":  "Show Publish Result",
+                      "type":  "n8n-nodes-base.form",
+                      "typeVersion":  2.5,
+                      "position":  [
+                                       5760,
+                                       100
+                                   ],
+                      "parameters":  {
+                                         "operation":  "completion",
+                                         "respondWith":  "showText",
+                                         "responseText":  "={{ $json.html }}"
+                                     },
+                      "webhookId":  "4d6eb217-b304-4ab8-888a-318dba5fb52f"
+                  },
+                  {
+                      "id":  "64f4b604-8cc4-45af-a8e9-706c35de3375",
+                      "name":  "Return Publish Result",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       5760,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  true,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "r1",
+                                                                                     "name":  "agent",
+                                                                                     "value":  "social",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         }
+                                     }
+                  },
+                  {
+                      "id":  "ced86f08-264c-4baa-9727-e18ce3b0153b",
+                      "name":  "Get Facebook Comments",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       1200,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "url":  "=https://graph.facebook.com/{{ $(\"Social Settings\").first().json.graph_version }}/{{ $(\"Social Settings\").first().json.facebook_page_id }}/feed",
+                                         "sendQuery":  true,
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "fields",
+                                                                                        "value":  "id,message,permalink_url,created_time,comments.limit(50).order(reverse_chronological){id,message,from,created_time,comment_count}"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "limit",
+                                                                                        "value":  "10"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "access_token",
+                                                                                        "value":  "={{ $(\"Get Page Token (Community)\").first().json.access_token }}"
+                                                                                    }
+                                                                                ]
+                                                             },
+                                         "options":  {
+                                                         "timeout":  30000,
+                                                         "response":  {
+                                                                          "response":  {
+                                                                                           "neverError":  true
+                                                                                       }
+                                                                      }
+                                                     }
+                                     },
+                      "executeOnce":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "ab17e360-a2ee-4f10-a17c-64009b68c228",
+                      "name":  "Get Instagram Comments",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       1440,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "url":  "=https://graph.facebook.com/{{ $(\"Social Settings\").first().json.graph_version }}/{{ $(\"Social Settings\").first().json.instagram_business_id || ($(\"Get Page Token (Community)\").first().json.instagram_business_account || {}).id || \"missing-instagram-id\" }}/media",
+                                         "sendQuery":  true,
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "fields",
+                                                                                        "value":  "id,caption,permalink,timestamp,comments.limit(50){id,text,username,timestamp,replies.limit(5){id,username}}"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "limit",
+                                                                                        "value":  "10"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "access_token",
+                                                                                        "value":  "={{ $(\"Get Page Token (Community)\").first().json.access_token }}"
+                                                                                    }
+                                                                                ]
+                                                             },
+                                         "options":  {
+                                                         "timeout":  30000,
+                                                         "response":  {
+                                                                          "response":  {
+                                                                                           "neverError":  true
+                                                                                       }
+                                                                      }
+                                                     }
+                                     },
+                      "executeOnce":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "ed21fe1e-450c-4e6e-ac9a-11f74243e015",
+                      "name":  "TikTok Business ID Set?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1680,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $(\"Social Settings\").first().json.tiktok_business_id }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "string",
+                                                                                                    "operation":  "notEmpty",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "0dadbfff-0209-4169-8d2a-2fef55d42197",
+                      "name":  "Get TikTok Videos",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       1920,
+                                       400
+                                   ],
+                      "parameters":  {
+                                         "url":  "https://business-api.tiktok.com/open_api/v1.3/business/video/list/",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpHeaderAuth",
+                                         "sendQuery":  true,
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "business_id",
+                                                                                        "value":  "={{ $(\"Social Settings\").first().json.tiktok_business_id }}"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "fields",
+                                                                                        "value":  "[\"item_id\",\"caption\",\"create_time\",\"share_url\"]"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "max_count",
+                                                                                        "value":  "10"
+                                                                                    }
+                                                                                ]
+                                                             },
+                                         "options":  {
+                                                         "timeout":  30000,
+                                                         "response":  {
+                                                                          "response":  {
+                                                                                           "neverError":  true
+                                                                                       }
+                                                                      }
+                                                     }
+                                     },
+                      "executeOnce":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "4dbe77d1-c0a1-4098-855c-395327436be4",
+                      "name":  "Pick Recent TikTok Videos",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       2160,
+                                       400
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const v = (($input.first().json.data || {}).videos || []).slice(0, 5);\nreturn v.map(x =\u003e ({ json: { video_id: x.item_id, caption: x.caption || \u0027\u0027 } }));"
+                                     }
+                  },
+                  {
+                      "id":  "477f632f-65d7-4131-af86-5b34e8434ff9",
+                      "name":  "Get TikTok Comments",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       2400,
+                                       400
+                                   ],
+                      "parameters":  {
+                                         "url":  "https://business-api.tiktok.com/open_api/v1.3/business/comment/list/",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpHeaderAuth",
+                                         "sendQuery":  true,
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "business_id",
+                                                                                        "value":  "={{ $(\"Social Settings\").first().json.tiktok_business_id }}"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "video_id",
+                                                                                        "value":  "={{ $json.video_id }}"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "max_count",
+                                                                                        "value":  "30"
+                                                                                    }
+                                                                                ]
+                                                             },
+                                         "options":  {
+                                                         "timeout":  30000,
+                                                         "response":  {
+                                                                          "response":  {
+                                                                                           "neverError":  true
+                                                                                       }
+                                                                      }
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "ac68e6c8-273f-41ea-8e3a-d7962b699f1f",
+                      "name":  "Collect New Comments",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       2640,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const s = $(\u0027Social Settings\u0027).first().json;\nfunction first(n) { try { return $(n).first().json || {}; } catch (e) { return {}; } }\nfunction all(n) { try { return $(n).all(); } catch (e) { return []; } }\nconst since = $now.minus({ hours: 72 });\nconst recent = t =\u003e { const d = DateTime.fromISO(String(t || \u0027\u0027).replace(/\\+0000$/, \u0027Z\u0027)); return !d.isValid || d \u003e= since; };\nconst out = [];\n(first(\u0027Get Facebook Comments\u0027).data || []).forEach(post =\u003e {\n  ((post.comments \u0026\u0026 post.comments.data) || []).forEach(c =\u003e {\n    if (!c.message || (c.from \u0026\u0026 String(c.from.id) === String(s.facebook_page_id)) || c.comment_count \u003e 0 || !recent(c.created_time)) return;\n    out.push({ platform: \u0027facebook\u0027, comment_id: c.id, post_id: post.id, post_text: String(post.message || \u0027\u0027).slice(0, 300), author: (c.from \u0026\u0026 c.from.name) || \u0027\u0027, text: c.message, created: c.created_time, link: post.permalink_url || \u0027\u0027 });\n  });\n});\n(first(\u0027Get Instagram Comments\u0027).data || []).forEach(m =\u003e {\n  ((m.comments \u0026\u0026 m.comments.data) || []).forEach(c =\u003e {\n    if (!c.text || (c.replies \u0026\u0026 c.replies.data \u0026\u0026 c.replies.data.length) || !recent(c.timestamp)) return;\n    out.push({ platform: \u0027instagram\u0027, comment_id: c.id, post_id: m.id, post_text: String(m.caption || \u0027\u0027).slice(0, 300), author: c.username || \u0027\u0027, text: c.text, created: c.timestamp, link: m.permalink || \u0027\u0027 });\n  });\n});\nconst vids = all(\u0027Pick Recent TikTok Videos\u0027);\nall(\u0027Get TikTok Comments\u0027).forEach((it, i) =\u003e {\n  const vid = (vids[i] \u0026\u0026 vids[i].json) || {};\n  (((it.json || {}).data || {}).comments || []).forEach(c =\u003e {\n    if (!c.text || c.owner || Number(c.reply_count) \u003e 0) return;\n    out.push({ platform: \u0027tiktok\u0027, comment_id: c.comment_id, post_id: vid.video_id || c.video_id || \u0027\u0027, post_text: String(vid.caption || \u0027\u0027).slice(0, 300), author: c.username || c.display_name || \u0027\u0027, text: c.text, created: c.create_time ? DateTime.fromSeconds(Number(c.create_time)).toISO() : \u0027\u0027, link: \u0027\u0027 });\n  });\n});\nreturn out.slice(0, 40).map(json =\u003e ({ json }));"
+                                     }
+                  },
+                  {
+                      "id":  "b4ef9160-39fe-4f0b-9460-d03d235f9512",
+                      "name":  "Skip Already Handled",
+                      "type":  "n8n-nodes-base.dataTable",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       2880,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "resource":  "row",
+                                         "operation":  "rowNotExists",
+                                         "dataTableId":  {
+                                                             "__rl":  true,
+                                                             "mode":  "id",
+                                                             "value":  "9aCHLOSUxxmkWLWR",
+                                                             "cachedResultName":  "social_comment_log"
+                                                         },
+                                         "filters":  {
+                                                         "conditions":  [
+                                                                            {
+                                                                                "keyName":  "comment_id",
+                                                                                "condition":  "eq",
+                                                                                "keyValue":  "={{ $json.comment_id }}"
+                                                                            }
+                                                                        ]
+                                                     }
+                                     }
+                  },
+                  {
+                      "id":  "72b21956-db93-4cf8-937f-75728d7ba169",
+                      "name":  "Community Manager Agent",
+                      "type":  "@n8n/n8n-nodes-langchain.googleGemini",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       3120,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "resource":  "text",
+                                         "operation":  "message",
+                                         "modelId":  {
+                                                         "__rl":  true,
+                                                         "mode":  "id",
+                                                         "value":  "models/gemini-3-flash-preview"
+                                                     },
+                                         "messages":  {
+                                                          "values":  [
+                                                                         {
+                                                                             "content":  "=BRAND: {{ $(\"Social Settings\").first().json.brand_name || \"our brand\" }}\nBRAND VOICE: {{ $(\"Social Settings\").first().json.brand_voice }}\n\nNew comments from Facebook, Instagram and TikTok (JSON):\n{{ JSON.stringify($input.all().map(i =\u003e ({ comment_id: i.json.comment_id, platform: i.json.platform, post: i.json.post_text, author: i.json.author, comment: i.json.text }))) }}\n\nFor EVERY comment: classify sentiment and intent, set priority, and write a short, warm, human reply in the SAME language and dialect as the comment (max 2 sentences, no hashtags). Questions about price, dates or availability: answer only if the post text contains the answer, otherwise invite them to DM / message us. Set needs_human=true (and still draft a reply) for complaints, refunds, legal, medical, angry or sensitive comments, or anything you are unsure about. Spam or offensive: intent \"spam\", reply \"\". Also write a short summary of the overall audience mood and list urgent alerts.\n\nJSON shape:\n{\"summary\":\"\",\"alerts\":[\"\"],\"replies\":[{\"comment_id\":\"\",\"sentiment\":\"positive|neutral|negative\",\"intent\":\"question|lead|praise|complaint|spam|other\",\"priority\":\"high|medium|low\",\"reply\":\"\",\"needs_human\":false,\"reason\":\"\"}]}\nReturn ONLY one valid JSON object."
+                                                                         }
+                                                                     ]
+                                                      },
+                                         "options":  {
+                                                         "includeMergedResponse":  true,
+                                                         "systemMessage":  "You are an experienced community manager for a MENA brand. You are polite, fast and never promise anything the brand has not stated.",
+                                                         "maxOutputTokens":  8192,
+                                                         "temperature":  0.4
+                                                     }
+                                     },
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      },
+                      "executeOnce":  true,
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  5000
+                  },
+                  {
+                      "id":  "e015782e-884f-4193-9c59-2b8a0e8c9e06",
+                      "name":  "Build Approval Email",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       3360,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "function textOf(j) {\n  if (!j) return \u0027\u0027;\n  if (typeof j.mergedResponse === \u0027string\u0027 \u0026\u0026 j.mergedResponse) return j.mergedResponse;\n  const parts = (j.content \u0026\u0026 j.content.parts) || (j.candidates \u0026\u0026 j.candidates[0] \u0026\u0026 j.candidates[0].content \u0026\u0026 j.candidates[0].content.parts);\n  if (Array.isArray(parts)) return parts.map(p =\u003e p.text || \u0027\u0027).join(\u0027\u0027);\n  return typeof j.text === \u0027string\u0027 ? j.text : JSON.stringify(j);\n}\nfunction parseJson(t) {\n  const s = String(t || \u0027\u0027).trim().replace(/^\\s*\\x60\\x60\\x60(?:json)?/i, \u0027\u0027).replace(/\\x60\\x60\\x60\\s*$/, \u0027\u0027);\n  const a = s.indexOf(\u0027{\u0027); const b = s.lastIndexOf(\u0027}\u0027);\n  if (a \u003e= 0 \u0026\u0026 b \u003e a) { try { return JSON.parse(s.slice(a, b + 1)); } catch (e) {} }\n  return {};\n}\nconst r = parseJson(textOf($input.first().json));\nconst byId = {}; (r.replies || []).forEach(x =\u003e { byId[String(x.comment_id)] = x; });\nconst merged = $(\u0027Skip Already Handled\u0027).all().map(i =\u003e Object.assign({}, i.json, byId[String(i.json.comment_id)] || { reply: \u0027\u0027, needs_human: true, sentiment: \u0027neutral\u0027, intent: \u0027other\u0027, priority: \u0027medium\u0027, reason: \u0027no AI reply\u0027 }));\nfunction esc(v) { return String(v == null ? \u0027\u0027 : v).replace(/\u0026/g, \u0027\u0026amp;\u0027).replace(/\u003c/g, \u0027\u0026lt;\u0027).replace(/\u003e/g, \u0027\u0026gt;\u0027); }\nconst autoCount = merged.filter(m =\u003e m.reply \u0026\u0026 !m.needs_human \u0026\u0026 m.intent !== \u0027spam\u0027).length;\nconst col = { positive: \u0027#12805c\u0027, neutral: \u0027#667085\u0027, negative: \u0027#c4320a\u0027 };\nlet html = \u0027\u003ch2\u003e\u0027 + merged.length + \u0027 new comments - \u0027 + autoCount + \u0027 replies ready\u003c/h2\u003e\u003cp\u003e\u0027 + esc(r.summary) + \u0027\u003c/p\u003e\u0027;\nif ((r.alerts || []).length) html += \u0027\u003cp style=\"color:#c4320a\"\u003e\u003cb\u003eAlerts:\u003c/b\u003e\u003cbr\u003e\u0027 + r.alerts.map(esc).join(\u0027\u003cbr\u003e\u0027) + \u0027\u003c/p\u003e\u0027;\nhtml += \u0027\u003ctable cellpadding=\"8\" style=\"border-collapse:collapse;width:100%;font-family:Segoe UI,Tahoma,sans-serif;font-size:14px\"\u003e\u0027 + merged.map(m =\u003e \u0027\u003ctr style=\"border-bottom:1px solid #e4e7ec\"\u003e\u003ctd style=\"vertical-align:top;width:90px\"\u003e\u003cb\u003e\u0027 + esc(m.platform) + \u0027\u003c/b\u003e\u003cbr\u003e\u003cspan style=\"color:\u0027 + (col[m.sentiment] || \u0027#667085\u0027) + \u0027\"\u003e\u0027 + esc(m.sentiment) + \u0027\u003c/span\u003e\u003cbr\u003e\u003csmall\u003e\u0027 + esc(m.intent) + \u0027 · \u0027 + esc(m.priority) + \u0027\u003c/small\u003e\u003c/td\u003e\u003ctd style=\"vertical-align:top\"\u003e\u003cb\u003e\u0027 + esc(m.author) + \u0027:\u003c/b\u003e \u0027 + esc(m.text) + \u0027\u003cbr\u003e\u003csmall style=\"color:#667085\"\u003eon: \u0027 + esc(String(m.post_text).slice(0, 80)) + \u0027\u003c/small\u003e\u003cbr\u003e\u0027 + (m.needs_human ? \u0027\u003cspan style=\"color:#b54708\"\u003e\u003cb\u003eNeeds you - NOT auto-replied:\u003c/b\u003e \u0027 + esc(m.reason) + \u0027\u003c/span\u003e\u003cbr\u003e\u003ci\u003eSuggested: \u0027 + esc(m.reply) + \u0027\u003c/i\u003e\u0027 : (m.reply ? \u0027\u003cspan style=\"color:#12805c\"\u003e\u003cb\u003eReply:\u003c/b\u003e\u003c/span\u003e \u0027 + esc(m.reply) : \u0027\u003ci\u003eno reply (spam)\u003c/i\u003e\u0027)) + \u0027\u003c/td\u003e\u003c/tr\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/table\u003e\u003cp\u003eApprove to post the green replies. Comments marked \"Needs you\" are never posted automatically.\u003c/p\u003e\u0027;\nreturn [{ json: { count: merged.length, auto_count: autoCount, summary: r.summary || \u0027\u0027, merged, html } }];"
+                                     }
+                  },
+                  {
+                      "id":  "865b821b-4c2d-4bbb-8cdd-b6d1c2aa28a7",
+                      "name":  "Ask Approval (Gmail)",
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       3600,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "resource":  "message",
+                                         "operation":  "sendAndWait",
+                                         "sendTo":  "={{ $(\"Social Settings\").first().json.approval_email }}",
+                                         "subject":  "=Social Media Agent: {{ $json.auto_count }} comment replies waiting for approval",
+                                         "message":  "={{ $json.html }}",
+                                         "responseType":  "approval",
+                                         "approvalOptions":  {
+                                                                 "values":  {
+                                                                                "approvalType":  "double",
+                                                                                "approveLabel":  "Approve \u0026 post replies",
+                                                                                "disapproveLabel":  "Decline"
+                                                                            }
+                                                             },
+                                         "options":  {
+                                                         "appendAttribution":  false,
+                                                         "limitWaitTime":  {
+                                                                               "values":  {
+                                                                                              "limitType":  "afterTimeInterval",
+                                                                                              "resumeAmount":  12,
+                                                                                              "resumeUnit":  "hours"
+                                                                                          }
+                                                                           }
+                                                     }
+                                     },
+                      "webhookId":  "29d2b34a-aaa4-4deb-966b-6dd556c1dc43"
+                  },
+                  {
+                      "id":  "14d5222f-d939-446c-9353-9fc88bba0be0",
+                      "name":  "Split Replies",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       3840,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const approved = !!((($input.first().json || {}).data || {}).approved);\nconst merged = $(\u0027Build Approval Email\u0027).first().json.merged || [];\nreturn merged.map(m =\u003e {\n  let action = \u0027skip\u0027, status = approved ? \u0027no_reply\u0027 : \u0027declined\u0027;\n  if (m.intent === \u0027spam\u0027) status = \u0027spam\u0027;\n  else if (m.needs_human) status = \u0027escalated\u0027;\n  else if (approved \u0026\u0026 m.reply) { action = \u0027reply\u0027; status = \u0027replied\u0027; }\n  return { json: Object.assign({}, m, { action, status }) };\n});"
+                                     }
+                  },
+                  {
+                      "id":  "867499b2-d894-402f-82c6-810e12eab46f",
+                      "name":  "Route Replies",
+                      "type":  "n8n-nodes-base.switch",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       4080,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "mode":  "rules",
+                                         "rules":  {
+                                                       "values":  [
+                                                                      {
+                                                                          "outputKey":  "facebook",
+                                                                          "renameOutput":  true,
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  false,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "loose"
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "leftValue":  "={{ $json.action === \"reply\" \u0026\u0026 $json.platform === \"facebook\" }}",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "boolean",
+                                                                                                                                     "operation":  "true",
+                                                                                                                                     "singleValue":  true
+                                                                                                                                 }
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         }
+                                                                      },
+                                                                      {
+                                                                          "outputKey":  "instagram",
+                                                                          "renameOutput":  true,
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  false,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "loose"
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "leftValue":  "={{ $json.action === \"reply\" \u0026\u0026 $json.platform === \"instagram\" }}",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "boolean",
+                                                                                                                                     "operation":  "true",
+                                                                                                                                     "singleValue":  true
+                                                                                                                                 }
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         }
+                                                                      },
+                                                                      {
+                                                                          "outputKey":  "tiktok",
+                                                                          "renameOutput":  true,
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  false,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "loose"
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "leftValue":  "={{ $json.action === \"reply\" \u0026\u0026 $json.platform === \"tiktok\" }}",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "boolean",
+                                                                                                                                     "operation":  "true",
+                                                                                                                                     "singleValue":  true
+                                                                                                                                 }
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         }
+                                                                      }
+                                                                  ]
+                                                   },
+                                         "options":  {
+                                                         "fallbackOutput":  "extra",
+                                                         "renameFallbackOutput":  "no reply"
+                                                     }
+                                     }
+                  },
+                  {
+                      "id":  "f169f3cd-84c0-4012-ba67-4a27b202f5b4",
+                      "name":  "Reply on Facebook",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       4320,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "=https://graph.facebook.com/{{ $(\"Social Settings\").first().json.graph_version }}/{{ $json.comment_id }}/comments",
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify({ message: $json.reply, access_token: $(\"Get Page Token (Community)\").first().json.access_token }) }}",
+                                         "options":  {
+                                                         "timeout":  30000
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "8773f366-1d4f-4492-af67-54233f9470a3",
+                      "name":  "Log Comment",
+                      "type":  "n8n-nodes-base.dataTable",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       4560,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "resource":  "row",
+                                         "operation":  "insert",
+                                         "dataTableId":  {
+                                                             "__rl":  true,
+                                                             "mode":  "id",
+                                                             "value":  "9aCHLOSUxxmkWLWR",
+                                                             "cachedResultName":  "social_comment_log"
+                                                         },
+                                         "columns":  {
+                                                         "mappingMode":  "defineBelow",
+                                                         "value":  {
+                                                                       "comment_id":  "={{ $(\"Split Replies\").item.json.comment_id }}",
+                                                                       "platform":  "={{ $(\"Split Replies\").item.json.platform }}",
+                                                                       "author":  "={{ $(\"Split Replies\").item.json.author }}",
+                                                                       "comment":  "={{ $(\"Split Replies\").item.json.text }}",
+                                                                       "sentiment":  "={{ $(\"Split Replies\").item.json.sentiment }}",
+                                                                       "reply":  "={{ $(\"Split Replies\").item.json.reply }}",
+                                                                       "status":  "={{ $(\"Split Replies\").item.json.status }}{{ $json.error ? \" (API error: \" + String($json.error.message || JSON.stringify($json.error)).slice(0, 120) + \")\" : \"\" }}",
+                                                                       "handled_at":  "={{ $now.toISO() }}"
+                                                                   },
+                                                         "matchingColumns":  [
+
+                                                                             ],
+                                                         "schema":  [
+                                                                        {
+                                                                            "id":  "comment_id",
+                                                                            "displayName":  "comment_id",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "platform",
+                                                                            "displayName":  "platform",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "author",
+                                                                            "displayName":  "author",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "comment",
+                                                                            "displayName":  "comment",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "sentiment",
+                                                                            "displayName":  "sentiment",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "reply",
+                                                                            "displayName":  "reply",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "status",
+                                                                            "displayName":  "status",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "handled_at",
+                                                                            "displayName":  "handled_at",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        }
+                                                                    ]
+                                                     },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "1920bca3-e189-481b-87b8-a4ceb082bd37",
+                      "name":  "Reply on Instagram",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       4320,
+                                       460
+                                   ],
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "=https://graph.facebook.com/{{ $(\"Social Settings\").first().json.graph_version }}/{{ $json.comment_id }}/replies",
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify({ message: $json.reply, access_token: $(\"Get Page Token (Community)\").first().json.access_token }) }}",
+                                         "options":  {
+                                                         "timeout":  30000
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "ca5dffbe-61b0-41d4-acfd-1622707376ce",
+                      "name":  "Reply on TikTok",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       4320,
+                                       620
+                                   ],
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "https://business-api.tiktok.com/open_api/v1.3/business/comment/reply/create/",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpHeaderAuth",
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify({ business_id: $(\"Social Settings\").first().json.tiktok_business_id, video_id: $json.post_id, comment_id: $json.comment_id, text: $json.reply }) }}",
+                                         "options":  {
+                                                         "timeout":  30000
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "7e51e5a9-a312-49fb-83dc-4b6ecefd86d3",
+                      "name":  "Sticky Note 5e2749dc",
+                      "type":  "n8n-nodes-base.stickyNote",
+                      "typeVersion":  1,
+                      "position":  [
+                                       190,
+                                       150
+                                   ],
+                      "parameters":  {
+                                         "content":  "## Setup (once)\n**1. Social Settings** - fill `facebook_page_id`, `approval_email`, `brand_name`. `instagram_business_id` is auto-detected from the Page. `tiktok_business_id` only for TikTok comments.\n\n**2. Credentials**\n- **Meta Graph API**: a long-lived user / System User token with `pages_show_list, pages_read_engagement, pages_manage_posts, pages_manage_engagement, instagram_basic, instagram_content_publish, instagram_manage_comments`. The agent fetches the Page token itself.\n- **TikTok Content Posting**: Header Auth `Authorization` = `Bearer \u003cuser access token\u003e` (scope `video.publish`). Unaudited TikTok apps can only post as `SELF_ONLY` (private) - change `tiktok_privacy` to `PUBLIC_TO_EVERYONE` after TikTok audits your app.\n- **TikTok Business API**: Header Auth `Access-Token` = your TikTok Business token (for comments).\n- **Gmail**: for the comment-reply approval emails.\n\n**Snapchat**: no public API for organic posting - Snapchat is covered by the Content Agent (scripts) and Paid Media Agent (ads).",
+                                         "color":  5,
+                                         "width":  520,
+                                         "height":  560
+                                     }
+                  },
+                  {
+                      "id":  "19365417-01c2-4fb0-b9c9-4d6676082de2",
+                      "name":  "Extract Social Leads",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       3600,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const merged = $input.first().json.merged || [];\nconst emailRe = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}/;\nconst phoneRe = /(\\+?\\d[\\d\\s-]{8,}\\d)/;\nreturn merged\n  .filter(m =\u003e m.intent === \u0027lead\u0027 || (m.intent === \u0027question\u0027 \u0026\u0026 m.priority === \u0027high\u0027))\n  .map(m =\u003e {\n    const text = String(m.text || \u0027\u0027);\n    const email = (text.match(emailRe) || [\u0027\u0027])[0];\n    const phone = ((text.match(phoneRe) || [\u0027\u0027])[0] || \u0027\u0027).replace(/[\\s-]/g, \u0027\u0027);\n    return { json: {\n      name: m.author || \u0027there\u0027,\n      email,\n      phone,\n      company: \u0027\u0027,\n      source: \u0027social_\u0027 + m.platform,\n      campaign: String(m.post_text || \u0027\u0027).slice(0, 80),\n      message: text,\n      engagement: \u0027Commented on our \u0027 + m.platform + \u0027 post (\"\u0027 + String(m.post_text || \u0027\u0027).slice(0, 120) + \u0027\"). AI intent: \u0027 + m.intent + \u0027, priority: \u0027 + m.priority + \u0027, sentiment: \u0027 + m.sentiment + \u0027. Link: \u0027 + (m.link || \u0027n/a\u0027),\n      preferredChannel: phone ? \u0027whatsapp\u0027 : \u0027email\u0027\n    } };\n  });"
+                                     }
+                  },
+                  {
+                      "id":  "26f9e32b-1ae8-4ce1-a328-3d355d27c07c",
+                      "name":  "Send Leads to Lead Nurturing",
+                      "type":  "n8n-nodes-base.executeWorkflow",
+                      "typeVersion":  1.3,
+                      "position":  [
+                                       3840,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "workflowId":  {
+                                                            "__rl":  true,
+                                                            "mode":  "id",
+                                                            "value":  "WTrlLLhZTvFuWFW7",
+                                                            "cachedResultName":  "L4 Convert – Lead Nurturing Agent"
+                                                        },
+                                         "mode":  "each",
+                                         "options":  {
+                                                         "waitForSubWorkflow":  false
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  }
+              ],
+    "connections":  {
+                        "Social Post Form":  {
+                                                 "main":  [
+                                                              [
+                                                                  {
+                                                                      "node":  "Social Settings",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ]
+                                                          ]
+                                             },
+                        "Social Settings":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Normalize Social Request",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Called by Orchestrator":  {
+                                                       "main":  [
+                                                                    [
+                                                                        {
+                                                                            "node":  "Social Settings",
+                                                                            "type":  "main",
+                                                                            "index":  0
+                                                                        }
+                                                                    ]
+                                                                ]
+                                                   },
+                        "Every 2 Hours (Community)":  {
+                                                          "main":  [
+                                                                       [
+                                                                           {
+                                                                               "node":  "Social Settings",
+                                                                               "type":  "main",
+                                                                               "index":  0
+                                                                           }
+                                                                       ]
+                                                                   ]
+                                                      },
+                        "Normalize Social Request":  {
+                                                         "main":  [
+                                                                      [
+                                                                          {
+                                                                              "node":  "Route Request",
+                                                                              "type":  "main",
+                                                                              "index":  0
+                                                                          }
+                                                                      ]
+                                                                  ]
+                                                     },
+                        "Route Request":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "Social Media Agent (Captions)",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "node":  "Prepare Publish Jobs",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "node":  "Get Page Token (Community)",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          },
+                        "Social Media Agent (Captions)":  {
+                                                              "main":  [
+                                                                           [
+                                                                               {
+                                                                                   "node":  "Prepare Drafts",
+                                                                                   "type":  "main",
+                                                                                   "index":  0
+                                                                               }
+                                                                           ]
+                                                                       ]
+                                                          },
+                        "Prepare Drafts":  {
+                                               "main":  [
+                                                            [
+                                                                {
+                                                                    "node":  "Started From Form? (drafts)",
+                                                                    "type":  "main",
+                                                                    "index":  0
+                                                                }
+                                                            ]
+                                                        ]
+                                           },
+                        "Started From Form? (drafts)":  {
+                                                            "main":  [
+                                                                         [
+                                                                             {
+                                                                                 "node":  "Review \u0026 Approve",
+                                                                                 "type":  "main",
+                                                                                 "index":  0
+                                                                             }
+                                                                         ],
+                                                                         [
+                                                                             {
+                                                                                 "node":  "Return Drafts",
+                                                                                 "type":  "main",
+                                                                                 "index":  0
+                                                                             }
+                                                                         ]
+                                                                     ]
+                                                        },
+                        "Review \u0026 Approve":  {
+                                                      "main":  [
+                                                                   [
+                                                                       {
+                                                                           "node":  "Prepare Publish Jobs",
+                                                                           "type":  "main",
+                                                                           "index":  0
+                                                                       }
+                                                                   ]
+                                                               ]
+                                                  },
+                        "Prepare Publish Jobs":  {
+                                                     "main":  [
+                                                                  [
+                                                                      {
+                                                                          "node":  "Approved?",
+                                                                          "type":  "main",
+                                                                          "index":  0
+                                                                      }
+                                                                  ]
+                                                              ]
+                                                 },
+                        "Get Page Token (Community)":  {
+                                                           "main":  [
+                                                                        [
+                                                                            {
+                                                                                "node":  "Get Facebook Comments",
+                                                                                "type":  "main",
+                                                                                "index":  0
+                                                                            }
+                                                                        ]
+                                                                    ]
+                                                       },
+                        "Approved?":  {
+                                          "main":  [
+                                                       [
+                                                           {
+                                                               "node":  "Wait Until Publish Time",
+                                                               "type":  "main",
+                                                               "index":  0
+                                                           }
+                                                       ],
+                                                       [
+                                                           {
+                                                               "node":  "Publish Summary",
+                                                               "type":  "main",
+                                                               "index":  0
+                                                           }
+                                                       ]
+                                                   ]
+                                      },
+                        "Wait Until Publish Time":  {
+                                                        "main":  [
+                                                                     [
+                                                                         {
+                                                                             "node":  "Get Page Token",
+                                                                             "type":  "main",
+                                                                             "index":  0
+                                                                         }
+                                                                     ]
+                                                                 ]
+                                                    },
+                        "Get Page Token":  {
+                                               "main":  [
+                                                            [
+                                                                {
+                                                                    "node":  "Post to Facebook?",
+                                                                    "type":  "main",
+                                                                    "index":  0
+                                                                }
+                                                            ]
+                                                        ]
+                                           },
+                        "Post to Facebook?":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Publish to Facebook",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ],
+                                                               [
+                                                                   {
+                                                                       "node":  "Next: Instagram",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Publish to Facebook":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "Next: Instagram",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "Next: Instagram":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Post to Instagram?",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Publish Summary":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Started From Form? (result)",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Post to Instagram?":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Create Instagram Container",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ],
+                                                                [
+                                                                    {
+                                                                        "node":  "Next: TikTok",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               },
+                        "Create Instagram Container":  {
+                                                           "main":  [
+                                                                        [
+                                                                            {
+                                                                                "node":  "Wait for Instagram Processing",
+                                                                                "type":  "main",
+                                                                                "index":  0
+                                                                            }
+                                                                        ]
+                                                                    ]
+                                                       },
+                        "Wait for Instagram Processing":  {
+                                                              "main":  [
+                                                                           [
+                                                                               {
+                                                                                   "node":  "Publish Instagram Container",
+                                                                                   "type":  "main",
+                                                                                   "index":  0
+                                                                               }
+                                                                           ]
+                                                                       ]
+                                                          },
+                        "Publish Instagram Container":  {
+                                                            "main":  [
+                                                                         [
+                                                                             {
+                                                                                 "node":  "Next: TikTok",
+                                                                                 "type":  "main",
+                                                                                 "index":  0
+                                                                             }
+                                                                         ]
+                                                                     ]
+                                                        },
+                        "Next: TikTok":  {
+                                             "main":  [
+                                                          [
+                                                              {
+                                                                  "node":  "Post to TikTok?",
+                                                                  "type":  "main",
+                                                                  "index":  0
+                                                              }
+                                                          ]
+                                                      ]
+                                         },
+                        "Post to TikTok?":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Publish to TikTok",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ],
+                                                             [
+                                                                 {
+                                                                     "node":  "Publish Summary",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Publish to TikTok":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Publish Summary",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Started From Form? (result)":  {
+                                                            "main":  [
+                                                                         [
+                                                                             {
+                                                                                 "node":  "Show Publish Result",
+                                                                                 "type":  "main",
+                                                                                 "index":  0
+                                                                             }
+                                                                         ],
+                                                                         [
+                                                                             {
+                                                                                 "node":  "Return Publish Result",
+                                                                                 "type":  "main",
+                                                                                 "index":  0
+                                                                             }
+                                                                         ]
+                                                                     ]
+                                                        },
+                        "Get Facebook Comments":  {
+                                                      "main":  [
+                                                                   [
+                                                                       {
+                                                                           "node":  "Get Instagram Comments",
+                                                                           "type":  "main",
+                                                                           "index":  0
+                                                                       }
+                                                                   ]
+                                                               ]
+                                                  },
+                        "Get Instagram Comments":  {
+                                                       "main":  [
+                                                                    [
+                                                                        {
+                                                                            "node":  "TikTok Business ID Set?",
+                                                                            "type":  "main",
+                                                                            "index":  0
+                                                                        }
+                                                                    ]
+                                                                ]
+                                                   },
+                        "TikTok Business ID Set?":  {
+                                                        "main":  [
+                                                                     [
+                                                                         {
+                                                                             "node":  "Get TikTok Videos",
+                                                                             "type":  "main",
+                                                                             "index":  0
+                                                                         }
+                                                                     ],
+                                                                     [
+                                                                         {
+                                                                             "node":  "Collect New Comments",
+                                                                             "type":  "main",
+                                                                             "index":  0
+                                                                         }
+                                                                     ]
+                                                                 ]
+                                                    },
+                        "Get TikTok Videos":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Pick Recent TikTok Videos",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Pick Recent TikTok Videos":  {
+                                                          "main":  [
+                                                                       [
+                                                                           {
+                                                                               "node":  "Get TikTok Comments",
+                                                                               "type":  "main",
+                                                                               "index":  0
+                                                                           }
+                                                                       ]
+                                                                   ]
+                                                      },
+                        "Get TikTok Comments":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "Collect New Comments",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "Collect New Comments":  {
+                                                     "main":  [
+                                                                  [
+                                                                      {
+                                                                          "node":  "Skip Already Handled",
+                                                                          "type":  "main",
+                                                                          "index":  0
+                                                                      }
+                                                                  ]
+                                                              ]
+                                                 },
+                        "Skip Already Handled":  {
+                                                     "main":  [
+                                                                  [
+                                                                      {
+                                                                          "node":  "Community Manager Agent",
+                                                                          "type":  "main",
+                                                                          "index":  0
+                                                                      }
+                                                                  ]
+                                                              ]
+                                                 },
+                        "Community Manager Agent":  {
+                                                        "main":  [
+                                                                     [
+                                                                         {
+                                                                             "node":  "Build Approval Email",
+                                                                             "type":  "main",
+                                                                             "index":  0
+                                                                         }
+                                                                     ]
+                                                                 ]
+                                                    },
+                        "Build Approval Email":  {
+                                                     "main":  [
+                                                                  [
+                                                                      {
+                                                                          "node":  "Ask Approval (Gmail)",
+                                                                          "type":  "main",
+                                                                          "index":  0
+                                                                      },
+                                                                      {
+                                                                          "node":  "Extract Social Leads",
+                                                                          "type":  "main",
+                                                                          "index":  0
+                                                                      }
+                                                                  ]
+                                                              ]
+                                                 },
+                        "Ask Approval (Gmail)":  {
+                                                     "main":  [
+                                                                  [
+                                                                      {
+                                                                          "node":  "Split Replies",
+                                                                          "type":  "main",
+                                                                          "index":  0
+                                                                      }
+                                                                  ]
+                                                              ]
+                                                 },
+                        "Split Replies":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "Route Replies",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          },
+                        "Route Replies":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "Reply on Facebook",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "node":  "Reply on Instagram",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "node":  "Reply on TikTok",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ],
+                                                           [
+                                                               {
+                                                                   "node":  "Log Comment",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          },
+                        "Reply on Facebook":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Log Comment",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Reply on Instagram":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Log Comment",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               },
+                        "Reply on TikTok":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Log Comment",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Extract Social Leads":  {
+                                                     "main":  [
+                                                                  [
+                                                                      {
+                                                                          "node":  "Send Leads to Lead Nurturing",
+                                                                          "type":  "main",
+                                                                          "index":  0
+                                                                      }
+                                                                  ]
+                                                              ]
+                                                 }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "availableInMCP":  true
+                 },
+    "staticData":  null,
+    "meta":  {
+                 "aiBuilderAssisted":  true,
+                 "builderVariant":  "mcp"
+             },
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  null,
+    "versionId":  "d05d411f-8ab7-412c-8ab1-c8cbd37d9959",
+    "activeVersionId":  null,
+    "versionCounter":  2,
+    "triggerCount":  0,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  "Forward buying-intent comments to Lead Nurturing (L4)",
+                            "description":  "Comments classified as lead (or high-priority questions) are sent to the L4 Lead Nurturing Agent as leads, with any email/phone found in the comment text. Runs before the Gmail approval step so leads are not delayed."
+                        }
+}

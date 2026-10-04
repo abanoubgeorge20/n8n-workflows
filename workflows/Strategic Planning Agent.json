@@ -1,0 +1,647 @@
+{
+    "updatedAt":  "2026-09-29T00:07:36.000Z",
+    "createdAt":  "2026-09-28T22:48:20.417Z",
+    "id":  "KQ9kO7npPB4o9vUJ",
+    "name":  "Strategic Planning Agent",
+    "description":  "Form → Gemini strategic planning agent (positioning \u0026 messaging, channel mix \u0026 budget, campaigns, calendar \u0026 milestones, KPIs) → downloadable HTML presentation (EN/AR).",
+    "active":  false,
+    "isArchived":  true,
+    "nodes":  [
+                  {
+                      "parameters":  {
+                                         "formTitle":  "Strategic Marketing Plan Generator",
+                                         "formDescription":  "Fill in the brief and get a full strategy deck: positioning \u0026 messaging, channel mix \u0026 budget, campaigns, calendar \u0026 milestones, and KPIs.",
+                                         "formFields":  {
+                                                            "values":  [
+                                                                           {
+                                                                               "fieldLabel":  "Brand / Company name",
+                                                                               "fieldName":  "brand_name",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Industry",
+                                                                               "fieldName":  "industry",
+                                                                               "placeholder":  "e.g. Higher education, FinTech, F\u0026B",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Product / service description",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "product_description",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Target market (country / city)",
+                                                                               "fieldName":  "target_market",
+                                                                               "placeholder":  "e.g. Egypt - Cairo \u0026 Alexandria",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Target audience",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "target_audience",
+                                                                               "placeholder":  "Age, profession, needs, behaviours...",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Business objectives",
+                                                                               "fieldType":  "checkbox",
+                                                                               "fieldName":  "objectives",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Brand awareness"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Lead generation"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Sales / revenue"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Enrollments / sign-ups"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "App installs"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Retention / loyalty"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Product launch"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                },
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Main numeric goal",
+                                                                               "fieldName":  "goal_target",
+                                                                               "placeholder":  "e.g. 1,000 qualified leads, 300 enrollments"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Total budget",
+                                                                               "fieldType":  "number",
+                                                                               "fieldName":  "total_budget",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Currency",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "currency",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "EGP"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "USD"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "SAR"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "AED"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "GBP"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "EUR"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                },
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Plan start date",
+                                                                               "fieldType":  "date",
+                                                                               "fieldName":  "start_date",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Plan duration (months)",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "duration_months",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "1"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "3"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "6"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "12"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                },
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "What makes you different (USP)",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "usp"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Main competitors",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "competitors"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Channels you can use",
+                                                                               "fieldType":  "checkbox",
+                                                                               "fieldName":  "available_channels",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Meta (Facebook \u0026 Instagram)"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "TikTok"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Google Search"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "YouTube"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "LinkedIn"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Snapchat"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "X (Twitter)"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "SEO \u0026 Content"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Email / CRM"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "WhatsApp"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Influencers"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Events / Activations"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "OOH / Outdoor"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "TV / Radio"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "PR"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                },
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Brand tone",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "brand_tone",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Professional"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Friendly"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Bold"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Premium"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Youthful"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Inspirational"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Presentation language",
+                                                                               "fieldType":  "radio",
+                                                                               "fieldName":  "output_language",
+                                                                               "defaultValue":  "English",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "English"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "العربية"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                },
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Extra notes / constraints",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "extra_notes"
+                                                                           }
+                                                                       ]
+                                                        },
+                                         "options":  {
+                                                         "appendAttribution":  false,
+                                                         "buttonLabel":  "Generate strategy",
+                                                         "path":  "strategic-plan"
+                                                     }
+                                     },
+                      "id":  "540330de-7068-4f59-b6a8-0d97bce148b4",
+                      "name":  "Strategy Brief Form",
+                      "type":  "n8n-nodes-base.formTrigger",
+                      "typeVersion":  2.6,
+                      "position":  [
+                                       240,
+                                       304
+                                   ],
+                      "webhookId":  "37194407-4cea-475b-a695-390cc7152ca3"
+                  },
+                  {
+                      "parameters":  {
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "f1",
+                                                                                     "name":  "brand_name",
+                                                                                     "value":  "={{ $json.brand_name }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f2",
+                                                                                     "name":  "industry",
+                                                                                     "value":  "={{ $json.industry }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f3",
+                                                                                     "name":  "product_description",
+                                                                                     "value":  "={{ $json.product_description }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f4",
+                                                                                     "name":  "target_market",
+                                                                                     "value":  "={{ $json.target_market }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f5",
+                                                                                     "name":  "target_audience",
+                                                                                     "value":  "={{ $json.target_audience }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f6",
+                                                                                     "name":  "objectives",
+                                                                                     "value":  "={{ [].concat($json.objectives || []).join(\", \") }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f7",
+                                                                                     "name":  "goal_target",
+                                                                                     "value":  "={{ $json.goal_target || \"\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f8",
+                                                                                     "name":  "total_budget",
+                                                                                     "value":  "={{ Number($json.total_budget) || 0 }}",
+                                                                                     "type":  "number"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f9",
+                                                                                     "name":  "currency",
+                                                                                     "value":  "={{ $json.currency }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f10",
+                                                                                     "name":  "start_date",
+                                                                                     "value":  "={{ $json.start_date }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f11",
+                                                                                     "name":  "duration_months",
+                                                                                     "value":  "={{ $json.duration_months }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f12",
+                                                                                     "name":  "usp",
+                                                                                     "value":  "={{ $json.usp || \"\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f13",
+                                                                                     "name":  "competitors",
+                                                                                     "value":  "={{ $json.competitors || \"\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f14",
+                                                                                     "name":  "available_channels",
+                                                                                     "value":  "={{ [].concat($json.available_channels || []).join(\", \") }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f15",
+                                                                                     "name":  "brand_tone",
+                                                                                     "value":  "={{ $json.brand_tone || \"Professional\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f16",
+                                                                                     "name":  "output_language",
+                                                                                     "value":  "={{ $json.output_language || \"English\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f17",
+                                                                                     "name":  "extra_notes",
+                                                                                     "value":  "={{ $json.extra_notes || \"\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "f18",
+                                                                                     "name":  "submitted_at",
+                                                                                     "value":  "={{ $json.submittedAt || $now.toISO() }}",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "acb13880-65c5-45ba-b1e9-7ff0d63db5b7",
+                      "name":  "Normalize Brief",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       480,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "dataTableId":  {
+                                                             "__rl":  true,
+                                                             "mode":  "id",
+                                                             "value":  "FHEHcfEFaMQc0Wxa",
+                                                             "cachedResultName":  "strategy_briefs"
+                                                         },
+                                         "columns":  {
+                                                         "mappingMode":  "autoMapInputData",
+                                                         "value":  null
+                                                     },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "15be0717-0c11-48c9-b763-574347f98274",
+                      "name":  "Save Brief",
+                      "type":  "n8n-nodes-base.dataTable",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       720,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "promptType":  "define",
+                                         "text":  "=Build the full strategic marketing plan for this brief.\n\nBRAND: {{ $(\"Normalize Brief\").first().json.brand_name }}\nINDUSTRY: {{ $(\"Normalize Brief\").first().json.industry }}\nPRODUCT / SERVICE: {{ $(\"Normalize Brief\").first().json.product_description }}\nTARGET MARKET: {{ $(\"Normalize Brief\").first().json.target_market }}\nTARGET AUDIENCE: {{ $(\"Normalize Brief\").first().json.target_audience }}\nOBJECTIVES: {{ $(\"Normalize Brief\").first().json.objectives }}\nMAIN NUMERIC GOAL: {{ $(\"Normalize Brief\").first().json.goal_target || \"not specified - propose one\" }}\nTOTAL BUDGET: {{ $(\"Normalize Brief\").first().json.total_budget }} {{ $(\"Normalize Brief\").first().json.currency }}\nSTART DATE: {{ $(\"Normalize Brief\").first().json.start_date }}\nDURATION: {{ $(\"Normalize Brief\").first().json.duration_months }} months (END DATE: {{ DateTime.fromISO($(\"Normalize Brief\").first().json.start_date).plus({ months: Number($(\"Normalize Brief\").first().json.duration_months) }).minus({ days: 1 }).toISODate() }}, TOTAL WEEKS: {{ Math.max(4, Math.round(Number($(\"Normalize Brief\").first().json.duration_months) * 4.345)) }})\nUSP: {{ $(\"Normalize Brief\").first().json.usp || \"not specified - infer from the product\" }}\nCOMPETITORS: {{ $(\"Normalize Brief\").first().json.competitors || \"not specified\" }}\nAVAILABLE CHANNELS: {{ $(\"Normalize Brief\").first().json.available_channels }}\nBRAND TONE: {{ $(\"Normalize Brief\").first().json.brand_tone }}\nEXTRA NOTES: {{ $(\"Normalize Brief\").first().json.extra_notes || \"none\" }}\n\nOUTPUT LANGUAGE: write every text value in {{ $(\"Normalize Brief\").first().json.output_language === \"English\" ? \"English\" : \"Arabic (Modern Standard, marketing-friendly; keep channel names and KPI acronyms like CPL, CTR, ROAS in English)\" }}.",
+                                         "hasOutputParser":  true,
+                                         "options":  {
+                                                         "systemMessage":  "You are a senior marketing strategist and media planner (15+ years, MENA and global markets). You turn a client brief into a complete, realistic, execution-ready strategic plan with five parts:\n\n1) POSITIONING \u0026 MESSAGING: 2-3 target segments with pain points; one positioning statement in the classic format (For [target] who [need], [brand] is the [frame of reference] that [key benefit] because [reason to believe]); a sharp value proposition; 3-5 differentiators vs. the named competitors; 3-4 brand pillars; one key message per segment with a concrete proof point; 3 tagline options; tone of voice guidance.\n2) CHANNEL MIX \u0026 BUDGET ALLOCATION: 3-7 channels chosen ONLY from the available channels list. For each: funnel role (Awareness / Consideration / Conversion / Retention), rationale tied to the audience and market, budget_percent, and 2-4 concrete tactics. budget_percent values MUST sum to exactly 100 and should reserve 5-10% for testing/optimisation inside the most scalable channel. Use budget_notes to explain the allocation logic, phasing (e.g. heavier awareness early, conversion later) and the benchmark assumptions (CPM, CPC, CPL) for this market.\n3) CAMPAIGN PLANNING: 2-4 campaigns that together cover the funnel. Each needs a name, objective, funnel stage, a big creative idea, target segment, channels (from the chosen mix), key message, 3-5 deliverables, and start_week / end_week as integers between 1 and TOTAL WEEKS. Campaigns may overlap.\n4) CALENDAR \u0026 MILESTONES: 3-5 sequential phases (e.g. Prep \u0026 Setup, Launch, Scale, Optimise, Review) with ISO dates (YYYY-MM-DD) inside the plan window, a focus line and 3-4 activities each. 5-8 milestones with ISO dates and an owner role (e.g. Marketing Manager, Media Buyer, Content Team).\n5) KPIs \u0026 TARGETS: 6-9 KPIs across the funnel. Every target must be a specific number derived from the budget and realistic market benchmarks (e.g. \"2.5M impressions\", \"CPL \u003c= 180 EGP\", \"CTR \u003e= 1.2%\", \"300 enrollments\"). Include measurement method/tool and reporting frequency. The conversion KPIs must be consistent with the budget and the channel allocation.\n\nAlso give 3-5 risks with mitigations, 4-6 immediate next steps, and a 3-4 sentence executive summary.\n\nRules: be specific to the brand, industry and market - no generic filler. Keep each text value concise enough to fit on a presentation slide (one or two sentences). Never invent facts about the brand beyond reasonable inference from the brief. Return ONLY the structured JSON.",
+                                                         "maxIterations":  3
+                                                     }
+                                     },
+                      "id":  "73aeab6a-8cc1-4e01-9ee3-e7332ca28d1e",
+                      "name":  "Strategic Planning Agent",
+                      "type":  "@n8n/n8n-nodes-langchain.agent",
+                      "typeVersion":  3.1,
+                      "position":  [
+                                       960,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "modelName":  "models/gemini-3.1-pro-preview",
+                                         "options":  {
+                                                         "maxOutputTokens":  16384,
+                                                         "temperature":  0.5
+                                                     }
+                                     },
+                      "id":  "dd071db0-4924-496a-940d-79407d6ed638",
+                      "name":  "Gemini Pro",
+                      "type":  "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       880,
+                                       544
+                                   ],
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "schemaType":  "manual",
+                                         "inputSchema":  "{\"type\":\"object\",\"required\":[\"executive_summary\",\"positioning\",\"channel_mix\",\"budget_notes\",\"campaigns\",\"calendar\",\"milestones\",\"kpis\",\"risks\",\"next_steps\"],\"properties\":{\"executive_summary\":{\"type\":\"string\"},\"positioning\":{\"type\":\"object\",\"required\":[\"target_segments\",\"positioning_statement\",\"value_proposition\",\"differentiators\",\"brand_pillars\",\"key_messages\",\"tagline_options\",\"tone_of_voice\"],\"properties\":{\"target_segments\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\",\"description\",\"pain_points\"],\"properties\":{\"name\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"pain_points\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}},\"positioning_statement\":{\"type\":\"string\"},\"value_proposition\":{\"type\":\"string\"},\"differentiators\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"brand_pillars\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"pillar\",\"description\"],\"properties\":{\"pillar\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"}}}},\"key_messages\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"audience\",\"message\",\"proof_point\"],\"properties\":{\"audience\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"proof_point\":{\"type\":\"string\"}}}},\"tagline_options\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"tone_of_voice\":{\"type\":\"string\"}}},\"channel_mix\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"channel\",\"funnel_role\",\"rationale\",\"budget_percent\",\"tactics\"],\"properties\":{\"channel\":{\"type\":\"string\"},\"funnel_role\":{\"type\":\"string\"},\"rationale\":{\"type\":\"string\"},\"budget_percent\":{\"type\":\"number\"},\"tactics\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}},\"budget_notes\":{\"type\":\"string\"},\"campaigns\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"name\",\"objective\",\"funnel_stage\",\"big_idea\",\"target_segment\",\"channels\",\"key_message\",\"deliverables\",\"start_week\",\"end_week\"],\"properties\":{\"name\":{\"type\":\"string\"},\"objective\":{\"type\":\"string\"},\"funnel_stage\":{\"type\":\"string\"},\"big_idea\":{\"type\":\"string\"},\"target_segment\":{\"type\":\"string\"},\"channels\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"key_message\":{\"type\":\"string\"},\"deliverables\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"start_week\":{\"type\":\"integer\"},\"end_week\":{\"type\":\"integer\"}}}},\"calendar\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"phase\",\"start_date\",\"end_date\",\"focus\",\"activities\"],\"properties\":{\"phase\":{\"type\":\"string\"},\"start_date\":{\"type\":\"string\"},\"end_date\":{\"type\":\"string\"},\"focus\":{\"type\":\"string\"},\"activities\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}},\"milestones\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"date\",\"milestone\",\"owner\"],\"properties\":{\"date\":{\"type\":\"string\"},\"milestone\":{\"type\":\"string\"},\"owner\":{\"type\":\"string\"}}}},\"kpis\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"kpi\",\"stage\",\"target\",\"measurement\",\"frequency\"],\"properties\":{\"kpi\":{\"type\":\"string\"},\"stage\":{\"type\":\"string\"},\"target\":{\"type\":\"string\"},\"measurement\":{\"type\":\"string\"},\"frequency\":{\"type\":\"string\"}}}},\"risks\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"required\":[\"risk\",\"mitigation\"],\"properties\":{\"risk\":{\"type\":\"string\"},\"mitigation\":{\"type\":\"string\"}}}},\"next_steps\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}",
+                                         "autoFix":  true
+                                     },
+                      "id":  "e4279bcc-ebc0-409a-a07f-3598788460e6",
+                      "name":  "Strategy Plan Schema",
+                      "type":  "@n8n/n8n-nodes-langchain.outputParserStructured",
+                      "typeVersion":  1.3,
+                      "position":  [
+                                       1120,
+                                       544
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "const p = $input.first().json.output || {};\nconst b = $(\u0027Normalize Brief\u0027).first().json;\nconst ar = String(b.output_language || \u0027\u0027) !== \u0027English\u0027;\nconst esc = function (s) { return String(s == null ? \u0027\u0027 : s).replace(/\u0026/g, \u0027\u0026amp;\u0027).replace(/\u003c/g, \u0027\u0026lt;\u0027).replace(/\u003e/g, \u0027\u0026gt;\u0027).replace(/\"/g, \u0027\u0026quot;\u0027); };\nconst arr = function (x) { return Array.isArray(x) ? x : []; };\nconst L = ar ? { plan: \u0027الخطة الاستراتيجية للتسويق\u0027, exec: \u0027الملخص التنفيذي\u0027, snap: \u0027نظرة سريعة\u0027, budget: \u0027الميزانية\u0027, duration: \u0027المدة\u0027, months: \u0027شهور\u0027, market: \u0027السوق\u0027, goal: \u0027الهدف\u0027, s1: \u002701 · التموضع والرسائل\u0027, segs: \u0027الشرائح المستهدفة\u0027, pain: \u0027نقاط الألم\u0027, pos: \u0027بيان التموضع\u0027, vp: \u0027القيمة المقدمة\u0027, diff: \u0027عوامل التميز\u0027, pillars: \u0027ركائز البراند\u0027, msgs: \u0027مصفوفة الرسائل\u0027, aud: \u0027الجمهور\u0027, msg: \u0027الرسالة\u0027, proof: \u0027الدليل\u0027, tags: \u0027مقترحات الشعار\u0027, tone: \u0027نبرة الصوت\u0027, s2: \u002702 · مزيج القنوات والميزانية\u0027, mix: \u0027توزيع الميزانية\u0027, channel: \u0027القناة\u0027, role: \u0027الدور\u0027, total: \u0027الإجمالي\u0027, tactics: \u0027دور كل قناة والتكتيكات\u0027, why: \u0027السبب\u0027, s3: \u002703 · تخطيط الحملات\u0027, camps: \u0027الحملات\u0027, idea: \u0027الفكرة\u0027, deliv: \u0027المخرجات\u0027, s4: \u002704 · الجدول الزمني والمراحل\u0027, cal: \u0027الجدول الزمني\u0027, mil: \u0027المحطات الرئيسية\u0027, owner: \u0027المسؤول\u0027, s5: \u002705 · مؤشرات الأداء والأهداف\u0027, kpis: \u0027مؤشرات الأداء والأهداف\u0027, kpi: \u0027المؤشر\u0027, stage: \u0027المرحلة\u0027, target: \u0027المستهدف\u0027, meas: \u0027طريقة القياس\u0027, freq: \u0027التكرار\u0027, risks: \u0027المخاطر\u0027, mit: \u0027التعامل\u0027, next: \u0027الخطوات التالية\u0027, wrap: \u0027الختام\u0027, m: \u0027ش\u0027, w: \u0027أ\u0027 } : { plan: \u0027Strategic Marketing Plan\u0027, exec: \u0027Executive summary\u0027, snap: \u0027Snapshot\u0027, budget: \u0027Budget\u0027, duration: \u0027Duration\u0027, months: \u0027months\u0027, market: \u0027Market\u0027, goal: \u0027Goal\u0027, s1: \u002701 · Positioning \u0026 messaging\u0027, segs: \u0027Target segments\u0027, pain: \u0027Pain points\u0027, pos: \u0027Positioning statement\u0027, vp: \u0027Value proposition\u0027, diff: \u0027Differentiators\u0027, pillars: \u0027Brand pillars\u0027, msgs: \u0027Messaging matrix\u0027, aud: \u0027Audience\u0027, msg: \u0027Message\u0027, proof: \u0027Proof point\u0027, tags: \u0027Tagline options\u0027, tone: \u0027Tone of voice\u0027, s2: \u002702 · Channel mix \u0026 budget\u0027, mix: \u0027Budget allocation\u0027, channel: \u0027Channel\u0027, role: \u0027Role\u0027, total: \u0027Total\u0027, tactics: \u0027Channel roles \u0026 tactics\u0027, why: \u0027Why\u0027, s3: \u002703 · Campaign planning\u0027, camps: \u0027Campaigns\u0027, idea: \u0027Big idea\u0027, deliv: \u0027Deliverables\u0027, s4: \u002704 · Calendar \u0026 milestones\u0027, cal: \u0027Campaign calendar\u0027, mil: \u0027Key milestones\u0027, owner: \u0027Owner\u0027, s5: \u002705 · KPIs \u0026 targets\u0027, kpis: \u0027KPIs \u0026 targets\u0027, kpi: \u0027KPI\u0027, stage: \u0027Stage\u0027, target: \u0027Target\u0027, meas: \u0027Measurement\u0027, freq: \u0027Frequency\u0027, risks: \u0027Risks\u0027, mit: \u0027Mitigation\u0027, next: \u0027Next steps\u0027, wrap: \u0027Wrap-up\u0027, m: \u0027M\u0027, w: \u0027W\u0027 };\nconst budget = Number(b.total_budget) || 0;\nconst cur = esc(b.currency || \u0027\u0027);\nconst money = function (n) { return Math.round(n).toLocaleString(\u0027en-US\u0027) + \u0027 \u0027 + cur; };\nconst pos = p.positioning || {};\nconst channels = arr(p.channel_mix).slice();\nconst pctSum = channels.reduce(function (s, c) { return s + (Number(c.budget_percent) || 0); }, 0) || 1;\nchannels.forEach(function (c) { c.pct = (Number(c.budget_percent) || 0) * 100 / pctSum; c.amount = budget * c.pct / 100; });\nchannels.sort(function (x, y) { return y.pct - x.pct; });\nconst months = Number(b.duration_months) || 3;\nconst totalWeeks = Math.max(4, Math.round(months * 4.345));\nconst list = function (items) { return \u0027\u003cul\u003e\u0027 + arr(items).map(function (i) { return \u0027\u003cli\u003e\u0027 + esc(i) + \u0027\u003c/li\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/ul\u003e\u0027; };\nconst chips = function (items) { return \u0027\u003cdiv class=\"chips\"\u003e\u0027 + arr(items).map(function (i) { return \u0027\u003cspan class=\"chip\"\u003e\u0027 + esc(i) + \u0027\u003c/span\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/div\u003e\u0027; };\nconst slides = [];\nconst slide = function (kicker, title, body) { slides.push(\u0027\u003csection class=\"slide\"\u003e\u003cdiv class=\"kicker\"\u003e\u0027 + esc(kicker) + \u0027\u003c/div\u003e\u003ch2\u003e\u0027 + esc(title) + \u0027\u003c/h2\u003e\u003cdiv class=\"body\"\u003e\u0027 + body + \u0027\u003c/div\u003e\u003cfooter\u003e\u003cspan\u003e\u0027 + esc(b.brand_name) + \u0027 · \u0027 + esc(L.plan) + \u0027\u003c/span\u003e\u003cspan class=\"num\"\u003e\u003c/span\u003e\u003c/footer\u003e\u003c/section\u003e\u0027); };\nconst tile = function (label, value) { return \u0027\u003cdiv class=\"tile\"\u003e\u003cdiv class=\"tl\"\u003e\u0027 + esc(label) + \u0027\u003c/div\u003e\u003cdiv class=\"tv\"\u003e\u0027 + esc(value) + \u0027\u003c/div\u003e\u003c/div\u003e\u0027; };\nconst table = function (heads, rows) { return \u0027\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u0027 + heads.map(function (h) { return \u0027\u003cth\u003e\u0027 + esc(h) + \u0027\u003c/th\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u0027 + rows.map(function (r) { return \u0027\u003ctr\u003e\u0027 + r.map(function (c) { return \u0027\u003ctd\u003e\u0027 + c + \u0027\u003c/td\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/tr\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/tbody\u003e\u003c/table\u003e\u0027; };\n\nslides.push(\u0027\u003csection class=\"slide cover\"\u003e\u003cdiv class=\"kicker\"\u003e\u0027 + esc(L.plan) + \u0027\u003c/div\u003e\u003ch1\u003e\u0027 + esc(b.brand_name) + \u0027\u003c/h1\u003e\u003cp class=\"lead\"\u003e\u0027 + esc(b.industry) + \u0027 · \u0027 + esc(b.target_market) + \u0027\u003c/p\u003e\u003cp class=\"meta\"\u003e\u0027 + esc(b.start_date) + \u0027 · \u0027 + months + \u0027 \u0027 + esc(L.months) + \u0027\u003c/p\u003e\u003c/section\u003e\u0027);\nslide(L.snap, L.exec, \u0027\u003cp class=\"lead\"\u003e\u0027 + esc(p.executive_summary) + \u0027\u003c/p\u003e\u003cdiv class=\"tiles\"\u003e\u0027 + tile(L.budget, money(budget)) + tile(L.duration, months + \u0027 \u0027 + L.months) + tile(L.market, b.target_market) + tile(L.goal, b.goal_target || b.objectives) + \u0027\u003c/div\u003e\u0027);\nslide(L.s1, L.segs, \u0027\u003cdiv class=\"grid g3\"\u003e\u0027 + arr(pos.target_segments).map(function (s) { return \u0027\u003cdiv class=\"card\"\u003e\u003ch3\u003e\u0027 + esc(s.name) + \u0027\u003c/h3\u003e\u003cp\u003e\u0027 + esc(s.description) + \u0027\u003c/p\u003e\u003cdiv class=\"lbl\"\u003e\u0027 + esc(L.pain) + \u0027\u003c/div\u003e\u0027 + list(s.pain_points) + \u0027\u003c/div\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/div\u003e\u0027);\nslide(L.s1, L.pos, \u0027\u003cblockquote\u003e\u0027 + esc(pos.positioning_statement) + \u0027\u003c/blockquote\u003e\u003cdiv class=\"grid g2\"\u003e\u003cdiv class=\"card\"\u003e\u003cdiv class=\"lbl\"\u003e\u0027 + esc(L.vp) + \u0027\u003c/div\u003e\u003cp class=\"big\"\u003e\u0027 + esc(pos.value_proposition) + \u0027\u003c/p\u003e\u003c/div\u003e\u003cdiv class=\"card\"\u003e\u003cdiv class=\"lbl\"\u003e\u0027 + esc(L.diff) + \u0027\u003c/div\u003e\u0027 + list(pos.differentiators) + \u0027\u003c/div\u003e\u003c/div\u003e\u0027);\nslide(L.s1, L.pillars, \u0027\u003cdiv class=\"grid g4\"\u003e\u0027 + arr(pos.brand_pillars).map(function (x, i) { return \u0027\u003cdiv class=\"card pillar\"\u003e\u003cdiv class=\"pn\"\u003e0\u0027 + (i + 1) + \u0027\u003c/div\u003e\u003ch3\u003e\u0027 + esc(x.pillar) + \u0027\u003c/h3\u003e\u003cp\u003e\u0027 + esc(x.description) + \u0027\u003c/p\u003e\u003c/div\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/div\u003e\u003cdiv class=\"grid g2\"\u003e\u003cdiv class=\"card\"\u003e\u003cdiv class=\"lbl\"\u003e\u0027 + esc(L.tags) + \u0027\u003c/div\u003e\u0027 + chips(pos.tagline_options) + \u0027\u003c/div\u003e\u003cdiv class=\"card\"\u003e\u003cdiv class=\"lbl\"\u003e\u0027 + esc(L.tone) + \u0027\u003c/div\u003e\u003cp\u003e\u0027 + esc(pos.tone_of_voice) + \u0027\u003c/p\u003e\u003c/div\u003e\u003c/div\u003e\u0027);\nslide(L.s1, L.msgs, table([L.aud, L.msg, L.proof], arr(pos.key_messages).map(function (k) { return [\u0027\u003cstrong\u003e\u0027 + esc(k.audience) + \u0027\u003c/strong\u003e\u0027, esc(k.message), esc(k.proof_point)]; })));\nslide(L.s2, L.mix, \u0027\u003cdiv class=\"bars\"\u003e\u0027 + channels.map(function (c) { return \u0027\u003cdiv class=\"bar-row\"\u003e\u003cdiv class=\"bn\"\u003e\u0027 + esc(c.channel) + \u0027\u003csmall\u003e\u0027 + esc(c.funnel_role) + \u0027\u003c/small\u003e\u003c/div\u003e\u003cdiv class=\"track\"\u003e\u003cdiv class=\"fill\" style=\"width:\u0027 + c.pct.toFixed(1) + \u0027%\"\u003e\u003c/div\u003e\u003c/div\u003e\u003cdiv class=\"bp\"\u003e\u0027 + Math.round(c.pct) + \u0027%\u003c/div\u003e\u003cdiv class=\"ba\"\u003e\u0027 + money(c.amount) + \u0027\u003c/div\u003e\u003c/div\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003cdiv class=\"bar-row tot\"\u003e\u003cdiv class=\"bn\"\u003e\u0027 + esc(L.total) + \u0027\u003c/div\u003e\u003cdiv\u003e\u003c/div\u003e\u003cdiv class=\"bp\"\u003e100%\u003c/div\u003e\u003cdiv class=\"ba\"\u003e\u0027 + money(budget) + \u0027\u003c/div\u003e\u003c/div\u003e\u003c/div\u003e\u003cp class=\"note\"\u003e\u0027 + esc(p.budget_notes) + \u0027\u003c/p\u003e\u0027);\nslide(L.s2, L.tactics, table([L.channel, L.role, L.why, L.tactics], channels.map(function (c) { return [\u0027\u003cstrong\u003e\u0027 + esc(c.channel) + \u0027\u003c/strong\u003e\u0027, \u0027\u003cspan class=\"tag\"\u003e\u0027 + esc(c.funnel_role) + \u0027\u003c/span\u003e\u0027, esc(c.rationale), list(c.tactics)]; })));\nslide(L.s3, L.camps, \u0027\u003cdiv class=\"grid g2\"\u003e\u0027 + arr(p.campaigns).map(function (c) { return \u0027\u003cdiv class=\"card camp\"\u003e\u003cdiv class=\"row\"\u003e\u003cspan class=\"tag\"\u003e\u0027 + esc(c.funnel_stage) + \u0027\u003c/span\u003e\u003cspan class=\"wk\"\u003e\u0027 + esc(L.w) + esc(c.start_week) + \u0027–\u0027 + esc(L.w) + esc(c.end_week) + \u0027\u003c/span\u003e\u003c/div\u003e\u003ch3\u003e\u0027 + esc(c.name) + \u0027\u003c/h3\u003e\u003cp\u003e\u003cstrong\u003e\u0027 + esc(L.idea) + \u0027:\u003c/strong\u003e \u0027 + esc(c.big_idea) + \u0027\u003c/p\u003e\u003cp class=\"q\"\u003e“\u0027 + esc(c.key_message) + \u0027”\u003c/p\u003e\u003cp class=\"small\"\u003e\u0027 + esc(c.objective) + \u0027 · \u0027 + esc(c.target_segment) + \u0027\u003c/p\u003e\u0027 + chips(c.channels) + \u0027\u003cdiv class=\"lbl\"\u003e\u0027 + esc(L.deliv) + \u0027\u003c/div\u003e\u0027 + list(c.deliverables) + \u0027\u003c/div\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/div\u003e\u0027);\n\nconst monthMarks = [];\nfor (let m = 0; m \u003c months; m++) { monthMarks.push(\u0027\u003cspan style=\"inset-inline-start:\u0027 + (m * 4.345 / totalWeeks * 100).toFixed(2) + \u0027%\"\u003e\u0027 + esc(L.m) + (m + 1) + \u0027\u003c/span\u003e\u0027); }\nconst gantt = \u0027\u003cdiv class=\"gantt\"\u003e\u003cdiv class=\"g-head\"\u003e\u003cdiv\u003e\u003c/div\u003e\u003cdiv class=\"g-scale\"\u003e\u0027 + monthMarks.join(\u0027\u0027) + \u0027\u003c/div\u003e\u003c/div\u003e\u0027 + arr(p.campaigns).map(function (c) { const s = Math.min(Math.max(1, Number(c.start_week) || 1), totalWeeks); const e = Math.min(Math.max(s, Number(c.end_week) || s), totalWeeks); return \u0027\u003cdiv class=\"g-row\"\u003e\u003cdiv class=\"g-name\"\u003e\u0027 + esc(c.name) + \u0027\u003c/div\u003e\u003cdiv class=\"g-track\"\u003e\u003cdiv class=\"g-bar\" style=\"inset-inline-start:\u0027 + ((s - 1) / totalWeeks * 100).toFixed(2) + \u0027%;width:\u0027 + ((e - s + 1) / totalWeeks * 100).toFixed(2) + \u0027%\"\u003e\u0027 + esc(L.w) + s + \u0027–\u0027 + esc(L.w) + e + \u0027\u003c/div\u003e\u003c/div\u003e\u003c/div\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/div\u003e\u0027;\nslide(L.s4, L.cal, gantt + \u0027\u003cdiv class=\"grid g\u0027 + Math.min(Math.max(arr(p.calendar).length, 2), 5) + \u0027\"\u003e\u0027 + arr(p.calendar).map(function (ph) { return \u0027\u003cdiv class=\"card\"\u003e\u003cdiv class=\"lbl\"\u003e\u0027 + esc(ph.start_date) + \u0027 → \u0027 + esc(ph.end_date) + \u0027\u003c/div\u003e\u003ch3\u003e\u0027 + esc(ph.phase) + \u0027\u003c/h3\u003e\u003cp class=\"small\"\u003e\u0027 + esc(ph.focus) + \u0027\u003c/p\u003e\u0027 + list(ph.activities) + \u0027\u003c/div\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/div\u003e\u0027);\nslide(L.s4, L.mil, \u0027\u003col class=\"timeline\"\u003e\u0027 + arr(p.milestones).map(function (m) { return \u0027\u003cli\u003e\u003cdiv class=\"td\"\u003e\u0027 + esc(m.date) + \u0027\u003c/div\u003e\u003cdiv class=\"tm\"\u003e\u0027 + esc(m.milestone) + \u0027\u003c/div\u003e\u003cdiv class=\"to\"\u003e\u0027 + esc(L.owner) + \u0027: \u0027 + esc(m.owner) + \u0027\u003c/div\u003e\u003c/li\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/ol\u003e\u0027);\nslide(L.s5, L.kpis, table([L.kpi, L.stage, L.target, L.meas, L.freq], arr(p.kpis).map(function (k) { return [\u0027\u003cstrong\u003e\u0027 + esc(k.kpi) + \u0027\u003c/strong\u003e\u0027, \u0027\u003cspan class=\"tag\"\u003e\u0027 + esc(k.stage) + \u0027\u003c/span\u003e\u0027, \u0027\u003cspan class=\"target\"\u003e\u0027 + esc(k.target) + \u0027\u003c/span\u003e\u0027, esc(k.measurement), esc(k.frequency)]; })));\nslide(L.wrap, L.risks + \u0027 · \u0027 + L.next, \u0027\u003cdiv class=\"grid g2\"\u003e\u003cdiv class=\"card\"\u003e\u003cdiv class=\"lbl\"\u003e\u0027 + esc(L.risks) + \u0027\u003c/div\u003e\u0027 + arr(p.risks).map(function (r) { return \u0027\u003cdiv class=\"risk\"\u003e\u003cstrong\u003e\u0027 + esc(r.risk) + \u0027\u003c/strong\u003e\u003cp\u003e\u0027 + esc(L.mit) + \u0027: \u0027 + esc(r.mitigation) + \u0027\u003c/p\u003e\u003c/div\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/div\u003e\u003cdiv class=\"card\"\u003e\u003cdiv class=\"lbl\"\u003e\u0027 + esc(L.next) + \u0027\u003c/div\u003e\u003col class=\"steps\"\u003e\u0027 + arr(p.next_steps).map(function (s) { return \u0027\u003cli\u003e\u0027 + esc(s) + \u0027\u003c/li\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/ol\u003e\u003c/div\u003e\u003c/div\u003e\u0027);\n\nconst css = \u0027:root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--paper:#fff;--bg:#e8ebf2;--accent:#4338ca;--accent2:#0ea5a4;--soft:#eef2ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,Inter,system-ui,sans-serif;counter-reset:s}\u0027\n + \u0027.slide{counter-increment:s;position:relative;width:min(1280px,100% - 32px);min-height:720px;margin:24px auto;background:var(--paper);border-radius:18px;padding:56px 64px 72px;box-shadow:0 10px 30px rgba(15,23,42,.08);display:flex;flex-direction:column}\u0027\n + \u0027.kicker{color:var(--accent);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:14px}h2{font-size:38px;margin:6px 0 24px;line-height:1.2}h1{font-size:72px;margin:12px 0;line-height:1.1}h3{margin:4px 0 8px;font-size:19px}p{margin:0 0 10px;line-height:1.6}.body{flex:1;display:flex;flex-direction:column;gap:20px}\u0027\n + \u0027.cover{justify-content:center;background:linear-gradient(135deg,#1e1b4b,#4338ca 60%,#0ea5a4);color:#fff}.cover .kicker{color:#c7d2fe}.cover .lead{font-size:26px;opacity:.9}.cover .meta{opacity:.75;font-size:18px}\u0027\n + \u0027.lead{font-size:21px;line-height:1.7}.note{color:var(--muted);font-size:15px}.small{font-size:14px;color:var(--muted)}.big{font-size:20px;font-weight:600}\u0027\n + \u0027.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.tile{background:var(--soft);border-radius:14px;padding:18px}.tl{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.tv{font-size:22px;font-weight:700;margin-top:6px}\u0027\n + \u0027.grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g5{grid-template-columns:repeat(5,1fr)}\u0027\n + \u0027.card{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:#fff}.lbl{font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin:6px 0}.card ul,.card ol{margin:4px 0 0;padding-inline-start:18px}.card li{margin:3px 0;font-size:15px;line-height:1.5}\u0027\n + \u0027.pillar .pn{font-size:30px;font-weight:800;color:var(--accent2)}blockquote{margin:0;padding:22px 26px;border-inline-start:6px solid var(--accent);background:var(--soft);border-radius:12px;font-size:21px;line-height:1.7;font-weight:600}\u0027\n + \u0027.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}.chip{background:var(--soft);color:var(--accent);border-radius:999px;padding:5px 12px;font-size:14px;font-weight:600}.tag{display:inline-block;background:#ccfbf1;color:#0f766e;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700}\u0027\n + \u0027table{width:100%;border-collapse:collapse;font-size:15px}th{text-align:start;background:var(--ink);color:#fff;padding:10px 12px;font-size:13px;text-transform:uppercase;letter-spacing:.04em}td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}td ul{margin:0;padding-inline-start:16px}.target{font-weight:800;color:var(--accent)}\u0027\n + \u0027.bars{display:flex;flex-direction:column;gap:12px}.bar-row{display:grid;grid-template-columns:230px 1fr 60px 170px;gap:14px;align-items:center}.bn{font-weight:700}.bn small{display:block;font-weight:400;color:var(--muted);font-size:12px}.track{height:22px;background:var(--soft);border-radius:999px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:999px}.bp{font-weight:800;text-align:end}.ba{text-align:end;color:var(--muted);font-variant-numeric:tabular-nums}.tot{border-top:2px solid var(--ink);padding-top:10px}.tot .ba{color:var(--ink);font-weight:800}\u0027\n + \u0027.camp .row{display:flex;justify-content:space-between;align-items:center}.wk{font-size:13px;color:var(--muted);font-weight:700}.q{font-style:italic;color:var(--accent)}\u0027\n + \u0027.gantt{border:1px solid var(--line);border-radius:14px;padding:14px 18px}.g-head,.g-row{display:grid;grid-template-columns:220px 1fr;gap:14px;align-items:center}.g-row{margin-top:10px}.g-scale{position:relative;height:20px;border-bottom:1px solid var(--line)}.g-scale span{position:absolute;font-size:12px;color:var(--muted);font-weight:700}.g-name{font-weight:700;font-size:14px}.g-track{position:relative;height:28px;background:var(--soft);border-radius:6px}.g-bar{position:absolute;top:3px;bottom:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;border-radius:6px;font-size:11px;font-weight:700;display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden}\u0027\n + \u0027.timeline{list-style:none;margin:0;padding:0;display:grid;gap:12px}.timeline li{display:grid;grid-template-columns:140px 1fr 260px;gap:16px;align-items:center;padding:14px 18px;border:1px solid var(--line);border-inline-start:6px solid var(--accent2);border-radius:12px}.td{font-weight:800;color:var(--accent)}.tm{font-weight:600}.to{color:var(--muted);font-size:14px}\u0027\n + \u0027.risk{padding:8px 0;border-bottom:1px dashed var(--line)}.risk p{font-size:14px;color:var(--muted);margin:4px 0 0}.steps li{font-size:16px;margin:8px 0}\u0027\n + \u0027footer{position:absolute;bottom:22px;inset-inline:64px;display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.num::after{content:counter(s)}.cover footer{display:none}\u0027\n + \u0027@media (max-width:900px){.slide{padding:32px 20px 64px;min-height:auto}.g2,.g3,.g4,.g5,.tiles{grid-template-columns:1fr}.bar-row{grid-template-columns:1fr 50px}.bar-row .track,.bar-row .ba{grid-column:1/-1}.timeline li,.g-head,.g-row{grid-template-columns:1fr}h1{font-size:44px}h2{font-size:28px}footer{inset-inline:20px}}\u0027\n + \u0027@media print{@page{size:1280px 720px;margin:0}body{background:#fff}.slide{width:1280px;height:720px;min-height:0;margin:0;border-radius:0;box-shadow:none;break-after:page;overflow:hidden}.hint{display:none}}\u0027\n + \u0027.hint{position:fixed;bottom:14px;inset-inline-end:16px;background:var(--ink);color:#fff;font-size:12px;padding:6px 10px;border-radius:8px;opacity:.8}\u0027;\nconst nav = \u0027document.addEventListener(\"keydown\",function(e){var s=[].slice.call(document.querySelectorAll(\".slide\"));var y=window.scrollY+20;var i=0;s.forEach(function(el,k){if(el.offsetTop\u003c=y)i=k;});var d=0;if([\"ArrowDown\",\"ArrowRight\",\"PageDown\",\" \"].indexOf(e.key)\u003e-1)d=1;if([\"ArrowUp\",\"ArrowLeft\",\"PageUp\"].indexOf(e.key)\u003e-1)d=-1;if(d){e.preventDefault();var n=s[Math.min(Math.max(i+d,0),s.length-1)];window.scrollTo({top:n.offsetTop-12,behavior:\"smooth\"});}});\u0027;\nconst hint = ar ? \u0027استخدم الأسهم للتنقل · Ctrl+P للحفظ PDF\u0027 : \u0027Arrow keys to navigate · Ctrl+P to save as PDF\u0027;\nconst html = \u0027\u003c!DOCTYPE html\u003e\u003chtml lang=\"\u0027 + (ar ? \u0027ar\u0027 : \u0027en\u0027) + \u0027\" dir=\"\u0027 + (ar ? \u0027rtl\u0027 : \u0027ltr\u0027) + \u0027\"\u003e\u003chead\u003e\u003cmeta charset=\"utf-8\"\u003e\u003cmeta name=\"viewport\" content=\"width=device-width,initial-scale=1\"\u003e\u003ctitle\u003e\u0027 + esc(b.brand_name) + \u0027 – \u0027 + esc(L.plan) + \u0027\u003c/title\u003e\u003clink rel=\"preconnect\" href=\"https://fonts.googleapis.com\"\u003e\u003clink href=\"https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800\u0026display=swap\" rel=\"stylesheet\"\u003e\u003cstyle\u003e\u0027 + css + \u0027\u003c/style\u003e\u003c/head\u003e\u003cbody\u003e\u0027 + slides.join(\u0027\u0027) + \u0027\u003cdiv class=\"hint\"\u003e\u0027 + hint + \u0027\u003c/div\u003e\u003cscript\u003e\u0027 + nav + \u0027\u003c/\u0027 + \u0027script\u003e\u003c/body\u003e\u003c/html\u003e\u0027;\nconst slug = String(b.brand_name || \u0027brand\u0027).replace(/[^A-Za-z0-9]+/g, \u0027-\u0027).replace(/^-+|-+$/g, \u0027\u0027) || \u0027brand\u0027;\nreturn [{ json: { brand_name: b.brand_name, slides: slides.length, plan: p }, binary: { data: { data: Buffer.from(html, \u0027utf8\u0027).toString(\u0027base64\u0027), mimeType: \u0027text/html\u0027, fileName: \u0027Strategic-Plan-\u0027 + slug + \u0027.html\u0027, fileExtension: \u0027html\u0027 } } }];"
+                                     },
+                      "id":  "a8ef6e17-528f-4514-b64b-e6f22fdc3c77",
+                      "name":  "Build Presentation",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1280,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "operation":  "completion",
+                                         "respondWith":  "returnBinary",
+                                         "completionTitle":  "Your strategy deck is ready",
+                                         "completionMessage":  "The presentation is downloading. Open it in your browser, use the arrow keys to present, and Ctrl+P to save it as PDF.",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "99ee9477-0b85-4b6c-a6b1-ca76fa22d274",
+                      "name":  "Download Presentation",
+                      "type":  "n8n-nodes-base.form",
+                      "typeVersion":  2.5,
+                      "position":  [
+                                       1520,
+                                       304
+                                   ],
+                      "webhookId":  "276348b6-8edf-4c2a-b4e1-0ca541350313"
+                  },
+                  {
+                      "parameters":  {
+                                         "content":  "## Strategic Planning Agent\n1. Share the **production form URL** (path `/strategic-plan`) after publishing.\n2. Every brief is stored in the `strategy_briefs` data table.\n3. Gemini builds: Positioning \u0026 Messaging, Channel Mix \u0026 Budget, Campaigns, Calendar \u0026 Milestones, KPIs \u0026 Targets.\n4. The Code node turns the plan into an HTML slide deck (EN or AR/RTL) that downloads at the end of the form. Ctrl+P saves it as PDF.",
+                                         "height":  200,
+                                         "width":  1580,
+                                         "color":  5
+                                     },
+                      "id":  "170f21d9-c617-44b8-b1fd-8a4aca786cd6",
+                      "name":  "Sticky Note 5d5f886c",
+                      "type":  "n8n-nodes-base.stickyNote",
+                      "typeVersion":  1,
+                      "position":  [
+                                       64,
+                                       512
+                                   ]
+                  }
+              ],
+    "connections":  {
+                        "Strategy Brief Form":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "Normalize Brief",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "Normalize Brief":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Save Brief",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Save Brief":  {
+                                           "main":  [
+                                                        [
+                                                            {
+                                                                "node":  "Strategic Planning Agent",
+                                                                "type":  "main",
+                                                                "index":  0
+                                                            }
+                                                        ]
+                                                    ]
+                                       },
+                        "Strategic Planning Agent":  {
+                                                         "main":  [
+                                                                      [
+                                                                          {
+                                                                              "node":  "Build Presentation",
+                                                                              "type":  "main",
+                                                                              "index":  0
+                                                                          }
+                                                                      ]
+                                                                  ]
+                                                     },
+                        "Gemini Pro":  {
+                                           "ai_languageModel":  [
+                                                                    [
+                                                                        {
+                                                                            "node":  "Strategic Planning Agent",
+                                                                            "type":  "ai_languageModel",
+                                                                            "index":  0
+                                                                        },
+                                                                        {
+                                                                            "node":  "Strategy Plan Schema",
+                                                                            "type":  "ai_languageModel",
+                                                                            "index":  0
+                                                                        }
+                                                                    ]
+                                                                ]
+                                       },
+                        "Strategy Plan Schema":  {
+                                                     "ai_outputParser":  [
+                                                                             [
+                                                                                 {
+                                                                                     "node":  "Strategic Planning Agent",
+                                                                                     "type":  "ai_outputParser",
+                                                                                     "index":  0
+                                                                                 }
+                                                                             ]
+                                                                         ]
+                                                 },
+                        "Build Presentation":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Download Presentation",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "availableInMCP":  true,
+                     "binaryMode":  "separate"
+                 },
+    "staticData":  null,
+    "meta":  {
+                 "aiBuilderAssisted":  true,
+                 "builderVariant":  "mcp"
+             },
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  {
+
+                },
+    "versionId":  "1b444647-da8b-4c6e-ba5e-96e4c4369c6d",
+    "activeVersionId":  null,
+    "versionCounter":  2,
+    "triggerCount":  0,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  null,
+                            "description":  null
+                        }
+}

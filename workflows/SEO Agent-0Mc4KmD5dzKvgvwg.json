@@ -1,0 +1,799 @@
+{
+    "updatedAt":  "2026-09-30T04:27:02.459Z",
+    "createdAt":  "2026-09-30T04:27:02.459Z",
+    "id":  "0Mc4KmD5dzKvgvwg",
+    "name":  "SEO Agent",
+    "description":  "SEO Agent: crawls pages, on-page audit, technical checks (robots, sitemap, PageSpeed/Core Web Vitals), keyword research (optional Google Ads Keyword Planner volumes) and backlink opportunities via Gemini + Google Search. HTML report.",
+    "active":  false,
+    "isArchived":  false,
+    "nodes":  [
+                  {
+                      "id":  "75be90eb-6ca5-4592-9311-bd13c9e6b544",
+                      "name":  "SEO Audit Form",
+                      "type":  "n8n-nodes-base.formTrigger",
+                      "typeVersion":  2.6,
+                      "position":  [
+                                       0,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "formTitle":  "SEO Agent",
+                                         "formDescription":  "Enter your website. The agent crawls your key pages, checks technical SEO (robots.txt, sitemap, Core Web Vitals via PageSpeed), audits on-page SEO, researches keywords (with real Google Ads Keyword Planner volumes if you add your Google Ads customer ID) and finds backlink opportunities. Takes 2-5 minutes.",
+                                         "formFields":  {
+                                                            "values":  [
+                                                                           {
+                                                                               "fieldLabel":  "Website URL",
+                                                                               "fieldName":  "website",
+                                                                               "requiredField":  true,
+                                                                               "placeholder":  "https://www.example.com"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Other important pages (one URL per line, max 4)",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "extra_pages"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Business / what you sell",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "business",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Target country",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "country",
+                                                                               "defaultValue":  "Egypt",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Egypt"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Saudi Arabia"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "United Arab Emirates"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Kuwait"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Qatar"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Jordan"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "United Kingdom"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "United States"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Global"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Search language",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "search_language",
+                                                                               "defaultValue":  "Arabic",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Arabic"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "English"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Seed keywords (comma-separated)",
+                                                                               "fieldName":  "keywords",
+                                                                               "placeholder":  "e.g. mba egypt, business courses cairo"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Competitor websites (one per line)",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "competitors"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Google Ads customer ID (optional - for real search volumes)",
+                                                                               "fieldName":  "google_ads_customer_id",
+                                                                               "placeholder":  "123-456-7890"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Report language",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "language",
+                                                                               "defaultValue":  "Arabic",
+                                                                               "requiredField":  true,
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Arabic"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "English"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           }
+                                                                       ]
+                                                        },
+                                         "responseMode":  "lastNode",
+                                         "options":  {
+                                                         "appendAttribution":  false,
+                                                         "buttonLabel":  "Run SEO audit",
+                                                         "path":  "seo-agent"
+                                                     }
+                                     },
+                      "webhookId":  "c662644c-4b58-423c-8275-148b81e11eb9"
+                  },
+                  {
+                      "id":  "e1650b00-ccc2-44b8-b60f-98e5e4c3a998",
+                      "name":  "Normalize SEO Brief",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       240,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const j = $input.first().json;\nlet site = String(j.website || \u0027\u0027).trim();\nif (site \u0026\u0026 !/^https?:\\/\\//i.test(site)) site = \u0027https://\u0027 + site;\nlet origin = \u0027\u0027;\ntry { origin = new URL(site).origin; } catch (e) { origin = site.replace(/\\/+$/, \u0027\u0027); }\nconst split = s =\u003e [].concat(s || []).join(\u0027\\n\u0027).split(/[\\n,]+/).map(x =\u003e x.trim()).filter(Boolean);\nconst extra = split(j.extra_pages).map(u =\u003e /^https?:/i.test(u) ? u : origin + (u.startsWith(\u0027/\u0027) ? \u0027\u0027 : \u0027/\u0027) + u);\nconst pages = [...new Set([site || origin].concat(extra))].filter(Boolean).slice(0, 5);\nconst geo = { \u0027Egypt\u0027: 2818, \u0027Saudi Arabia\u0027: 2682, \u0027United Arab Emirates\u0027: 2784, \u0027Kuwait\u0027: 2414, \u0027Qatar\u0027: 2634, \u0027Jordan\u0027: 2400, \u0027United Kingdom\u0027: 2826, \u0027United States\u0027: 2840 };\nconst country = j.country || \u0027Egypt\u0027;\nconst searchLanguage = j.search_language || (j.language === \u0027English\u0027 ? \u0027English\u0027 : \u0027Arabic\u0027);\nconst cid = String(j.google_ads_customer_id || \u0027\u0027).replace(/[^0-9]/g, \u0027\u0027);\nreturn [{ json: {\n  mode: j.mode || \u0027form\u0027,\n  website: site || origin, origin, pages,\n  business: String(j.business || j.product || \u0027\u0027).trim(),\n  country, geo_id: geo[country] || null,\n  search_language: searchLanguage, language_constant: searchLanguage === \u0027English\u0027 ? 1000 : 1019,\n  keywords: split(j.keywords).slice(0, 20),\n  competitors: split(j.competitors).slice(0, 5),\n  google_ads_customer_id: cid,\n  language: j.language === \u0027English\u0027 ? \u0027English\u0027 : \u0027Arabic\u0027\n} }];"
+                                     }
+                  },
+                  {
+                      "id":  "4223cdfd-7307-4ff1-aebf-a44c998d4ad4",
+                      "name":  "Called by Orchestrator",
+                      "type":  "n8n-nodes-base.executeWorkflowTrigger",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       0,
+                                       240
+                                   ],
+                      "parameters":  {
+                                         "inputSource":  "passthrough"
+                                     }
+                  },
+                  {
+                      "id":  "6eae419a-40df-4abe-9a72-f353ff56aed9",
+                      "name":  "Build Page List",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       480,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "return $input.first().json.pages.map(url =\u003e ({ json: { url } }));"
+                                     }
+                  },
+                  {
+                      "id":  "c1f0331c-e2c5-4515-a7ca-409ab9149d95",
+                      "name":  "Fetch Page HTML",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       720,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "url":  "={{ $json.url }}",
+                                         "sendHeaders":  true,
+                                         "headerParameters":  {
+                                                                  "parameters":  [
+                                                                                     {
+                                                                                         "name":  "User-Agent",
+                                                                                         "value":  "Mozilla/5.0 (compatible; n8n-seo-agent/1.0)"
+                                                                                     }
+                                                                                 ]
+                                                              },
+                                         "options":  {
+                                                         "timeout":  20000,
+                                                         "response":  {
+                                                                          "response":  {
+                                                                                           "fullResponse":  true,
+                                                                                           "neverError":  true,
+                                                                                           "responseFormat":  "text"
+                                                                                       }
+                                                                      }
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "e5ec268b-0342-4074-8c54-0c61640e76b4",
+                      "name":  "Audit On-Page SEO",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       960,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const brief = $(\u0027Normalize SEO Brief\u0027).first().json;\nconst urls = $(\u0027Build Page List\u0027).all().map(i =\u003e i.json.url);\nconst host = (() =\u003e { try { return new URL(brief.origin).hostname.replace(/^www\\./, \u0027\u0027); } catch (e) { return \u0027\u0027; } })();\nfunction strip(s) { return String(s || \u0027\u0027).replace(/\u003c[^\u003e]+\u003e/g, \u0027 \u0027).replace(/\u0026nbsp;/g, \u0027 \u0027).replace(/\\s+/g, \u0027 \u0027).trim(); }\nfunction attrs(tag) { const o = {}; const re = /([\\w:-]+)\\s*=\\s*(\"([^\"]*)\"|\u0027([^\u0027]*)\u0027)/g; let m; while ((m = re.exec(tag))) o[m[1].toLowerCase()] = m[3] != null ? m[3] : m[4]; return o; }\nfunction tags(html, name) { return html.match(new RegExp(\u0027\u003c\u0027 + name + \u0027\\\\b[^\u003e]*\u003e\u0027, \u0027gi\u0027)) || []; }\nfunction meta(html, key, val) { const t = tags(html, \u0027meta\u0027).map(attrs).find(a =\u003e String(a[key] || \u0027\u0027).toLowerCase() === val); return t ? (t.content || \u0027\u0027) : \u0027\u0027; }\nfunction blocks(html, name) { const re = new RegExp(\u0027\u003c\u0027 + name + \u0027\\\\b[^\u003e]*\u003e([\\\\s\\\\S]*?)\u003c\\\\/\u0027 + name + \u0027\u003e\u0027, \u0027gi\u0027); const out = []; let m; while ((m = re.exec(html))) out.push(strip(m[1])); return out; }\nconst pages = $input.all().map((it, i) =\u003e {\n  const j = it.json || {};\n  const html = String(j.body != null ? j.body : (j.data != null ? j.data : \u0027\u0027));\n  const url = urls[i] || \u0027\u0027;\n  if (!html || j.error) return { url, status: j.statusCode || 0, error: (j.error \u0026\u0026 (j.error.message || j.error)) || \u0027Could not fetch page\u0027 };\n  const links = tags(html, \u0027link\u0027).map(attrs);\n  const imgs = tags(html, \u0027img\u0027).map(attrs);\n  const anchors = tags(html, \u0027a\u0027).map(attrs).map(a =\u003e a.href || \u0027\u0027).filter(h =\u003e h \u0026\u0026 !/^(#|javascript:|mailto:|tel:)/i.test(h));\n  let internal = 0, external = 0;\n  anchors.forEach(h =\u003e { try { const u = new URL(h, url); (u.hostname.replace(/^www\\./, \u0027\u0027) === host ? internal++ : external++); } catch (e) {} });\n  const schemas = [];\n  const sre = /\u003cscript[^\u003e]+application\\/ld\\+json[^\u003e]*\u003e([\\s\\S]*?)\u003c\\/script\u003e/gi; let sm;\n  while ((sm = sre.exec(html))) { try { const o = JSON.parse(sm[1]); [].concat(o[\u0027@graph\u0027] || o).forEach(x =\u003e x \u0026\u0026 x[\u0027@type\u0027] \u0026\u0026 schemas.push([].concat(x[\u0027@type\u0027]).join(\u0027/\u0027))); } catch (e) { schemas.push(\u0027invalid JSON-LD\u0027); } }\n  const text = strip(html.replace(/\u003cscript[\\s\\S]*?\u003c\\/script\u003e/gi, \u0027 \u0027).replace(/\u003cstyle[\\s\\S]*?\u003c\\/style\u003e/gi, \u0027 \u0027));\n  const htmlTag = (html.match(/\u003chtml\\b[^\u003e]*\u003e/i) || [\u0027\u0027])[0];\n  const title = (blocks(html, \u0027title\u0027)[0] || \u0027\u0027);\n  const desc = meta(html, \u0027name\u0027, \u0027description\u0027);\n  const h1 = blocks(html, \u0027h1\u0027);\n  const h2 = blocks(html, \u0027h2\u0027);\n  const hdr = j.headers || {};\n  return {\n    url, status: j.statusCode || 200, https: /^https:/i.test(url),\n    title, title_length: title.length,\n    meta_description: desc, meta_description_length: desc.length,\n    h1: h1.slice(0, 3), h1_count: h1.length, h2: h2.slice(0, 8), h2_count: h2.length,\n    canonical: (links.find(l =\u003e String(l.rel || \u0027\u0027).toLowerCase() === \u0027canonical\u0027) || {}).href || \u0027\u0027,\n    hreflang: links.filter(l =\u003e l.hreflang).map(l =\u003e l.hreflang + \u0027 -\u003e \u0027 + l.href).slice(0, 10),\n    robots_meta: meta(html, \u0027name\u0027, \u0027robots\u0027), x_robots_tag: hdr[\u0027x-robots-tag\u0027] || \u0027\u0027,\n    viewport: meta(html, \u0027name\u0027, \u0027viewport\u0027),\n    html_lang: attrs(htmlTag).lang || \u0027\u0027, html_dir: attrs(htmlTag).dir || \u0027\u0027,\n    og_title: meta(html, \u0027property\u0027, \u0027og:title\u0027), og_image: meta(html, \u0027property\u0027, \u0027og:image\u0027), twitter_card: meta(html, \u0027name\u0027, \u0027twitter:card\u0027),\n    images: imgs.length, images_missing_alt: imgs.filter(a =\u003e !a.alt || !String(a.alt).trim()).length,\n    internal_links: internal, external_links: external,\n    schema_types: [...new Set(schemas)],\n    word_count: text ? text.split(\u0027 \u0027).length : 0,\n    html_kb: Math.round(html.length / 1024),\n    compression: hdr[\u0027content-encoding\u0027] || \u0027none\u0027, cache_control: hdr[\u0027cache-control\u0027] || \u0027\u0027\n  };\n});\nreturn [{ json: { pages } }];"
+                                     }
+                  },
+                  {
+                      "id":  "c95edb8d-561d-457f-aa71-edce4fe7001d",
+                      "name":  "Fetch robots.txt",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       1200,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "url":  "={{ $(\"Normalize SEO Brief\").first().json.origin }}/robots.txt",
+                                         "options":  {
+                                                         "timeout":  15000,
+                                                         "response":  {
+                                                                          "response":  {
+                                                                                           "fullResponse":  true,
+                                                                                           "neverError":  true,
+                                                                                           "responseFormat":  "text"
+                                                                                       }
+                                                                      }
+                                                     }
+                                     },
+                      "executeOnce":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "2be89df3-016a-4784-b14e-104642d41e8a",
+                      "name":  "Fetch sitemap.xml",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       1440,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "url":  "={{ (String($json.body ?? $json.data ?? \"\").match(/sitemap:\\s*(\\S+)/i) || [])[1] || $(\"Normalize SEO Brief\").first().json.origin + \"/sitemap.xml\" }}",
+                                         "options":  {
+                                                         "timeout":  20000,
+                                                         "response":  {
+                                                                          "response":  {
+                                                                                           "fullResponse":  true,
+                                                                                           "neverError":  true,
+                                                                                           "responseFormat":  "text"
+                                                                                       }
+                                                                      }
+                                                     }
+                                     },
+                      "executeOnce":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "145a77d7-9f21-425c-900b-128ef63ab227",
+                      "name":  "PageSpeed Insights (mobile)",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       1680,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "url":  "https://www.googleapis.com/pagespeedonline/v5/runPagespeed",
+                                         "sendQuery":  true,
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "url",
+                                                                                        "value":  "={{ $(\"Normalize SEO Brief\").first().json.website }}"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "strategy",
+                                                                                        "value":  "mobile"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "category",
+                                                                                        "value":  "PERFORMANCE"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "category",
+                                                                                        "value":  "SEO"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "category",
+                                                                                        "value":  "ACCESSIBILITY"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "category",
+                                                                                        "value":  "BEST_PRACTICES"
+                                                                                    }
+                                                                                ]
+                                                             },
+                                         "options":  {
+                                                         "timeout":  120000
+                                                     }
+                                     },
+                      "executeOnce":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "d93697f9-2655-4ab2-8a66-46dcbdb4f8c4",
+                      "name":  "Has Google Ads ID?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1920,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $(\"Normalize SEO Brief\").first().json.google_ads_customer_id }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "string",
+                                                                                                    "operation":  "notEmpty",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "cb7a7d13-b6c2-4eaa-bf24-86982d1635ce",
+                      "name":  "Google Ads Settings",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       2160,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  false,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "g1",
+                                                                                     "name":  "api_version",
+                                                                                     "value":  "v25",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "g2",
+                                                                                     "name":  "developer_token",
+                                                                                     "value":  "",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "g3",
+                                                                                     "name":  "login_customer_id",
+                                                                                     "value":  "",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         }
+                                     },
+                      "executeOnce":  true
+                  },
+                  {
+                      "id":  "d8d0857b-05f5-42bb-81b5-ca33ddd1d96f",
+                      "name":  "Keyword Planner Ideas",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       2400,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "=https://googleads.googleapis.com/{{ $json.api_version }}/customers/{{ $(\"Normalize SEO Brief\").first().json.google_ads_customer_id }}:generateKeywordIdeas",
+                                         "authentication":  "predefinedCredentialType",
+                                         "nodeCredentialType":  "googleAdsOAuth2Api",
+                                         "sendHeaders":  true,
+                                         "headerParameters":  {
+                                                                  "parameters":  [
+                                                                                     {
+                                                                                         "name":  "developer-token",
+                                                                                         "value":  "={{ $json.developer_token }}"
+                                                                                     },
+                                                                                     {
+                                                                                         "name":  "login-customer-id",
+                                                                                         "value":  "={{ String($json.login_customer_id || $(\"Normalize SEO Brief\").first().json.google_ads_customer_id).replace(/[^0-9]/g, \"\") }}"
+                                                                                     }
+                                                                                 ]
+                                                              },
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify(Object.assign({ language: \"languageConstants/\" + $(\"Normalize SEO Brief\").first().json.language_constant, keywordPlanNetwork: \"GOOGLE_SEARCH\", includeAdultKeywords: false, pageSize: 200 }, $(\"Normalize SEO Brief\").first().json.geo_id ? { geoTargetConstants: [\"geoTargetConstants/\" + $(\"Normalize SEO Brief\").first().json.geo_id] } : {}, $(\"Normalize SEO Brief\").first().json.keywords.length ? { keywordAndUrlSeed: { url: $(\"Normalize SEO Brief\").first().json.website, keywords: $(\"Normalize SEO Brief\").first().json.keywords } } : { urlSeed: { url: $(\"Normalize SEO Brief\").first().json.website } })) }}",
+                                         "options":  {
+                                                         "timeout":  60000
+                                                     }
+                                     },
+                      "executeOnce":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "0d628165-501c-439a-b1e6-2458d6efe82b",
+                      "name":  "Compile SEO Data",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       2640,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const brief = $(\u0027Normalize SEO Brief\u0027).first().json;\nfunction first(name) { try { return $(name).first().json || {}; } catch (e) { return {}; } }\nconst pages = first(\u0027Audit On-Page SEO\u0027).pages || [];\nconst robots = first(\u0027Fetch robots.txt\u0027);\nconst robotsTxt = String(robots.body != null ? robots.body : (robots.data || \u0027\u0027));\nconst sm = first(\u0027Fetch sitemap.xml\u0027);\nconst smTxt = String(sm.body != null ? sm.body : (sm.data || \u0027\u0027));\nconst sitemap = { status: sm.statusCode || 0, url_count: (smTxt.match(/\u003cloc\u003e/gi) || []).length, is_index: /\u003csitemapindex/i.test(smTxt) };\nconst psi = first(\u0027PageSpeed Insights (mobile)\u0027);\nconst lr = psi.lighthouseResult || {};\nconst cat = lr.categories || {};\nconst au = lr.audits || {};\nconst le = (psi.loadingExperience \u0026\u0026 psi.loadingExperience.metrics) || {};\nconst score = k =\u003e cat[k] \u0026\u0026 cat[k].score != null ? Math.round(cat[k].score * 100) : null;\nconst pagespeed = psi.lighthouseResult ? {\n  performance: score(\u0027performance\u0027), seo: score(\u0027seo\u0027), accessibility: score(\u0027accessibility\u0027), best_practices: score(\u0027best-practices\u0027),\n  lcp: (au[\u0027largest-contentful-paint\u0027] || {}).displayValue || \u0027\u0027, cls: (au[\u0027cumulative-layout-shift\u0027] || {}).displayValue || \u0027\u0027,\n  tbt: (au[\u0027total-blocking-time\u0027] || {}).displayValue || \u0027\u0027, fcp: (au[\u0027first-contentful-paint\u0027] || {}).displayValue || \u0027\u0027,\n  field_inp_ms: (le.INTERACTION_TO_NEXT_PAINT || {}).percentile || null, field_lcp_ms: (le.LARGEST_CONTENTFUL_PAINT_MS || {}).percentile || null,\n  top_opportunities: Object.values(au).filter(a =\u003e a \u0026\u0026 a.details \u0026\u0026 a.details.type === \u0027opportunity\u0027 \u0026\u0026 a.score != null \u0026\u0026 a.score \u003c 0.9).slice(0, 6).map(a =\u003e a.title + (a.displayValue ? \u0027 (\u0027 + a.displayValue + \u0027)\u0027 : \u0027\u0027))\n} : { error: (psi.error \u0026\u0026 (psi.error.message || psi.error)) || \u0027PageSpeed Insights not available\u0027 };\nconst kp = first(\u0027Keyword Planner Ideas\u0027);\nconst keyword_ideas = (kp.results || []).map(r =\u003e ({ keyword: r.text, volume: Number((r.keywordIdeaMetrics || {}).avgMonthlySearches) || 0, competition: (r.keywordIdeaMetrics || {}).competition || \u0027\u0027, cpc_high: (r.keywordIdeaMetrics || {}).highTopOfPageBidMicros ? Math.round(Number(r.keywordIdeaMetrics.highTopOfPageBidMicros) / 10000) / 100 : null })).sort((a, b) =\u003e b.volume - a.volume).slice(0, 80);\nconst keyword_source = keyword_ideas.length ? \u0027Google Ads Keyword Planner\u0027 : (brief.google_ads_customer_id ? \u0027Keyword Planner failed: \u0027 + JSON.stringify(kp.error || kp).slice(0, 300) : \u0027not connected - volumes are estimates\u0027);\nconst technical_facts = {\n  robots_txt: { status: robots.statusCode || 0, has_sitemap_line: /sitemap:/i.test(robotsTxt), blocks_all: /disallow:\\s*\\/\\s*$/im.test(robotsTxt), excerpt: robotsTxt.slice(0, 600) },\n  sitemap, pagespeed\n};\nreturn [{ json: { ...brief, pages, technical_facts, keyword_ideas, keyword_source, data_for_ai: JSON.stringify({ pages, technical_facts, keyword_ideas }).slice(0, 50000) } }];"
+                                     }
+                  },
+                  {
+                      "id":  "b3676e75-74fc-4553-a6a7-a9593bbf0b58",
+                      "name":  "SEO Agent",
+                      "type":  "@n8n/n8n-nodes-langchain.googleGemini",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       2880,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "resource":  "text",
+                                         "operation":  "message",
+                                         "modelId":  {
+                                                         "__rl":  true,
+                                                         "mode":  "id",
+                                                         "value":  "models/gemini-3-flash-preview"
+                                                     },
+                                         "messages":  {
+                                                          "values":  [
+                                                                         {
+                                                                             "content":  "=WEBSITE: {{ $json.website }}\nBUSINESS: {{ $json.business }}\nTARGET COUNTRY: {{ $json.country }} | SEARCH LANGUAGE: {{ $json.search_language }}\nSEED KEYWORDS: {{ $json.keywords.join(\", \") || \"none - discover them\" }}\nCOMPETITORS: {{ $json.competitors.join(\", \") || \"none given - find the top 3 organic competitors with Google Search\" }}\nKEYWORD VOLUME SOURCE: {{ $json.keyword_source }}\n\nCRAWL + TECHNICAL DATA (measured, trust these facts):\n{{ $json.data_for_ai }}\n\nTASKS\n1. Keyword research: build 4-7 keyword clusters for {{ $json.country }} in {{ $json.search_language }} (and English variants people really search). Use the Keyword Planner volumes when provided (source \"google_ads\"); otherwise estimate and mark source \"estimate\". Map each cluster to an existing or new target page.\n2. On-page optimisation: for every crawled page give a score (0-100), the issues found in the data (title/meta length, H1 count, missing alt text, thin content, missing schema, canonical, hreflang, OG tags, internal links) and rewrite the title (50-60 chars), meta description (140-155 chars) and H1 around the best keyword.\n3. Technical SEO checks: robots.txt, XML sitemap, HTTPS, mobile viewport, Core Web Vitals (LCP, CLS, INP/TBT), compression, canonicalisation, indexability, structured data, hreflang/RTL for Arabic. Status pass / warning / fail with a concrete fix.\n4. Backlink opportunities: use Google Search to find 8-12 REAL sites where this business can realistically earn links in {{ $json.country }} (directories, local citations, industry associations, media, guest-post blogs, resource pages, competitor backlink sources, partnerships). Give the real URL and how to get the link.\n5. Content plan: 6-10 article / page ideas that target keyword gaps.\n6. A 30/60/90-day action plan and 3-6 quick wins.\n\nJSON shape:\n{\"seo_score\":0,\"executive_summary\":\"\",\"quick_wins\":[\"\"],\"keyword_clusters\":[{\"cluster\":\"\",\"intent\":\"informational|commercial|transactional|navigational\",\"priority\":\"high|medium|low\",\"target_page\":\"\",\"keywords\":[{\"keyword\":\"\",\"monthly_volume\":0,\"difficulty\":\"low|medium|high\",\"source\":\"google_ads|estimate\"}]}],\"on_page\":[{\"url\":\"\",\"score\":0,\"issues\":[{\"issue\":\"\",\"severity\":\"high|medium|low\",\"fix\":\"\"}],\"suggested_title\":\"\",\"suggested_meta_description\":\"\",\"suggested_h1\":\"\",\"target_keyword\":\"\"}],\"technical\":[{\"check\":\"\",\"status\":\"pass|warning|fail\",\"details\":\"\",\"fix\":\"\"}],\"backlinks\":[{\"site\":\"\",\"url\":\"\",\"type\":\"directory|local citation|guest post|PR|association|resource page|partnership|competitor gap\",\"how_to\":\"\",\"priority\":\"high|medium|low\"}],\"competitors\":[{\"domain\":\"\",\"strengths\":\"\"}],\"content_plan\":[{\"title\":\"\",\"target_keyword\":\"\",\"type\":\"blog|landing page|guide|FAQ|comparison\",\"reason\":\"\"}],\"action_plan\":{\"days_0_30\":[\"\"],\"days_31_60\":[\"\"],\"days_61_90\":[\"\"]},\"sources\":[{\"title\":\"\",\"url\":\"\"}]}\nReturn ONLY one valid JSON object (no markdown fences, no commentary). Keep JSON keys exactly as specified. Write all text values in {{ $json.language }}, but keep keywords in the language people actually search with and keep SEO terms (H1, meta, LCP, CLS, schema) in English."
+                                                                         }
+                                                                     ]
+                                                      },
+                                         "builtInTools":  {
+                                                              "googleSearch":  true,
+                                                              "urlContext":  true
+                                                          },
+                                         "options":  {
+                                                         "includeMergedResponse":  true,
+                                                         "systemMessage":  "You are a senior technical SEO consultant with deep experience in Arabic and English search in MENA. You base every finding on the measured crawl data and real search results, you never invent backlinks or volumes, and every recommendation is specific and actionable.",
+                                                         "maxOutputTokens":  16384,
+                                                         "temperature":  0.3,
+                                                         "maxToolsIterations":  15
+                                                     }
+                                     },
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      },
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  5000
+                  },
+                  {
+                      "id":  "e563cc39-6e68-450e-b5cf-bf63604c9b12",
+                      "name":  "Build SEO Report",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       3120,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "function textOf(j) {\n  if (!j) return \u0027\u0027;\n  if (typeof j.mergedResponse === \u0027string\u0027 \u0026\u0026 j.mergedResponse) return j.mergedResponse;\n  const parts = (j.content \u0026\u0026 j.content.parts) || (j.candidates \u0026\u0026 j.candidates[0] \u0026\u0026 j.candidates[0].content \u0026\u0026 j.candidates[0].content.parts);\n  if (Array.isArray(parts)) return parts.map(p =\u003e p.text || \u0027\u0027).join(\u0027\u0027);\n  if (typeof j.text === \u0027string\u0027) return j.text;\n  return JSON.stringify(j);\n}\nfunction parseJson(t) {\n  const s = String(t || \u0027\u0027).trim().replace(/^\\s*\\x60\\x60\\x60(?:json)?/i, \u0027\u0027).replace(/\\x60\\x60\\x60\\s*$/, \u0027\u0027);\n  const a = s.indexOf(\u0027{\u0027); const b = s.lastIndexOf(\u0027}\u0027);\n  if (a \u003e= 0 \u0026\u0026 b \u003e a) { try { return JSON.parse(s.slice(a, b + 1)); } catch (e) {} }\n  return { parse_error: true, raw: String(t || \u0027\u0027) };\n}\nconst d = $(\u0027Compile SEO Data\u0027).first().json;\nconst r = parseJson(textOf($input.first().json));\nconst ar = d.language === \u0027Arabic\u0027;\nconst L = ar ? { title: \u0027تقرير الـ SEO\u0027, summary: \u0027الملخص\u0027, wins: \u0027مكاسب سريعة\u0027, kw: \u0027بحث الكلمات المفتاحية\u0027, onpage: \u0027تحسين الصفحات (On-page)\u0027, tech: \u0027الفحص التقني\u0027, speed: \u0027السرعة و Core Web Vitals (موبايل)\u0027, bl: \u0027فرص الباك لينك\u0027, content: \u0027خطة المحتوى\u0027, plan: \u0027خطة 30/60/90 يوم\u0027, comps: \u0027المنافسون\u0027, sources: \u0027المصادر\u0027, vol: \u0027بحث/شهر\u0027, diff: \u0027الصعوبة\u0027, issues: \u0027المشاكل\u0027, sugg: \u0027المقترح\u0027, facts: \u0027بيانات الصفحة\u0027 } : { title: \u0027SEO Report\u0027, summary: \u0027Summary\u0027, wins: \u0027Quick wins\u0027, kw: \u0027Keyword research\u0027, onpage: \u0027On-page optimisation\u0027, tech: \u0027Technical SEO checks\u0027, speed: \u0027Speed \u0026 Core Web Vitals (mobile)\u0027, bl: \u0027Backlink opportunities\u0027, content: \u0027Content plan\u0027, plan: \u002730/60/90-day plan\u0027, comps: \u0027Competitors\u0027, sources: \u0027Sources\u0027, vol: \u0027Searches/mo\u0027, diff: \u0027Difficulty\u0027, issues: \u0027Issues\u0027, sugg: \u0027Suggested\u0027, facts: \u0027Page facts\u0027 };\nfunction esc(v) { return String(v == null ? \u0027\u0027 : v).replace(/\u0026/g, \u0027\u0026amp;\u0027).replace(/\u003c/g, \u0027\u0026lt;\u0027).replace(/\u003e/g, \u0027\u0026gt;\u0027).replace(/\"/g, \u0027\u0026quot;\u0027); }\nfunction arr(v) { return Array.isArray(v) ? v : (v ? [v] : []); }\nfunction list(a) { a = arr(a).filter(Boolean); return a.length ? \u0027\u003cul\u003e\u0027 + a.map(x =\u003e \u0027\u003cli\u003e\u0027 + esc(x) + \u0027\u003c/li\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/ul\u003e\u0027 : \u0027\u003cp class=\"muted\"\u003e-\u003c/p\u003e\u0027; }\nfunction pill(s) { return \u0027\u003cspan class=\"pill s-\u0027 + esc(String(s || \u0027\u0027).toLowerCase()) + \u0027\"\u003e\u0027 + esc(s) + \u0027\u003c/span\u003e\u0027; }\nfunction link(u, t) { return u ? \u0027\u003ca href=\"\u0027 + esc(u) + \u0027\" target=\"_blank\" rel=\"noopener\"\u003e\u0027 + esc(t || u) + \u0027\u003c/a\u003e\u0027 : esc(t); }\nconst sc = Number(r.seo_score) || 0;\nlet h = \u0027\u003csection class=\"top\"\u003e\u003cdiv class=\"gauge\" style=\"--v:\u0027 + sc + \u0027\"\u003e\u003cb\u003e\u0027 + sc + \u0027\u003c/b\u003e\u003cspan\u003e/100\u003c/span\u003e\u003c/div\u003e\u003cdiv\u003e\u003ch2\u003e\u0027 + L.summary + \u0027\u003c/h2\u003e\u003cp\u003e\u0027 + esc(r.executive_summary) + \u0027\u003c/p\u003e\u0027 + (r.parse_error ? \u0027\u003cpre\u003e\u0027 + esc(r.raw) + \u0027\u003c/pre\u003e\u0027 : \u0027\u0027) + \u0027\u003ch3\u003e\u0027 + L.wins + \u0027\u003c/h3\u003e\u0027 + list(r.quick_wins) + \u0027\u003c/div\u003e\u003c/section\u003e\u0027;\nconst ps = (d.technical_facts || {}).pagespeed || {};\nif (ps.performance != null) {\n  h += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.speed + \u0027\u003c/h2\u003e\u003cdiv class=\"kpis\"\u003e\u0027 + [[\u0027Performance\u0027, ps.performance], [\u0027SEO\u0027, ps.seo], [\u0027Accessibility\u0027, ps.accessibility], [\u0027Best practices\u0027, ps.best_practices]].map(k =\u003e \u0027\u003cdiv class=\"kpi\"\u003e\u003cspan\u003e\u0027 + k[0] + \u0027\u003c/span\u003e\u003cb class=\"\u0027 + (k[1] \u003e= 90 ? \u0027good\u0027 : k[1] \u003e= 50 ? \u0027mid\u0027 : \u0027bad\u0027) + \u0027\"\u003e\u0027 + esc(k[1]) + \u0027\u003c/b\u003e\u003c/div\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/div\u003e\u003cdiv class=\"kpis\"\u003e\u0027 + [[\u0027LCP\u0027, ps.lcp], [\u0027CLS\u0027, ps.cls], [\u0027TBT\u0027, ps.tbt], [\u0027FCP\u0027, ps.fcp], [\u0027INP (field)\u0027, ps.field_inp_ms ? ps.field_inp_ms + \u0027 ms\u0027 : \u0027-\u0027]].map(k =\u003e \u0027\u003cdiv class=\"kpi\"\u003e\u003cspan\u003e\u0027 + k[0] + \u0027\u003c/span\u003e\u003cb\u003e\u0027 + esc(k[1] || \u0027-\u0027) + \u0027\u003c/b\u003e\u003c/div\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/div\u003e\u0027 + list(ps.top_opportunities) + \u0027\u003c/section\u003e\u0027;\n}\nh += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.kw + \u0027\u003c/h2\u003e\u003cp class=\"muted\"\u003eVolumes: \u0027 + esc(d.keyword_source) + \u0027\u003c/p\u003e\u0027 + arr(r.keyword_clusters).map(c =\u003e \u0027\u003cdiv class=\"card\"\u003e\u003ch3\u003e\u0027 + esc(c.cluster) + \u0027 \u0027 + pill(c.priority) + \u0027 \u003csmall class=\"muted\"\u003e\u0027 + esc(c.intent) + \u0027 · \u0027 + esc(c.target_page) + \u0027\u003c/small\u003e\u003c/h3\u003e\u003cdiv class=\"tbl\"\u003e\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003eKeyword\u003c/th\u003e\u003cth\u003e\u0027 + L.vol + \u0027\u003c/th\u003e\u003cth\u003e\u0027 + L.diff + \u0027\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u0027 + arr(c.keywords).map(k =\u003e \u0027\u003ctr\u003e\u003ctd\u003e\u0027 + esc(k.keyword) + \u0027\u003c/td\u003e\u003ctd\u003e\u0027 + esc(k.monthly_volume) + (k.source === \u0027estimate\u0027 ? \u0027 \u003csmall class=\"muted\"\u003e(est.)\u003c/small\u003e\u0027 : \u0027\u0027) + \u0027\u003c/td\u003e\u003ctd\u003e\u0027 + pill(k.difficulty) + \u0027\u003c/td\u003e\u003c/tr\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003e\u003c/div\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/section\u003e\u0027;\nconst facts = {}; arr(d.pages).forEach(p =\u003e { facts[p.url] = p; });\nh += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.onpage + \u0027\u003c/h2\u003e\u0027 + arr(r.on_page).map(p =\u003e { const f = facts[p.url] || {}; return \u0027\u003cdiv class=\"card\"\u003e\u003ch3\u003e\u0027 + link(p.url) + \u0027 \u003cspan class=\"score\"\u003e\u0027 + esc(p.score) + \u0027/100\u003c/span\u003e\u003c/h3\u003e\u003cdiv class=\"grid2\"\u003e\u003cdiv\u003e\u003cb\u003e\u0027 + L.issues + \u0027\u003c/b\u003e\u003cul\u003e\u0027 + arr(p.issues).map(i =\u003e \u0027\u003cli\u003e\u0027 + pill(i.severity) + \u0027 \u0027 + esc(i.issue) + \u0027\u003cbr\u003e\u003csmall class=\"muted\"\u003e\u0027 + esc(i.fix) + \u0027\u003c/small\u003e\u003c/li\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/ul\u003e\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e\u0027 + L.sugg + \u0027\u003c/b\u003e\u003cp\u003e\u003csmall\u003eTitle\u003c/small\u003e\u003cbr\u003e\u0027 + esc(p.suggested_title) + \u0027\u003c/p\u003e\u003cp\u003e\u003csmall\u003eMeta description\u003c/small\u003e\u003cbr\u003e\u0027 + esc(p.suggested_meta_description) + \u0027\u003c/p\u003e\u003cp\u003e\u003csmall\u003eH1\u003c/small\u003e\u003cbr\u003e\u0027 + esc(p.suggested_h1) + \u0027\u003c/p\u003e\u003cp\u003e\u003csmall\u003eKeyword\u003c/small\u003e\u003cbr\u003e\u0027 + esc(p.target_keyword) + \u0027\u003c/p\u003e\u003c/div\u003e\u003c/div\u003e\u0027 + (f.url ? \u0027\u003cdetails\u003e\u003csummary\u003e\u0027 + L.facts + \u0027\u003c/summary\u003e\u003cp class=\"muted\"\u003eTitle (\u0027 + f.title_length + \u0027): \u0027 + esc(f.title) + \u0027\u003cbr\u003eMeta (\u0027 + f.meta_description_length + \u0027): \u0027 + esc(f.meta_description) + \u0027\u003cbr\u003eH1 x\u0027 + f.h1_count + \u0027: \u0027 + esc(arr(f.h1).join(\u0027 | \u0027)) + \u0027\u003cbr\u003eWords: \u0027 + f.word_count + \u0027 · Images: \u0027 + f.images + \u0027 (\u0027 + f.images_missing_alt + \u0027 without alt) · Links: \u0027 + f.internal_links + \u0027 internal / \u0027 + f.external_links + \u0027 external\u003cbr\u003eCanonical: \u0027 + esc(f.canonical || \u0027-\u0027) + \u0027 · Schema: \u0027 + esc(arr(f.schema_types).join(\u0027, \u0027) || \u0027-\u0027) + \u0027 · lang=\u0027 + esc(f.html_lang || \u0027-\u0027) + \u0027 dir=\u0027 + esc(f.html_dir || \u0027-\u0027) + \u0027\u003c/p\u003e\u003c/details\u003e\u0027 : \u0027\u0027) + \u0027\u003c/div\u003e\u0027; }).join(\u0027\u0027) + \u0027\u003c/section\u003e\u0027;\nh += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.tech + \u0027\u003c/h2\u003e\u003cdiv class=\"tbl\"\u003e\u003ctable\u003e\u003ctbody\u003e\u0027 + arr(r.technical).map(t =\u003e \u0027\u003ctr\u003e\u003ctd\u003e\u0027 + pill(t.status) + \u0027\u003c/td\u003e\u003ctd\u003e\u003cb\u003e\u0027 + esc(t.check) + \u0027\u003c/b\u003e\u003cbr\u003e\u003cspan class=\"muted\"\u003e\u0027 + esc(t.details) + \u0027\u003c/span\u003e\u003c/td\u003e\u003ctd\u003e\u0027 + esc(t.fix) + \u0027\u003c/td\u003e\u003c/tr\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003e\u003c/section\u003e\u0027;\nh += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.bl + \u0027\u003c/h2\u003e\u003cdiv class=\"cards\"\u003e\u0027 + arr(r.backlinks).map(b =\u003e \u0027\u003cdiv class=\"card\"\u003e\u003ch4\u003e\u0027 + link(b.url, b.site) + \u0027 \u0027 + pill(b.priority) + \u0027\u003c/h4\u003e\u003cspan class=\"tag\"\u003e\u0027 + esc(b.type) + \u0027\u003c/span\u003e\u003cp\u003e\u0027 + esc(b.how_to) + \u0027\u003c/p\u003e\u003c/div\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/div\u003e\u003c/section\u003e\u0027;\nif (arr(r.competitors).length) h += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.comps + \u0027\u003c/h2\u003e\u003cul\u003e\u0027 + arr(r.competitors).map(c =\u003e \u0027\u003cli\u003e\u003cb\u003e\u0027 + esc(c.domain) + \u0027\u003c/b\u003e - \u0027 + esc(c.strengths) + \u0027\u003c/li\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/ul\u003e\u003c/section\u003e\u0027;\nh += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.content + \u0027\u003c/h2\u003e\u003cdiv class=\"tbl\"\u003e\u003ctable\u003e\u003ctbody\u003e\u0027 + arr(r.content_plan).map(c =\u003e \u0027\u003ctr\u003e\u003ctd\u003e\u003cb\u003e\u0027 + esc(c.title) + \u0027\u003c/b\u003e\u003cbr\u003e\u003csmall class=\"muted\"\u003e\u0027 + esc(c.reason) + \u0027\u003c/small\u003e\u003c/td\u003e\u003ctd\u003e\u0027 + esc(c.target_keyword) + \u0027\u003c/td\u003e\u003ctd\u003e\u003cspan class=\"tag\"\u003e\u0027 + esc(c.type) + \u0027\u003c/span\u003e\u003c/td\u003e\u003c/tr\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003e\u003c/section\u003e\u0027;\nconst ap = r.action_plan || {};\nh += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.plan + \u0027\u003c/h2\u003e\u003cdiv class=\"grid3\"\u003e\u003cdiv\u003e\u003ch3\u003e0-30\u003c/h3\u003e\u0027 + list(ap.days_0_30) + \u0027\u003c/div\u003e\u003cdiv\u003e\u003ch3\u003e31-60\u003c/h3\u003e\u0027 + list(ap.days_31_60) + \u0027\u003c/div\u003e\u003cdiv\u003e\u003ch3\u003e61-90\u003c/h3\u003e\u0027 + list(ap.days_61_90) + \u0027\u003c/div\u003e\u003c/div\u003e\u003c/section\u003e\u0027;\nif (arr(r.sources).length) h += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.sources + \u0027\u003c/h2\u003e\u003col\u003e\u0027 + arr(r.sources).filter(s =\u003e s \u0026\u0026 s.url).map(s =\u003e \u0027\u003cli\u003e\u0027 + link(s.url, s.title) + \u0027\u003c/li\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/ol\u003e\u003c/section\u003e\u0027;\nconst css = \u0027:root{--bg:#f6f7fb;--card:#fff;--ink:#1d2433;--muted:#667085;--line:#e4e7ec;--acc:#3b5bdb;--good:#12805c;--mid:#b54708;--bad:#c4320a}@media (prefers-color-scheme:dark){:root{--bg:#0f131a;--card:#171c26;--ink:#e6e9ef;--muted:#98a2b3;--line:#2a3140;--acc:#7c9cff;--good:#4cc38a;--mid:#fdb022;--bad:#ff8a65}}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,Segoe UI,Tahoma,sans-serif}.wrap{max-width:1100px;margin:0 auto;padding:24px 16px}header{border-bottom:3px solid var(--acc);margin-bottom:16px;padding-bottom:10px}header h1{margin:0}section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0}h2{color:var(--acc);margin:0 0 12px}.top{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}.top\u003ediv:last-child{flex:1;min-width:260px}.gauge{width:130px;height:130px;border-radius:50%;background:conic-gradient(var(--acc) calc(var(--v)*1%),var(--line) 0);display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative}.gauge::before{content:\"\";position:absolute;inset:12px;border-radius:50%;background:var(--card)}.gauge b,.gauge span{position:relative}.gauge b{font-size:34px}.card{border:1px solid var(--line);border-radius:10px;padding:14px;margin:10px 0}.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}.cards .card{margin:0}.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.kpis{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0}.kpi{flex:1;min-width:120px;border:1px solid var(--line);border-radius:10px;padding:10px}.kpi span{display:block;font-size:12px;color:var(--muted)}.kpi b{font-size:20px}.good{color:var(--good)}.mid{color:var(--mid)}.bad{color:var(--bad)}.tbl{overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid var(--line);padding:8px;text-align:start;vertical-align:top}.pill{display:inline-block;border-radius:99px;padding:0 9px;font-size:12px;border:1px solid var(--line)}.s-pass,.s-low{background:var(--good);color:#fff;border-color:transparent}.s-warning,.s-medium{background:var(--mid);color:#fff;border-color:transparent}.s-fail,.s-high{background:var(--bad);color:#fff;border-color:transparent}.tag{border:1px solid var(--line);border-radius:99px;padding:0 9px;font-size:12px}.score{float:inline-end;color:var(--acc)}.muted{color:var(--muted)}a{color:var(--acc)}summary{cursor:pointer;color:var(--acc)}pre{white-space:pre-wrap}\u0027;\nconst html = \u0027\u003c!DOCTYPE html\u003e\u003chtml lang=\"\u0027 + (ar ? \u0027ar\u0027 : \u0027en\u0027) + \u0027\" dir=\"\u0027 + (ar ? \u0027rtl\u0027 : \u0027ltr\u0027) + \u0027\"\u003e\u003chead\u003e\u003cmeta charset=\"utf-8\"\u003e\u003cmeta name=\"viewport\" content=\"width=device-width,initial-scale=1\"\u003e\u003ctitle\u003e\u0027 + esc(L.title + \u0027 - \u0027 + d.website) + \u0027\u003c/title\u003e\u003cstyle\u003e\u0027 + css + \u0027\u003c/style\u003e\u003c/head\u003e\u003cbody\u003e\u003cdiv class=\"wrap\"\u003e\u003cheader\u003e\u003ch1\u003e\u0027 + esc(L.title) + \u0027: \u0027 + esc(d.website) + \u0027\u003c/h1\u003e\u003cdiv class=\"muted\"\u003e\u0027 + esc(d.country) + \u0027 · \u0027 + esc(d.search_language) + \u0027 · \u0027 + $now.toFormat(\u0027yyyy-MM-dd HH:mm\u0027) + \u0027\u003c/div\u003e\u003c/header\u003e\u0027 + h + \u0027\u003c/div\u003e\u003c/body\u003e\u003c/html\u003e\u0027;\nreturn [{ json: { mode: d.mode, website: d.website, seo_score: sc, executive_summary: r.executive_summary || \u0027\u0027, seo: r, html } }];"
+                                     }
+                  },
+                  {
+                      "id":  "6bd56b49-c8de-419b-93fc-b5b2a70fb199",
+                      "name":  "Started From Form?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       3360,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.mode }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "string",
+                                                                                                    "operation":  "equals"
+                                                                                                },
+                                                                                   "rightValue":  "form"
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "055300f2-1a02-4d47-8a1d-171fa4a06a59",
+                      "name":  "Show SEO Report",
+                      "type":  "n8n-nodes-base.form",
+                      "typeVersion":  2.5,
+                      "position":  [
+                                       3600,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "operation":  "completion",
+                                         "respondWith":  "showText",
+                                         "responseText":  "={{ $json.html }}"
+                                     },
+                      "webhookId":  "33939958-399e-4e72-8bd9-f86802413568"
+                  },
+                  {
+                      "id":  "86f4d33c-183e-4e08-9c2c-8616818f60f4",
+                      "name":  "Return SEO Report",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       3600,
+                                       240
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  true,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "r1",
+                                                                                     "name":  "agent",
+                                                                                     "value":  "seo",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         }
+                                     }
+                  },
+                  {
+                      "id":  "555ebf7b-c918-42fa-85ed-e2da093f7981",
+                      "name":  "Sticky Note 045a9a30",
+                      "type":  "n8n-nodes-base.stickyNote",
+                      "typeVersion":  1,
+                      "position":  [
+                                       670,
+                                       70
+                                   ],
+                      "parameters":  {
+                                         "content":  "## SEO Agent\n1. Crawls up to 5 pages and extracts on-page facts (title, meta, H1/H2, alt text, schema, canonical, hreflang, links, word count).\n2. Technical checks: robots.txt, XML sitemap, PageSpeed Insights / Core Web Vitals (free, no key).\n3. **Optional real keyword volumes** from Google Ads Keyword Planner: add a *Google Ads OAuth2* credential to **Keyword Planner Ideas** and paste your developer token in **Google Ads Settings**. Without it the agent estimates volumes.\n4. Gemini + Google Search builds keyword clusters, rewrites titles/metas, lists technical fixes and finds real backlink opportunities.",
+                                         "color":  4,
+                                         "width":  1260,
+                                         "height":  200
+                                     }
+                  }
+              ],
+    "connections":  {
+                        "SEO Audit Form":  {
+                                               "main":  [
+                                                            [
+                                                                {
+                                                                    "node":  "Normalize SEO Brief",
+                                                                    "type":  "main",
+                                                                    "index":  0
+                                                                }
+                                                            ]
+                                                        ]
+                                           },
+                        "Normalize SEO Brief":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "Build Page List",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "Called by Orchestrator":  {
+                                                       "main":  [
+                                                                    [
+                                                                        {
+                                                                            "node":  "Normalize SEO Brief",
+                                                                            "type":  "main",
+                                                                            "index":  0
+                                                                        }
+                                                                    ]
+                                                                ]
+                                                   },
+                        "Build Page List":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Fetch Page HTML",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Fetch Page HTML":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Audit On-Page SEO",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Audit On-Page SEO":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Fetch robots.txt",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Fetch robots.txt":  {
+                                                 "main":  [
+                                                              [
+                                                                  {
+                                                                      "node":  "Fetch sitemap.xml",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ]
+                                                          ]
+                                             },
+                        "Fetch sitemap.xml":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "PageSpeed Insights (mobile)",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "PageSpeed Insights (mobile)":  {
+                                                            "main":  [
+                                                                         [
+                                                                             {
+                                                                                 "node":  "Has Google Ads ID?",
+                                                                                 "type":  "main",
+                                                                                 "index":  0
+                                                                             }
+                                                                         ]
+                                                                     ]
+                                                        },
+                        "Has Google Ads ID?":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Google Ads Settings",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ],
+                                                                [
+                                                                    {
+                                                                        "node":  "Compile SEO Data",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               },
+                        "Google Ads Settings":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "Keyword Planner Ideas",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "Keyword Planner Ideas":  {
+                                                      "main":  [
+                                                                   [
+                                                                       {
+                                                                           "node":  "Compile SEO Data",
+                                                                           "type":  "main",
+                                                                           "index":  0
+                                                                       }
+                                                                   ]
+                                                               ]
+                                                  },
+                        "Compile SEO Data":  {
+                                                 "main":  [
+                                                              [
+                                                                  {
+                                                                      "node":  "SEO Agent",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ]
+                                                          ]
+                                             },
+                        "SEO Agent":  {
+                                          "main":  [
+                                                       [
+                                                           {
+                                                               "node":  "Build SEO Report",
+                                                               "type":  "main",
+                                                               "index":  0
+                                                           }
+                                                       ]
+                                                   ]
+                                      },
+                        "Build SEO Report":  {
+                                                 "main":  [
+                                                              [
+                                                                  {
+                                                                      "node":  "Started From Form?",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ]
+                                                          ]
+                                             },
+                        "Started From Form?":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Show SEO Report",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ],
+                                                                [
+                                                                    {
+                                                                        "node":  "Return SEO Report",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "availableInMCP":  true
+                 },
+    "staticData":  null,
+    "meta":  {
+                 "aiBuilderAssisted":  true,
+                 "builderVariant":  "mcp"
+             },
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  null,
+    "versionId":  "7b40f797-cb19-4082-ac60-b3488adaac4a",
+    "activeVersionId":  null,
+    "versionCounter":  1,
+    "triggerCount":  0,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  "Initial SEO Agent",
+                            "description":  "Created with 19 nodes: SEO Audit Form, Normalize SEO Brief, Called by Orchestrator, Build Page List, Fetch Page HTML and 14 more"
+                        }
+}

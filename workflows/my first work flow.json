@@ -1,0 +1,116 @@
+{
+    "updatedAt":  "2026-09-27T15:07:19.538Z",
+    "createdAt":  "2026-08-16T05:45:41.372Z",
+    "id":  "NDXgXTa4SlImvbJ4",
+    "name":  "my first work flow",
+    "description":  null,
+    "active":  true,
+    "isArchived":  false,
+    "nodes":  [
+                  {
+                      "parameters":  {
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "@n8n/n8n-nodes-langchain.chatTrigger",
+                      "typeVersion":  1.4,
+                      "position":  [
+                                       -336,
+                                       -64
+                                   ],
+                      "id":  "9776f01e-7648-413e-8b59-cb11ecefc3ac",
+                      "name":  "When chat message received",
+                      "webhookId":  "fa987241-15bd-47e9-9082-abedf8742a13"
+                  },
+                  {
+                      "parameters":  {
+                                         "promptType":  "define",
+                                         "text":  "=role:your are a feedback classifier \n\ntask:classify the feedback message into (positive , negative)\n\ncontext:use the following the text message:  {{ $json.chatInput }}\n\noutput format:only one word {positve or negative}",
+                                         "batching":  {
+
+                                                      }
+                                     },
+                      "type":  "@n8n/n8n-nodes-langchain.chainLlm",
+                      "typeVersion":  1.9,
+                      "position":  [
+                                       -128,
+                                       -64
+                                   ],
+                      "id":  "b9772e63-9f8e-4e5e-b339-9294e2081c0f",
+                      "name":  "Basic LLM Chain"
+                  },
+                  {
+                      "parameters":  {
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       -128,
+                                       128
+                                   ],
+                      "id":  "39502f34-618b-41f3-9306-d018eb70d54a",
+                      "name":  "Google Gemini Chat Model",
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      }
+                  }
+              ],
+    "connections":  {
+                        "When chat message received":  {
+                                                           "main":  [
+                                                                        [
+                                                                            {
+                                                                                "node":  "Basic LLM Chain",
+                                                                                "type":  "main",
+                                                                                "index":  0
+                                                                            }
+                                                                        ]
+                                                                    ]
+                                                       },
+                        "Google Gemini Chat Model":  {
+                                                         "ai_languageModel":  [
+                                                                                  [
+                                                                                      {
+                                                                                          "node":  "Basic LLM Chain",
+                                                                                          "type":  "ai_languageModel",
+                                                                                          "index":  0
+                                                                                      }
+                                                                                  ]
+                                                                              ]
+                                                     }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "binaryMode":  "separate",
+                     "availableInMCP":  true
+                 },
+    "staticData":  null,
+    "meta":  {
+                 "templateCredsSetupCompleted":  true
+             },
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  {
+
+                },
+    "versionId":  "b3f9e9b3-22ae-4c87-a258-0723cd5b5087",
+    "activeVersionId":  "b3f9e9b3-22ae-4c87-a258-0723cd5b5087",
+    "versionCounter":  58,
+    "triggerCount":  1,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  "first work flow DEPI",
+                            "description":  ""
+                        }
+}

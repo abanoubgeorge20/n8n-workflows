@@ -1,0 +1,116 @@
+{
+    "updatedAt":  "2026-09-27T15:07:19.538Z",
+    "createdAt":  "2026-08-16T16:15:23.484Z",
+    "id":  "tIHeltEcpRVOiQ2o",
+    "name":  "My workflow",
+    "description":  null,
+    "active":  true,
+    "isArchived":  false,
+    "nodes":  [
+                  {
+                      "parameters":  {
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "@n8n/n8n-nodes-langchain.chatTrigger",
+                      "typeVersion":  1.4,
+                      "position":  [
+                                       -368,
+                                       32
+                                   ],
+                      "id":  "d9cfe2a9-a5d4-4154-9440-876e52f12d49",
+                      "name":  "When chat message received",
+                      "webhookId":  "42fb88fd-8175-44af-b487-0323d5f09a41"
+                  },
+                  {
+                      "parameters":  {
+                                         "promptType":  "define",
+                                         "text":  "=translate the gmail message into epyption arabic {{ $json.chatInput }}",
+                                         "batching":  {
+
+                                                      }
+                                     },
+                      "type":  "@n8n/n8n-nodes-langchain.chainLlm",
+                      "typeVersion":  1.9,
+                      "position":  [
+                                       -96,
+                                       32
+                                   ],
+                      "id":  "fc7155f7-ea9c-4962-b56d-17843e4821bc",
+                      "name":  "Basic LLM Chain"
+                  },
+                  {
+                      "parameters":  {
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "type":  "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       -112,
+                                       240
+                                   ],
+                      "id":  "b1a1afd6-2ecb-4803-bbea-d2641bd06fbf",
+                      "name":  "Google Gemini Chat Model1",
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      }
+                  }
+              ],
+    "connections":  {
+                        "When chat message received":  {
+                                                           "main":  [
+                                                                        [
+                                                                            {
+                                                                                "node":  "Basic LLM Chain",
+                                                                                "type":  "main",
+                                                                                "index":  0
+                                                                            }
+                                                                        ]
+                                                                    ]
+                                                       },
+                        "Google Gemini Chat Model1":  {
+                                                          "ai_languageModel":  [
+                                                                                   [
+                                                                                       {
+                                                                                           "node":  "Basic LLM Chain",
+                                                                                           "type":  "ai_languageModel",
+                                                                                           "index":  0
+                                                                                       }
+                                                                                   ]
+                                                                               ]
+                                                      }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "binaryMode":  "separate",
+                     "availableInMCP":  true
+                 },
+    "staticData":  null,
+    "meta":  {
+                 "templateCredsSetupCompleted":  true
+             },
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  {
+
+                },
+    "versionId":  "30dc78a6-cf40-49a9-8220-3ff4b968031b",
+    "activeVersionId":  "30dc78a6-cf40-49a9-8220-3ff4b968031b",
+    "versionCounter":  21,
+    "triggerCount":  1,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  "translator",
+                            "description":  ""
+                        }
+}

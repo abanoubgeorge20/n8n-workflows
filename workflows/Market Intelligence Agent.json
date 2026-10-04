@@ -1,0 +1,1268 @@
+{
+    "updatedAt":  "2026-10-01T04:34:36.384Z",
+    "createdAt":  "2026-09-28T05:47:41.903Z",
+    "id":  "VKevyraKHDuavYJm",
+    "name":  "Market Intelligence Agent",
+    "description":  "Form-driven market intelligence agent: market \u0026 competitor analysis, customer personas, trend detection (news, social, web) and opportunity identification, using Gemini with Google Search. Returns an HTML report.",
+    "active":  false,
+    "isArchived":  false,
+    "nodes":  [
+                  {
+                      "parameters":  {
+                                         "formTitle":  "Market Intelligence Agent",
+                                         "formDescription":  "Describe your business and market. The agent researches the web, news, Reddit, TikTok and Facebook (posts + Ad Library) and returns a full report: market \u0026 competitors, customer personas, trends and opportunities. It takes around 5-10 minutes - keep this tab open.",
+                                         "formFields":  {
+                                                            "values":  [
+                                                                           {
+                                                                               "fieldLabel":  "Company / Product",
+                                                                               "fieldName":  "company",
+                                                                               "placeholder":  "e.g. Kent Business College",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Industry / Market",
+                                                                               "fieldName":  "industry",
+                                                                               "placeholder":  "e.g. Professional business training",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Known competitors (comma-separated, optional)",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "competitors",
+                                                                               "placeholder":  "Leave empty and the agent will discover them"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Competitor Facebook page URLs (one per line, optional)",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "fb_pages",
+                                                                               "placeholder":  "https://www.facebook.com/competitor"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "TikTok keywords / #hashtags (comma-separated, optional)",
+                                                                               "fieldName":  "tiktok_keywords",
+                                                                               "placeholder":  "e.g. #mba, business course"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Facebook Ads country code",
+                                                                               "fieldName":  "ads_country",
+                                                                               "placeholder":  "e.g. EG, GB, SA or ALL",
+                                                                               "defaultValue":  "ALL"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Target region",
+                                                                               "fieldName":  "region",
+                                                                               "defaultValue":  "Global"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Target customers (optional)",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "target_customers",
+                                                                               "placeholder":  "e.g. SMEs, fresh graduates, HR managers"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Specific questions or focus (optional)",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "focus"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Report language",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "language",
+                                                                               "defaultValue":  "Arabic",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Arabic"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "English"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                },
+                                                                               "requiredField":  true
+                                                                           }
+                                                                       ]
+                                                        },
+                                         "responseMode":  "lastNode",
+                                         "options":  {
+                                                         "appendAttribution":  false,
+                                                         "buttonLabel":  "Generate report",
+                                                         "path":  "market-intel"
+                                                     }
+                                     },
+                      "id":  "d6df4bfd-4ff0-4555-97a6-22c1ca06a159",
+                      "name":  "Market Intel Request Form",
+                      "type":  "n8n-nodes-base.formTrigger",
+                      "typeVersion":  2.6,
+                      "position":  [
+                                       0,
+                                       0
+                                   ],
+                      "webhookId":  "2028a159-06a8-4504-ad7e-f62bba9074f4"
+                  },
+                  {
+                      "parameters":  {
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "n1",
+                                                                                     "name":  "company",
+                                                                                     "value":  "={{ ($json.company ?? $json[\"Company / Product\"] ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n2",
+                                                                                     "name":  "industry",
+                                                                                     "value":  "={{ ($json.industry ?? $json[\"Industry / Market\"] ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n3",
+                                                                                     "name":  "competitors",
+                                                                                     "value":  "={{ ($json.competitors ?? \"\").trim() || \"Not provided - discover the main competitors yourself\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n4",
+                                                                                     "name":  "region",
+                                                                                     "value":  "={{ ($json.region ?? \"\").trim() || \"Global\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n5",
+                                                                                     "name":  "target_customers",
+                                                                                     "value":  "={{ ($json.target_customers ?? \"\").trim() || \"Not provided - infer from the market\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n6",
+                                                                                     "name":  "focus",
+                                                                                     "value":  "={{ ($json.focus ?? \"\").trim() || \"None\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n7",
+                                                                                     "name":  "language",
+                                                                                     "value":  "={{ $json.language ?? \"English\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n8",
+                                                                                     "name":  "searchQuery",
+                                                                                     "value":  "={{ ($json.industry ?? $json[\"Industry / Market\"] ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n9",
+                                                                                     "name":  "submittedAt",
+                                                                                     "value":  "={{ $json.submittedAt ?? $now.toISO() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n10",
+                                                                                     "name":  "competitors_raw",
+                                                                                     "value":  "={{ ($json.competitors ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n11",
+                                                                                     "name":  "fb_pages",
+                                                                                     "value":  "={{ ($json.fb_pages ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n12",
+                                                                                     "name":  "tiktok_keywords",
+                                                                                     "value":  "={{ ($json.tiktok_keywords ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n13",
+                                                                                     "name":  "ads_country",
+                                                                                     "value":  "={{ ($json.ads_country ?? \"\").trim().toUpperCase() || \"ALL\" }}",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "c468abd0-9dc6-4bf5-8ac2-2c4e6947e408",
+                      "name":  "Normalize Input",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       224,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "url":  "=https://news.google.com/rss/search?q={{ encodeURIComponent($json.searchQuery + \" when:30d\") }}\u0026{{ $json.language === \"Arabic\" ? \"hl=ar\u0026gl=EG\u0026ceid=EG:ar\" : \"hl=en-US\u0026gl=US\u0026ceid=US:en\" }}",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "35ca69ea-5d20-4a84-bc2a-9651a4208697",
+                      "name":  "Fetch Google News",
+                      "type":  "n8n-nodes-base.rssFeedRead",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       448,
+                                       0
+                                   ],
+                      "alwaysOutputData":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "parameters":  {
+                                         "url":  "https://www.reddit.com/search.json",
+                                         "sendQuery":  true,
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "q",
+                                                                                        "value":  "={{ $(\"Normalize Input\").first().json.searchQuery }}"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "sort",
+                                                                                        "value":  "relevance"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "t",
+                                                                                        "value":  "month"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "limit",
+                                                                                        "value":  "25"
+                                                                                    }
+                                                                                ]
+                                                             },
+                                         "sendHeaders":  true,
+                                         "headerParameters":  {
+                                                                  "parameters":  [
+                                                                                     {
+                                                                                         "name":  "User-Agent",
+                                                                                         "value":  "n8n-market-intel-agent/1.0"
+                                                                                     }
+                                                                                 ]
+                                                              },
+                                         "options":  {
+                                                         "timeout":  15000
+                                                     }
+                                     },
+                      "id":  "76feff66-351a-471d-9f7e-35c3240932c6",
+                      "name":  "Fetch Reddit Discussions",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       672,
+                                       0
+                                   ],
+                      "executeOnce":  true,
+                      "alwaysOutputData":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "parameters":  {
+                                         "url":  "https://hn.algolia.com/api/v1/search_by_date",
+                                         "sendQuery":  true,
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "query",
+                                                                                        "value":  "={{ $(\"Normalize Input\").first().json.searchQuery }}"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "tags",
+                                                                                        "value":  "story"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "hitsPerPage",
+                                                                                        "value":  "20"
+                                                                                    }
+                                                                                ]
+                                                             },
+                                         "options":  {
+                                                         "timeout":  15000
+                                                     }
+                                     },
+                      "id":  "702f2740-7b56-493e-a1d8-cc6eafb31f49",
+                      "name":  "Fetch Hacker News",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       896,
+                                       0
+                                   ],
+                      "executeOnce":  true,
+                      "alwaysOutputData":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "const input = $(\u0027Normalize Input\u0027).first().json;\nfunction safeAll(name) { try { return $(name).all().map(i =\u003e i.json); } catch (e) { return []; } }\nfunction num(v) { return Number(v) || 0; }\nconst newsItems = safeAll(\u0027Fetch Google News\u0027).filter(j =\u003e j \u0026\u0026 j.title).slice(0, 25).map(j =\u003e ({ title: j.title, link: j.link || \u0027\u0027, date: j.pubDate || j.isoDate || \u0027\u0027 }));\nconst redditJson = safeAll(\u0027Fetch Reddit Discussions\u0027)[0] || {};\nconst redditPosts = ((redditJson.data \u0026\u0026 redditJson.data.children) || []).map(c =\u003e c.data).filter(Boolean).slice(0, 20).map(p =\u003e ({ source: \u0027Reddit r/\u0027 + p.subreddit, title: p.title, engagement: (p.score || 0) + \u0027 upvotes, \u0027 + (p.num_comments || 0) + \u0027 comments\u0027, link: \u0027https://www.reddit.com\u0027 + (p.permalink || \u0027\u0027) }));\nconst hnJson = safeAll(\u0027Fetch Hacker News\u0027)[0] || {};\nconst hnPosts = (hnJson.hits || []).filter(h =\u003e h.title).slice(0, 15).map(h =\u003e ({ source: \u0027Hacker News\u0027, title: h.title, engagement: (h.points || 0) + \u0027 points\u0027, link: h.url || (\u0027https://news.ycombinator.com/item?id=\u0027 + h.objectID) }));\nconst socialItems = redditPosts.concat(hnPosts);\nconst tiktokVideos = safeAll(\u0027Fetch TikTok Videos\u0027).filter(v =\u003e v \u0026\u0026 !v.error \u0026\u0026 (v.webVideoUrl || v.text)).map(v =\u003e ({ text: String(v.text || \u0027\u0027).slice(0, 200), views: num(v.playCount), likes: num(v.diggCount), shares: num(v.shareCount), comments: num(v.commentCount), author: (v.authorMeta \u0026\u0026 (v.authorMeta.name || v.authorMeta.nickName)) || \u0027\u0027, hashtags: (v.hashtags || []).map(h =\u003e (h \u0026\u0026 h.name) || h).filter(x =\u003e typeof x === \u0027string\u0027 \u0026\u0026 x).slice(0, 6), date: v.createTimeISO || \u0027\u0027, link: v.webVideoUrl || \u0027\u0027 })).sort((a, b) =\u003e b.views - a.views).slice(0, 20);\nconst tiktokComments = safeAll(\u0027Fetch TikTok Comments\u0027).filter(c =\u003e c \u0026\u0026 !c.error \u0026\u0026 c.text).sort((a, b) =\u003e num(b.diggCount) - num(a.diggCount)).slice(0, 40).map(c =\u003e ({ text: String(c.text).slice(0, 200), likes: num(c.diggCount), link: c.videoWebUrl || \u0027\u0027 }));\nconst fbPosts = safeAll(\u0027Fetch Facebook Page Posts\u0027).filter(p =\u003e p \u0026\u0026 !p.error \u0026\u0026 (p.text || p.url)).slice(0, 25).map(p =\u003e ({ page: p.pageName || (p.user \u0026\u0026 p.user.name) || \u0027\u0027, text: String(p.text || \u0027\u0027).slice(0, 250), likes: num(p.likes || p.reactionsCount), comments: num(p.comments || p.commentsCount), shares: num(p.shares || p.sharesCount), date: p.time || \u0027\u0027, link: p.url || p.topLevelUrl || \u0027\u0027 }));\nconst fbAds = safeAll(\u0027Fetch Facebook Ads\u0027).filter(a =\u003e a \u0026\u0026 !a.error \u0026\u0026 (a.pageName || a.page_name || a.snapshot)).slice(0, 30).map(a =\u003e { const s = a.snapshot || {}; const card = (s.cards \u0026\u0026 s.cards[0]) || {}; const body = (s.body \u0026\u0026 (s.body.text || (s.body.markup \u0026\u0026 s.body.markup.__html))) || card.body || a.adText || \u0027\u0027; const plats = a.publisherPlatform || a.publisher_platform || []; return { page: a.pageName || a.page_name || s.page_name || \u0027\u0027, title: s.title || card.title || \u0027\u0027, text: String(body).replace(/\u003c[^\u003e]+\u003e/g, \u0027\u0027).slice(0, 250), cta: s.cta_text || card.cta_text || \u0027\u0027, start: a.startDateFormatted || a.start_date || \u0027\u0027, platforms: Array.isArray(plats) ? plats.join(\u0027, \u0027) : String(plats), link: a.adArchiveID ? \u0027https://www.facebook.com/ads/library/?id=\u0027 + a.adArchiveID : (a.url || \u0027\u0027) }; });\nconst newsDigest = newsItems.map(n =\u003e \u0027- \u0027 + n.title + \u0027 (\u0027 + n.date + \u0027) \u0027 + n.link).join(\u0027\\n\u0027) || \u0027No recent news items were fetched.\u0027;\nconst socialDigest = socialItems.map(s =\u003e \u0027- [\u0027 + s.source + \u0027] \u0027 + s.title + \u0027 (\u0027 + s.engagement + \u0027) \u0027 + s.link).join(\u0027\\n\u0027) || \u0027No Reddit/HN posts were fetched.\u0027;\nconst tiktokDigest = tiktokVideos.map(v =\u003e \u0027- \u0027 + v.views + \u0027 views, \u0027 + v.likes + \u0027 likes, \u0027 + v.shares + \u0027 shares | @\u0027 + v.author + \u0027 | \u0027 + v.text + \u0027 | \u0027 + v.hashtags.map(x =\u003e \u0027#\u0027 + x).join(\u0027 \u0027) + \u0027 | \u0027 + v.date).join(\u0027\\n\u0027) || \u0027No TikTok data was fetched.\u0027;\nconst tiktokCommentsDigest = tiktokComments.map(c =\u003e \u0027- (\u0027 + c.likes + \u0027 likes) \u0027 + c.text).join(\u0027\\n\u0027) || \u0027No TikTok comments were fetched.\u0027;\nconst fbPostsDigest = fbPosts.map(p =\u003e \u0027- [\u0027 + p.page + \u0027] \u0027 + p.text + \u0027 (\u0027 + p.likes + \u0027 reactions, \u0027 + p.comments + \u0027 comments, \u0027 + p.shares + \u0027 shares) \u0027 + p.date).join(\u0027\\n\u0027) || \u0027No Facebook page posts were fetched.\u0027;\nconst fbAdsDigest = fbAds.map(a =\u003e \u0027- [\u0027 + a.page + \u0027] \u0027 + (a.title ? a.title + \u0027 - \u0027 : \u0027\u0027) + a.text + (a.cta ? \u0027 | CTA: \u0027 + a.cta : \u0027\u0027) + (a.start ? \u0027 | running since \u0027 + a.start : \u0027\u0027)).join(\u0027\\n\u0027) || \u0027No Facebook ads were fetched.\u0027;\nconst businessContext = \u0027Company/Product: \u0027 + input.company + \u0027\\nIndustry/Market: \u0027 + input.industry + \u0027\\nRegion: \u0027 + input.region + \u0027\\nKnown competitors: \u0027 + input.competitors + \u0027\\nTarget customers: \u0027 + input.target_customers + \u0027\\nSpecific focus: \u0027 + input.focus + \u0027\\nToday: \u0027 + $now.toFormat(\u0027yyyy-MM-dd\u0027);\nreturn [{ json: { ...input, businessContext, newsDigest, socialDigest, tiktokDigest, tiktokCommentsDigest, fbPostsDigest, fbAdsDigest, newsItems, socialItems, tiktokVideos, fbAds, fbPosts } }];"
+                                     },
+                      "id":  "c55e85d0-7e75-4b5e-ab54-05e697221338",
+                      "name":  "Build Research Context",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       2240,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "modelId":  {
+                                                         "__rl":  true,
+                                                         "mode":  "id",
+                                                         "value":  "models/gemini-3-flash-preview"
+                                                     },
+                                         "messages":  {
+                                                          "values":  [
+                                                                         {
+                                                                             "content":  "=Business context:\n{{ $(\"Build Research Context\").first().json.businessContext }}\n\nCompetitor Facebook ads currently running (Meta Ad Library):\n{{ $(\"Build Research Context\").first().json.fbAdsDigest }}\n\nRecent competitor Facebook page posts:\n{{ $(\"Build Research Context\").first().json.fbPostsDigest }}\n\nTask: Research the market and competitive landscape using Google Search. Identify market size, growth rate, key drivers and challenges in the target region, and profile the 4-6 most relevant competitors (use the known competitors if provided, and add any important missing ones). Use the Facebook ads and posts above to infer each competitor\u0027s messaging, offers, pricing signals and positioning, and reflect that in positioning, pricing and recent_moves. Visit competitor websites where useful.\n\nJSON shape:\n{\"market_overview\":{\"summary\":\"\",\"market_size\":\"\",\"growth_rate\":\"\",\"key_drivers\":[\"\"],\"challenges\":[\"\"]},\"competitors\":[{\"name\":\"\",\"website\":\"\",\"positioning\":\"\",\"target_segment\":\"\",\"pricing\":\"\",\"strengths\":[\"\"],\"weaknesses\":[\"\"],\"recent_moves\":\"\"}],\"competitive_gaps\":[\"\"],\"sources\":[{\"title\":\"\",\"url\":\"\"}]} Return ONLY one valid JSON object (no markdown fences, no commentary). Keep JSON keys exactly in English as specified; write all text values in {{ $(\"Build Research Context\").first().json.language }}. Base claims on Google Search results and the provided social data, and cite real source URLs. If a number is an estimate, say so."
+                                                                         }
+                                                                     ]
+                                                      },
+                                         "builtInTools":  {
+                                                              "googleSearch":  true,
+                                                              "urlContext":  true
+                                                          },
+                                         "options":  {
+                                                         "includeMergedResponse":  true,
+                                                         "systemMessage":  "You are a senior market research analyst. You are rigorous, specific and data-driven, and you never invent sources.",
+                                                         "maxOutputTokens":  8192,
+                                                         "temperature":  0.4,
+                                                         "maxToolsIterations":  15
+                                                     }
+                                     },
+                      "id":  "a6c0510d-83d3-4d16-b584-ca0fa8382f10",
+                      "name":  "Market \u0026 Competitor Analysis",
+                      "type":  "@n8n/n8n-nodes-langchain.googleGemini",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       2464,
+                                       0
+                                   ],
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  5000,
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "modelId":  {
+                                                         "__rl":  true,
+                                                         "mode":  "id",
+                                                         "value":  "models/gemini-3-flash-preview"
+                                                     },
+                                         "messages":  {
+                                                          "values":  [
+                                                                         {
+                                                                             "content":  "=Business context:\n{{ $(\"Build Research Context\").first().json.businessContext }}\n\nRecent discussions (Reddit / Hacker News):\n{{ $(\"Build Research Context\").first().json.socialDigest }}\n\nTikTok comments on top videos in this space (voice of customer):\n{{ $(\"Build Research Context\").first().json.tiktokCommentsDigest }}\n\nCompetitor Facebook page posts and their engagement:\n{{ $(\"Build Research Context\").first().json.fbPostsDigest }}\n\nTask: Build 3-4 evidence-based customer personas for this market. Combine the social data above with Google Search (reviews, forums, surveys, complaints about this market and its competitors). For each persona capture goals, pain points, buying triggers, objections and preferred channels, and use a real comment as the quote where possible. Also summarize overall customer sentiment and unmet needs.\n\nJSON shape:\n{\"personas\":[{\"name\":\"\",\"profile\":\"\",\"demographics\":\"\",\"goals\":[\"\"],\"pain_points\":[\"\"],\"buying_triggers\":[\"\"],\"objections\":[\"\"],\"channels\":[\"\"],\"quote\":\"\"}],\"unmet_needs\":[\"\"],\"sentiment_summary\":\"\",\"sources\":[{\"title\":\"\",\"url\":\"\"}]} Return ONLY one valid JSON object (no markdown fences, no commentary). Keep JSON keys exactly in English as specified; write all text values in {{ $(\"Build Research Context\").first().json.language }}. Base claims on Google Search results and the provided social data, and cite real source URLs. If a number is an estimate, say so."
+                                                                         }
+                                                                     ]
+                                                      },
+                                         "builtInTools":  {
+                                                              "googleSearch":  true,
+                                                              "urlContext":  true
+                                                          },
+                                         "options":  {
+                                                         "includeMergedResponse":  true,
+                                                         "systemMessage":  "You are a customer research and UX insights expert who builds personas grounded in real voice-of-customer evidence.",
+                                                         "maxOutputTokens":  8192,
+                                                         "temperature":  0.4,
+                                                         "maxToolsIterations":  15
+                                                     }
+                                     },
+                      "id":  "48a22d88-0840-409f-960e-b363fafb1abc",
+                      "name":  "Customer \u0026 Persona Insights",
+                      "type":  "@n8n/n8n-nodes-langchain.googleGemini",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       2688,
+                                       0
+                                   ],
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  5000,
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "modelId":  {
+                                                         "__rl":  true,
+                                                         "mode":  "id",
+                                                         "value":  "models/gemini-3-flash-preview"
+                                                     },
+                                         "messages":  {
+                                                          "values":  [
+                                                                         {
+                                                                             "content":  "=Business context:\n{{ $(\"Build Research Context\").first().json.businessContext }}\n\nLatest news headlines (Google News, last 30 days):\n{{ $(\"Build Research Context\").first().json.newsDigest }}\n\nRecent discussions (Reddit / Hacker News):\n{{ $(\"Build Research Context\").first().json.socialDigest }}\n\nTop TikTok videos in this space (views, likes, shares, hashtags, date):\n{{ $(\"Build Research Context\").first().json.tiktokDigest }}\n\nCompetitor Facebook ads currently running:\n{{ $(\"Build Research Context\").first().json.fbAdsDigest }}\n\nTask: Detect the 6-10 most important trends affecting this market by combining the news, Reddit/HN, TikTok engagement and hashtags, competitor ad themes and additional Google Search research (technology, regulation, consumer behaviour, pricing, channels). Use TikTok view/like counts and repeated hashtags as evidence for social trends, and repeated ad themes as evidence for where competitors are investing. Classify each trend, rate its momentum and impact, and give concrete evidence. Also list weak signals that could become big.\n\nJSON shape:\n{\"trends\":[{\"title\":\"\",\"category\":\"news|social|web|technology|regulation|consumer\",\"description\":\"\",\"momentum\":\"emerging|rising|peaking|declining\",\"impact\":\"high|medium|low\",\"evidence\":\"\"}],\"weak_signals\":[\"\"],\"sources\":[{\"title\":\"\",\"url\":\"\"}]} Return ONLY one valid JSON object (no markdown fences, no commentary). Keep JSON keys exactly in English as specified; write all text values in {{ $(\"Build Research Context\").first().json.language }}. Base claims on Google Search results and the provided social data, and cite real source URLs. If a number is an estimate, say so."
+                                                                         }
+                                                                     ]
+                                                      },
+                                         "builtInTools":  {
+                                                              "googleSearch":  true,
+                                                              "urlContext":  true
+                                                          },
+                                         "options":  {
+                                                         "includeMergedResponse":  true,
+                                                         "systemMessage":  "You are a trend forecaster who separates real, evidence-backed trends from hype.",
+                                                         "maxOutputTokens":  8192,
+                                                         "temperature":  0.4,
+                                                         "maxToolsIterations":  15
+                                                     }
+                                     },
+                      "id":  "79cb2699-d5ab-41cd-8c23-cac21441d15c",
+                      "name":  "Trend Detection",
+                      "type":  "@n8n/n8n-nodes-langchain.googleGemini",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       2912,
+                                       0
+                                   ],
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  5000,
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "function textOf(j) {\n  if (!j) return \u0027\u0027;\n  if (typeof j.mergedResponse === \u0027string\u0027 \u0026\u0026 j.mergedResponse) return j.mergedResponse;\n  const parts = (j.content \u0026\u0026 j.content.parts) || (j.candidates \u0026\u0026 j.candidates[0] \u0026\u0026 j.candidates[0].content \u0026\u0026 j.candidates[0].content.parts);\n  if (Array.isArray(parts)) return parts.map(p =\u003e p.text || \u0027\u0027).join(\u0027\u0027);\n  if (typeof j.text === \u0027string\u0027) return j.text;\n  if (typeof j.output === \u0027string\u0027) return j.output;\n  return JSON.stringify(j);\n}\nfunction parseJson(t) {\n  const s = String(t || \u0027\u0027).trim().replace(/^\\s*\\x60\\x60\\x60(?:json)?/i, \u0027\u0027).replace(/\\x60\\x60\\x60\\s*$/, \u0027\u0027);\n  const a = s.indexOf(\u0027{\u0027); const b = s.lastIndexOf(\u0027}\u0027);\n  if (a \u003e= 0 \u0026\u0026 b \u003e a) { try { return JSON.parse(s.slice(a, b + 1)); } catch (e) {} }\n  return { parse_error: true, raw: String(t || \u0027\u0027) };\n}\nconst market = parseJson(textOf($(\u0027Market \u0026 Competitor Analysis\u0027).first().json));\nconst customers = parseJson(textOf($(\u0027Customer \u0026 Persona Insights\u0027).first().json));\nconst trends = parseJson(textOf($(\u0027Trend Detection\u0027).first().json));\nconst ctx = $(\u0027Build Research Context\u0027).first().json;\nreturn [{ json: { ...ctx, market, customers, trends, synthesisInput: JSON.stringify({ market, customers, trends }).slice(0, 60000) } }];"
+                                     },
+                      "id":  "b9e11ccb-5098-4a83-9f0b-5fcb4d84e0bd",
+                      "name":  "Collect Analyses",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       3136,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "modelId":  {
+                                                         "__rl":  true,
+                                                         "mode":  "id",
+                                                         "value":  "models/gemini-3-flash-preview"
+                                                     },
+                                         "messages":  {
+                                                          "values":  [
+                                                                         {
+                                                                             "content":  "=Business context:\n{{ $json.businessContext }}\n\nResearch findings (market, competitors, personas, trends) as JSON:\n{{ $json.synthesisInput }}\n\nTask: Act as a growth strategist. Cross-reference competitive gaps, unmet customer needs and rising trends to identify the 5-8 best business opportunities for this company (new products/services, segments, channels, pricing, partnerships, positioning). Score each for impact and effort (1-10), link it to a persona and a trend, and give concrete first steps. Use Google Search only to validate if needed. Also write an executive summary of the whole analysis, the key risks and the top recommended next actions.\n\nJSON shape:\n{\"executive_summary\":\"\",\"opportunities\":[{\"title\":\"\",\"description\":\"\",\"type\":\"product|segment|channel|pricing|partnership|positioning\",\"target_persona\":\"\",\"linked_trend\":\"\",\"rationale\":\"\",\"impact_score\":0,\"effort_score\":0,\"time_horizon\":\"0-3 months|3-12 months|12+ months\",\"first_steps\":[\"\"]}],\"risks\":[\"\"],\"recommended_next_actions\":[\"\"]} Return ONLY one valid JSON object (no markdown fences, no commentary). Keep JSON keys exactly in English as specified; write all text values in {{ $json.language }}. Be specific and actionable."
+                                                                         }
+                                                                     ]
+                                                      },
+                                         "builtInTools":  {
+                                                              "googleSearch":  true
+                                                          },
+                                         "options":  {
+                                                         "includeMergedResponse":  true,
+                                                         "systemMessage":  "You are a pragmatic growth strategist. You prioritise opportunities that are specific, evidence-backed and actionable.",
+                                                         "maxOutputTokens":  8192,
+                                                         "temperature":  0.4,
+                                                         "maxToolsIterations":  10
+                                                     }
+                                     },
+                      "id":  "eb8249b2-e78f-4b2d-9ffb-cc64070f0680",
+                      "name":  "Opportunity Identification",
+                      "type":  "@n8n/n8n-nodes-langchain.googleGemini",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       3360,
+                                       0
+                                   ],
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  5000,
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "function textOf(j) {\n  if (!j) return \u0027\u0027;\n  if (typeof j.mergedResponse === \u0027string\u0027 \u0026\u0026 j.mergedResponse) return j.mergedResponse;\n  const parts = (j.content \u0026\u0026 j.content.parts) || (j.candidates \u0026\u0026 j.candidates[0] \u0026\u0026 j.candidates[0].content \u0026\u0026 j.candidates[0].content.parts);\n  if (Array.isArray(parts)) return parts.map(p =\u003e p.text || \u0027\u0027).join(\u0027\u0027);\n  if (typeof j.text === \u0027string\u0027) return j.text;\n  return JSON.stringify(j);\n}\nfunction parseJson(t) {\n  const s = String(t || \u0027\u0027).trim().replace(/^\\s*\\x60\\x60\\x60(?:json)?/i, \u0027\u0027).replace(/\\x60\\x60\\x60\\s*$/, \u0027\u0027);\n  const a = s.indexOf(\u0027{\u0027); const b = s.lastIndexOf(\u0027}\u0027);\n  if (a \u003e= 0 \u0026\u0026 b \u003e a) { try { return JSON.parse(s.slice(a, b + 1)); } catch (e) {} }\n  return { parse_error: true, raw: String(t || \u0027\u0027) };\n}\nconst d = $(\u0027Collect Analyses\u0027).first().json;\nconst opp = parseJson(textOf($(\u0027Opportunity Identification\u0027).first().json));\nconst ar = d.language === \u0027Arabic\u0027;\nconst L = ar ? { title: \u0027تقرير ذكاء السوق\u0027, summary: \u0027الملخص التنفيذي\u0027, market: \u0027تحليل السوق والمنافسين\u0027, size: \u0027حجم السوق\u0027, growth: \u0027معدل النمو\u0027, drivers: \u0027المحركات الرئيسية\u0027, challenges: \u0027التحديات\u0027, comps: \u0027المنافسون\u0027, strengths: \u0027نقاط القوة\u0027, weaknesses: \u0027نقاط الضعف\u0027, pricing: \u0027التسعير\u0027, gaps: \u0027فجوات تنافسية\u0027, personas: \u0027العملاء والـ Personas\u0027, goals: \u0027الأهداف\u0027, pains: \u0027نقاط الألم\u0027, triggers: \u0027دوافع الشراء\u0027, objections: \u0027الاعتراضات\u0027, channels: \u0027القنوات\u0027, needs: \u0027احتياجات غير ملباة\u0027, sentiment: \u0027انطباع العملاء\u0027, trends: \u0027رصد الاتجاهات\u0027, trend: \u0027الاتجاه\u0027, category: \u0027الفئة\u0027, momentum: \u0027الزخم\u0027, weak: \u0027إشارات مبكرة\u0027, opps: \u0027الفرص\u0027, impact: \u0027التأثير\u0027, effort: \u0027الجهد\u0027, steps: \u0027أول خطوات\u0027, risks: \u0027المخاطر\u0027, next: \u0027الخطوات المقترحة\u0027, news: \u0027أحدث الأخبار\u0027, social: \u0027نقاشات السوشيال\u0027, sources: \u0027المصادر\u0027, generated: \u0027تاريخ التقرير\u0027 } : { title: \u0027Market Intelligence Report\u0027, summary: \u0027Executive summary\u0027, market: \u0027Market \u0026 competitor analysis\u0027, size: \u0027Market size\u0027, growth: \u0027Growth rate\u0027, drivers: \u0027Key drivers\u0027, challenges: \u0027Challenges\u0027, comps: \u0027Competitors\u0027, strengths: \u0027Strengths\u0027, weaknesses: \u0027Weaknesses\u0027, pricing: \u0027Pricing\u0027, gaps: \u0027Competitive gaps\u0027, personas: \u0027Customers \u0026 personas\u0027, goals: \u0027Goals\u0027, pains: \u0027Pain points\u0027, triggers: \u0027Buying triggers\u0027, objections: \u0027Objections\u0027, channels: \u0027Channels\u0027, needs: \u0027Unmet needs\u0027, sentiment: \u0027Customer sentiment\u0027, trends: \u0027Trend detection\u0027, trend: \u0027Trend\u0027, category: \u0027Category\u0027, momentum: \u0027Momentum\u0027, weak: \u0027Weak signals\u0027, opps: \u0027Opportunities\u0027, impact: \u0027Impact\u0027, effort: \u0027Effort\u0027, steps: \u0027First steps\u0027, risks: \u0027Risks\u0027, next: \u0027Recommended next actions\u0027, news: \u0027Latest news\u0027, social: \u0027Social discussions\u0027, sources: \u0027Sources\u0027, generated: \u0027Generated\u0027 };\nfunction esc(v) { return String(v == null ? \u0027\u0027 : v).replace(/\u0026/g, \u0027\u0026amp;\u0027).replace(/\u003c/g, \u0027\u0026lt;\u0027).replace(/\u003e/g, \u0027\u0026gt;\u0027).replace(/\"/g, \u0027\u0026quot;\u0027); }\nfunction arr(v) { return Array.isArray(v) ? v : (v ? [v] : []); }\nfunction list(items) { const a = arr(items).filter(Boolean); return a.length ? \u0027\u003cul\u003e\u0027 + a.map(i =\u003e \u0027\u003cli\u003e\u0027 + esc(typeof i === \u0027object\u0027 ? JSON.stringify(i) : i) + \u0027\u003c/li\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/ul\u003e\u0027 : \u0027\u003cp class=\"muted\"\u003e-\u003c/p\u003e\u0027; }\nfunction link(u, t) { return u ? \u0027\u003ca href=\"\u0027 + esc(u) + \u0027\" target=\"_blank\" rel=\"noopener\"\u003e\u0027 + esc(t || u) + \u0027\u003c/a\u003e\u0027 : esc(t); }\nfunction raw(o) { return o \u0026\u0026 o.parse_error ? \u0027\u003cpre\u003e\u0027 + esc(o.raw) + \u0027\u003c/pre\u003e\u0027 : \u0027\u0027; }\nconst m = d.market || {}; const mo = m.market_overview || {};\nconst c = d.customers || {}; const t = d.trends || {};\nlet h = \u0027\u0027;\nh += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.summary + \u0027\u003c/h2\u003e\u003cp\u003e\u0027 + esc(opp.executive_summary) + \u0027\u003c/p\u003e\u0027 + raw(opp) + \u0027\u003c/section\u003e\u0027;\nh += \u0027\u003csection\u003e\u003ch2\u003e1. \u0027 + L.market + \u0027\u003c/h2\u003e\u0027 + raw(m) + \u0027\u003cp\u003e\u0027 + esc(mo.summary) + \u0027\u003c/p\u003e\u0027;\nh += \u0027\u003cdiv class=\"kpis\"\u003e\u003cdiv class=\"kpi\"\u003e\u003cspan\u003e\u0027 + L.size + \u0027\u003c/span\u003e\u003cb\u003e\u0027 + esc(mo.market_size || \u0027-\u0027) + \u0027\u003c/b\u003e\u003c/div\u003e\u003cdiv class=\"kpi\"\u003e\u003cspan\u003e\u0027 + L.growth + \u0027\u003c/span\u003e\u003cb\u003e\u0027 + esc(mo.growth_rate || \u0027-\u0027) + \u0027\u003c/b\u003e\u003c/div\u003e\u003c/div\u003e\u0027;\nh += \u0027\u003cdiv class=\"grid2\"\u003e\u003cdiv\u003e\u003ch3\u003e\u0027 + L.drivers + \u0027\u003c/h3\u003e\u0027 + list(mo.key_drivers) + \u0027\u003c/div\u003e\u003cdiv\u003e\u003ch3\u003e\u0027 + L.challenges + \u0027\u003c/h3\u003e\u0027 + list(mo.challenges) + \u0027\u003c/div\u003e\u003c/div\u003e\u0027;\nh += \u0027\u003ch3\u003e\u0027 + L.comps + \u0027\u003c/h3\u003e\u003cdiv class=\"cards\"\u003e\u0027 + arr(m.competitors).map(x =\u003e \u0027\u003cdiv class=\"card\"\u003e\u003ch4\u003e\u0027 + link(x.website, x.name) + \u0027\u003c/h4\u003e\u003cp\u003e\u0027 + esc(x.positioning) + \u0027\u003c/p\u003e\u003cp class=\"muted\"\u003e\u0027 + esc(x.target_segment) + (x.pricing ? \u0027 · \u0027 + L.pricing + \u0027: \u0027 + esc(x.pricing) : \u0027\u0027) + \u0027\u003c/p\u003e\u003cdiv class=\"grid2\"\u003e\u003cdiv\u003e\u003cb class=\"good\"\u003e\u0027 + L.strengths + \u0027\u003c/b\u003e\u0027 + list(x.strengths) + \u0027\u003c/div\u003e\u003cdiv\u003e\u003cb class=\"bad\"\u003e\u0027 + L.weaknesses + \u0027\u003c/b\u003e\u0027 + list(x.weaknesses) + \u0027\u003c/div\u003e\u003c/div\u003e\u0027 + (x.recent_moves ? \u0027\u003cp class=\"muted\"\u003e\u0027 + esc(x.recent_moves) + \u0027\u003c/p\u003e\u0027 : \u0027\u0027) + \u0027\u003c/div\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/div\u003e\u0027;\nh += \u0027\u003ch3\u003e\u0027 + L.gaps + \u0027\u003c/h3\u003e\u0027 + list(m.competitive_gaps) + \u0027\u003c/section\u003e\u0027;\nh += \u0027\u003csection\u003e\u003ch2\u003e2. \u0027 + L.personas + \u0027\u003c/h2\u003e\u0027 + raw(c) + \u0027\u003cdiv class=\"cards\"\u003e\u0027 + arr(c.personas).map(p =\u003e \u0027\u003cdiv class=\"card\"\u003e\u003ch4\u003e\u0027 + esc(p.name) + \u0027\u003c/h4\u003e\u003cp class=\"muted\"\u003e\u0027 + esc(p.profile) + (p.demographics ? \u0027 · \u0027 + esc(p.demographics) : \u0027\u0027) + \u0027\u003c/p\u003e\u0027 + (p.quote ? \u0027\u003cblockquote\u003e\u0027 + esc(p.quote) + \u0027\u003c/blockquote\u003e\u0027 : \u0027\u0027) + \u0027\u003cb\u003e\u0027 + L.goals + \u0027\u003c/b\u003e\u0027 + list(p.goals) + \u0027\u003cb\u003e\u0027 + L.pains + \u0027\u003c/b\u003e\u0027 + list(p.pain_points) + \u0027\u003cb\u003e\u0027 + L.triggers + \u0027\u003c/b\u003e\u0027 + list(p.buying_triggers) + \u0027\u003cb\u003e\u0027 + L.objections + \u0027\u003c/b\u003e\u0027 + list(p.objections) + \u0027\u003cb\u003e\u0027 + L.channels + \u0027\u003c/b\u003e\u0027 + list(p.channels) + \u0027\u003c/div\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/div\u003e\u0027;\nh += \u0027\u003cdiv class=\"grid2\"\u003e\u003cdiv\u003e\u003ch3\u003e\u0027 + L.needs + \u0027\u003c/h3\u003e\u0027 + list(c.unmet_needs) + \u0027\u003c/div\u003e\u003cdiv\u003e\u003ch3\u003e\u0027 + L.sentiment + \u0027\u003c/h3\u003e\u003cp\u003e\u0027 + esc(c.sentiment_summary) + \u0027\u003c/p\u003e\u003c/div\u003e\u003c/div\u003e\u003c/section\u003e\u0027;\nh += \u0027\u003csection\u003e\u003ch2\u003e3. \u0027 + L.trends + \u0027\u003c/h2\u003e\u0027 + raw(t) + \u0027\u003cdiv class=\"tbl\"\u003e\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003e\u0027 + L.trend + \u0027\u003c/th\u003e\u003cth\u003e\u0027 + L.category + \u0027\u003c/th\u003e\u003cth\u003e\u0027 + L.momentum + \u0027\u003c/th\u003e\u003cth\u003e\u0027 + L.impact + \u0027\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u0027 + arr(t.trends).map(x =\u003e \u0027\u003ctr\u003e\u003ctd\u003e\u003cb\u003e\u0027 + esc(x.title) + \u0027\u003c/b\u003e\u003cbr\u003e\u003cspan class=\"muted\"\u003e\u0027 + esc(x.description) + \u0027\u003c/span\u003e\u0027 + (x.evidence ? \u0027\u003cbr\u003e\u003csmall\u003e\u0027 + esc(x.evidence) + \u0027\u003c/small\u003e\u0027 : \u0027\u0027) + \u0027\u003c/td\u003e\u003ctd\u003e\u003cspan class=\"tag\"\u003e\u0027 + esc(x.category) + \u0027\u003c/span\u003e\u003c/td\u003e\u003ctd\u003e\u0027 + esc(x.momentum) + \u0027\u003c/td\u003e\u003ctd\u003e\u003cspan class=\"tag imp-\u0027 + esc(String(x.impact || \u0027\u0027).toLowerCase()) + \u0027\"\u003e\u0027 + esc(x.impact) + \u0027\u003c/span\u003e\u003c/td\u003e\u003c/tr\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003e\u0027;\nh += \u0027\u003ch3\u003e\u0027 + L.weak + \u0027\u003c/h3\u003e\u0027 + list(t.weak_signals) + \u0027\u003c/section\u003e\u0027;\nconst opps = arr(opp.opportunities).slice().sort((a, b) =\u003e ((Number(b.impact_score) || 0) - (Number(b.effort_score) || 0) / 2) - ((Number(a.impact_score) || 0) - (Number(a.effort_score) || 0) / 2));\nh += \u0027\u003csection\u003e\u003ch2\u003e4. \u0027 + L.opps + \u0027\u003c/h2\u003e\u003cdiv class=\"cards\"\u003e\u0027 + opps.map((o, i) =\u003e \u0027\u003cdiv class=\"card\"\u003e\u003ch4\u003e\u0027 + (i + 1) + \u0027. \u0027 + esc(o.title) + \u0027\u003c/h4\u003e\u003cp\u003e\u003cspan class=\"tag\"\u003e\u0027 + esc(o.type) + \u0027\u003c/span\u003e \u003cspan class=\"tag\"\u003e\u0027 + esc(o.time_horizon) + \u0027\u003c/span\u003e\u003c/p\u003e\u003cp\u003e\u0027 + esc(o.description) + \u0027\u003c/p\u003e\u003cp class=\"muted\"\u003e\u0027 + esc(o.rationale) + \u0027\u003c/p\u003e\u003cdiv class=\"bars\"\u003e\u003cdiv\u003e\u0027 + L.impact + \u0027 \u003cb\u003e\u0027 + esc(o.impact_score) + \u0027/10\u003c/b\u003e\u003ci style=\"width:\u0027 + (Number(o.impact_score) || 0) * 10 + \u0027%\"\u003e\u003c/i\u003e\u003c/div\u003e\u003cdiv\u003e\u0027 + L.effort + \u0027 \u003cb\u003e\u0027 + esc(o.effort_score) + \u0027/10\u003c/b\u003e\u003ci class=\"e\" style=\"width:\u0027 + (Number(o.effort_score) || 0) * 10 + \u0027%\"\u003e\u003c/i\u003e\u003c/div\u003e\u003c/div\u003e\u003cp class=\"muted\"\u003e\u0027 + esc(o.target_persona) + (o.linked_trend ? \u0027 · \u0027 + esc(o.linked_trend) : \u0027\u0027) + \u0027\u003c/p\u003e\u003cb\u003e\u0027 + L.steps + \u0027\u003c/b\u003e\u0027 + list(o.first_steps) + \u0027\u003c/div\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/div\u003e\u0027;\nh += \u0027\u003cdiv class=\"grid2\"\u003e\u003cdiv\u003e\u003ch3\u003e\u0027 + L.risks + \u0027\u003c/h3\u003e\u0027 + list(opp.risks) + \u0027\u003c/div\u003e\u003cdiv\u003e\u003ch3\u003e\u0027 + L.next + \u0027\u003c/h3\u003e\u0027 + list(opp.recommended_next_actions) + \u0027\u003c/div\u003e\u003c/div\u003e\u003c/section\u003e\u0027;\nh += \u0027\u003csection class=\"grid2\"\u003e\u003cdiv\u003e\u003ch2\u003e\u0027 + L.news + \u0027\u003c/h2\u003e\u003cul\u003e\u0027 + arr(d.newsItems).slice(0, 12).map(n =\u003e \u0027\u003cli\u003e\u0027 + link(n.link, n.title) + \u0027 \u003csmall class=\"muted\"\u003e\u0027 + esc(n.date) + \u0027\u003c/small\u003e\u003c/li\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/ul\u003e\u003c/div\u003e\u003cdiv\u003e\u003ch2\u003e\u0027 + L.social + \u0027\u003c/h2\u003e\u003cul\u003e\u0027 + arr(d.socialItems).slice(0, 12).map(s =\u003e \u0027\u003cli\u003e\u0027 + link(s.link, s.title) + \u0027 \u003csmall class=\"muted\"\u003e\u0027 + esc(s.source) + \u0027 · \u0027 + esc(s.engagement) + \u0027\u003c/small\u003e\u003c/li\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/ul\u003e\u003c/div\u003e\u003c/section\u003e\u0027;\nconst srcs = [].concat(arr(m.sources), arr(c.sources), arr(t.sources)).filter(s =\u003e s \u0026\u0026 s.url);\nconst seen = {}; const uniq = srcs.filter(s =\u003e seen[s.url] ? false : (seen[s.url] = true));\nh += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.sources + \u0027\u003c/h2\u003e\u003col class=\"src\"\u003e\u0027 + uniq.map(s =\u003e \u0027\u003cli\u003e\u0027 + link(s.url, s.title || s.url) + \u0027\u003c/li\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/ol\u003e\u003c/section\u003e\u0027;\nconst css = \u0027:root{--bg:#f6f7fb;--card:#fff;--ink:#1d2433;--muted:#667085;--line:#e4e7ec;--acc:#3b5bdb;--good:#12805c;--bad:#c4320a}@media (prefers-color-scheme:dark){:root{--bg:#0f131a;--card:#171c26;--ink:#e6e9ef;--muted:#98a2b3;--line:#2a3140;--acc:#7c9cff;--good:#4cc38a;--bad:#ff8a65}}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,Segoe UI,Tahoma,sans-serif}.wrap{max-width:1100px;margin:0 auto;padding:24px 16px}header{border-bottom:3px solid var(--acc);margin-bottom:20px;padding-bottom:12px}header h1{margin:0;font-size:26px}section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0}h2{margin:0 0 12px;font-size:20px;color:var(--acc)}h3{font-size:16px;margin:16px 0 6px}h4{margin:0 0 6px;font-size:16px}.muted{color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:10px;padding:14px}.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.kpis{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}.kpi{flex:1;min-width:200px;border:1px solid var(--line);border-radius:10px;padding:12px}.kpi span{display:block;color:var(--muted);font-size:13px}.kpi b{font-size:17px}ul{margin:4px 0 10px;padding-inline-start:20px}.tbl{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid var(--line);padding:8px;text-align:start;vertical-align:top}.tag{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:1px 9px;font-size:12px}.imp-high{background:var(--bad);color:#fff;border-color:transparent}.imp-medium{background:var(--acc);color:#fff;border-color:transparent}.good{color:var(--good)}.bad{color:var(--bad)}blockquote{margin:8px 0;padding:6px 12px;border-inline-start:3px solid var(--acc);color:var(--muted);font-style:italic}.bars div{font-size:13px;margin:4px 0}.bars i{display:block;height:6px;border-radius:3px;background:var(--good);margin-top:2px}.bars i.e{background:var(--bad)}a{color:var(--acc)}pre{white-space:pre-wrap;font-size:12px;background:var(--bg);padding:10px;border-radius:8px}.src{font-size:13px}\u0027;\nconst html = \u0027\u003c!DOCTYPE html\u003e\u003chtml lang=\"\u0027 + (ar ? \u0027ar\u0027 : \u0027en\u0027) + \u0027\" dir=\"\u0027 + (ar ? \u0027rtl\u0027 : \u0027ltr\u0027) + \u0027\"\u003e\u003chead\u003e\u003cmeta charset=\"utf-8\"\u003e\u003cmeta name=\"viewport\" content=\"width=device-width,initial-scale=1\"\u003e\u003ctitle\u003e\u0027 + esc(L.title + \u0027 - \u0027 + d.company) + \u0027\u003c/title\u003e\u003cstyle\u003e\u0027 + css + \u0027\u003c/style\u003e\u003c/head\u003e\u003cbody\u003e\u003cdiv class=\"wrap\"\u003e\u003cheader\u003e\u003ch1\u003e\u0027 + esc(L.title) + \u0027: \u0027 + esc(d.company) + \u0027\u003c/h1\u003e\u003cdiv class=\"muted\"\u003e\u0027 + esc(d.industry) + \u0027 · \u0027 + esc(d.region) + \u0027 · \u0027 + L.generated + \u0027: \u0027 + $now.toFormat(\u0027yyyy-MM-dd HH:mm\u0027) + \u0027\u003c/div\u003e\u003c/header\u003e\u0027 + h + \u0027\u003c/div\u003e\u003c/body\u003e\u003c/html\u003e\u0027;\nconst topOpps = opps.slice(0, 3).map(o =\u003e o.title).join(\u0027 | \u0027);\nreturn [{ json: { company: d.company, industry: d.industry, competitors: d.competitors, region: d.region, target_customers: d.target_customers, language: d.language, submitted_at: d.submittedAt, executive_summary: String(opp.executive_summary || \u0027\u0027), top_opportunities: topOpps, report_json: JSON.stringify({ market: d.market, customers: d.customers, trends: d.trends, opportunities: opp }), html } }];"
+                                     },
+                      "id":  "a54d617f-e215-4924-87f5-e74a19301097",
+                      "name":  "Build HTML Report",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       3584,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "dataTableId":  {
+                                                             "__rl":  true,
+                                                             "mode":  "id",
+                                                             "value":  "0ma1hWunnT9msMiM",
+                                                             "cachedResultName":  "market_intel_reports"
+                                                         },
+                                         "columns":  {
+                                                         "mappingMode":  "defineBelow",
+                                                         "value":  {
+                                                                       "company":  "={{ $json.company }}",
+                                                                       "industry":  "={{ $json.industry }}",
+                                                                       "competitors":  "={{ $json.competitors }}",
+                                                                       "region":  "={{ $json.region }}",
+                                                                       "target_customers":  "={{ $json.target_customers }}",
+                                                                       "language":  "={{ $json.language }}",
+                                                                       "submitted_at":  "={{ $json.submitted_at }}",
+                                                                       "executive_summary":  "={{ $json.executive_summary }}",
+                                                                       "top_opportunities":  "={{ $json.top_opportunities }}",
+                                                                       "report_json":  "={{ $json.report_json }}"
+                                                                   },
+                                                         "schema":  [
+                                                                        {
+                                                                            "id":  "company",
+                                                                            "displayName":  "company",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "industry",
+                                                                            "displayName":  "industry",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "competitors",
+                                                                            "displayName":  "competitors",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "region",
+                                                                            "displayName":  "region",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "target_customers",
+                                                                            "displayName":  "target_customers",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "language",
+                                                                            "displayName":  "language",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "submitted_at",
+                                                                            "displayName":  "submitted_at",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "executive_summary",
+                                                                            "displayName":  "executive_summary",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "top_opportunities",
+                                                                            "displayName":  "top_opportunities",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "report_json",
+                                                                            "displayName":  "report_json",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        }
+                                                                    ]
+                                                     },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "8d9849f8-8340-460b-b08f-a593af65850b",
+                      "name":  "Save Report",
+                      "type":  "n8n-nodes-base.dataTable",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       4032,
+                                       0
+                                   ],
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "parameters":  {
+                                         "operation":  "completion",
+                                         "respondWith":  "showText",
+                                         "responseText":  "={{ $(\"Add Social Pulse\").first().json.html }}"
+                                     },
+                      "id":  "8d216542-912c-4e21-8b9e-e7212808bd55",
+                      "name":  "Show Report",
+                      "type":  "n8n-nodes-base.form",
+                      "typeVersion":  2.5,
+                      "position":  [
+                                       4400,
+                                       -100
+                                   ],
+                      "webhookId":  "729894d5-19ab-4bf5-bd46-003d579ab70f"
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "const i = $(\u0027Normalize Input\u0027).first().json;\nconst split = s =\u003e String(s || \u0027\u0027).split(/[\\n,]+/).map(x =\u003e x.trim()).filter(Boolean);\nconst kw = split(i.tiktok_keywords);\nconst hashtags = kw.filter(k =\u003e k.startsWith(\u0027#\u0027)).map(k =\u003e k.slice(1).replace(/\\s+/g, \u0027\u0027)).filter(Boolean);\nlet queries = kw.filter(k =\u003e !k.startsWith(\u0027#\u0027));\nif (!queries.length \u0026\u0026 !hashtags.length) queries = [i.industry];\nconst fbPages = split(i.fb_pages).filter(u =\u003e /facebook\\.com/i.test(u)).slice(0, 5).map(url =\u003e ({ url }));\nconst comps = split(i.competitors_raw);\nconst adTerms = comps.length ? comps.slice(0, 4) : [i.industry];\nconst country = (i.ads_country || \u0027ALL\u0027).toUpperCase();\nconst adUrls = adTerms.map(q =\u003e ({ url: \u0027https://www.facebook.com/ads/library/?active_status=active\u0026ad_type=all\u0026country=\u0027 + country + \u0027\u0026q=\u0027 + encodeURIComponent(q) + \u0027\u0026search_type=keyword_unordered\u0026media_type=all\u0027 }));\nreturn [{ json: {\n  tiktokBody: { searchQueries: queries.slice(0, 3), hashtags: hashtags.slice(0, 3), resultsPerPage: 15, shouldDownloadVideos: false, shouldDownloadCovers: false, shouldDownloadSubtitles: false, shouldDownloadSlideshowImages: false },\n  fbPostsBody: { startUrls: fbPages, resultsLimit: 10 },\n  fbAdsBody: { startUrls: adUrls, resultsLimit: 30 }\n} }];"
+                                     },
+                      "id":  "827956c2-bd79-42d2-babd-f2207347d07c",
+                      "name":  "Prepare Social Inputs",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1120,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "https://api.apify.com/v2/acts/clockworks~tiktok-scraper/run-sync-get-dataset-items",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpQueryAuth",
+                                         "sendQuery":  true,
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "timeout",
+                                                                                        "value":  "240"
+                                                                                    }
+                                                                                ]
+                                                             },
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify($(\u0027Prepare Social Inputs\u0027).first().json.tiktokBody) }}",
+                                         "options":  {
+                                                         "timeout":  300000
+                                                     }
+                                     },
+                      "id":  "350bcdc4-88f2-42d6-8759-a90515961202",
+                      "name":  "Fetch TikTok Videos",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       1344,
+                                       0
+                                   ],
+                      "alwaysOutputData":  true,
+                      "executeOnce":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "https://api.apify.com/v2/acts/clockworks~tiktok-comments-scraper/run-sync-get-dataset-items",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpQueryAuth",
+                                         "sendQuery":  true,
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "timeout",
+                                                                                        "value":  "180"
+                                                                                    }
+                                                                                ]
+                                                             },
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify({ postURLs: $(\u0027Fetch TikTok Videos\u0027).all().map(i =\u003e i.json).filter(v =\u003e v \u0026\u0026 v.webVideoUrl).sort((a, b) =\u003e (b.playCount || 0) - (a.playCount || 0)).slice(0, 5).map(v =\u003e v.webVideoUrl), commentsPerPost: 25, maxRepliesPerComment: 0 }) }}",
+                                         "options":  {
+                                                         "timeout":  300000
+                                                     }
+                                     },
+                      "id":  "07150896-23c6-422f-9e34-99e61d55d3c0",
+                      "name":  "Fetch TikTok Comments",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       1568,
+                                       0
+                                   ],
+                      "alwaysOutputData":  true,
+                      "executeOnce":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "https://api.apify.com/v2/acts/apify~facebook-posts-scraper/run-sync-get-dataset-items",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpQueryAuth",
+                                         "sendQuery":  true,
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "timeout",
+                                                                                        "value":  "180"
+                                                                                    }
+                                                                                ]
+                                                             },
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify($(\u0027Prepare Social Inputs\u0027).first().json.fbPostsBody) }}",
+                                         "options":  {
+                                                         "timeout":  300000
+                                                     }
+                                     },
+                      "id":  "543e69b1-d620-4dc4-8a63-ba384ecae52c",
+                      "name":  "Fetch Facebook Page Posts",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       1792,
+                                       0
+                                   ],
+                      "alwaysOutputData":  true,
+                      "executeOnce":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "https://api.apify.com/v2/acts/apify~facebook-ads-scraper/run-sync-get-dataset-items",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpQueryAuth",
+                                         "sendQuery":  true,
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "timeout",
+                                                                                        "value":  "180"
+                                                                                    }
+                                                                                ]
+                                                             },
+                                         "sendBody":  true,
+                                         "specifyBody":  "json",
+                                         "jsonBody":  "={{ JSON.stringify($(\u0027Prepare Social Inputs\u0027).first().json.fbAdsBody) }}",
+                                         "options":  {
+                                                         "timeout":  300000
+                                                     }
+                                     },
+                      "id":  "21e5d396-5c20-4ee6-9b7e-4472d75fe624",
+                      "name":  "Fetch Facebook Ads",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       2016,
+                                       0
+                                   ],
+                      "alwaysOutputData":  true,
+                      "executeOnce":  true,
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "const d = $(\u0027Build Research Context\u0027).first().json;\nconst r = $input.first().json;\nconst ar = d.language === \u0027Arabic\u0027;\nconst L = ar ? { pulse: \u0027نبض السوشيال: TikTok و Facebook\u0027, tiktok: \u0027أعلى فيديوهات TikTok\u0027, video: \u0027الفيديو\u0027, views: \u0027مشاهدات\u0027, likes: \u0027إعجابات\u0027, tags: \u0027هاشتاجات\u0027, ads: \u0027إعلانات المنافسين الشغالة (Meta Ad Library)\u0027, posts: \u0027أحدث بوستات صفحات المنافسين\u0027, since: \u0027شغال من\u0027, noData: \u0027لا توجد بيانات - تأكد من إعداد Apify أو من المدخلات\u0027 } : { pulse: \u0027Social pulse: TikTok \u0026 Facebook\u0027, tiktok: \u0027Top TikTok videos\u0027, video: \u0027Video\u0027, views: \u0027Views\u0027, likes: \u0027Likes\u0027, tags: \u0027Hashtags\u0027, ads: \u0027Competitor ads currently running (Meta Ad Library)\u0027, posts: \u0027Latest competitor page posts\u0027, since: \u0027Running since\u0027, noData: \u0027No data - check the Apify setup or the inputs\u0027 };\nfunction esc(v) { return String(v == null ? \u0027\u0027 : v).replace(/\u0026/g, \u0027\u0026amp;\u0027).replace(/\u003c/g, \u0027\u0026lt;\u0027).replace(/\u003e/g, \u0027\u0026gt;\u0027).replace(/\"/g, \u0027\u0026quot;\u0027); }\nfunction arr(v) { return Array.isArray(v) ? v : []; }\nfunction link(u, t) { return u ? \u0027\u003ca href=\"\u0027 + esc(u) + \u0027\" target=\"_blank\" rel=\"noopener\"\u003e\u0027 + esc(t || u) + \u0027\u003c/a\u003e\u0027 : esc(t); }\nfunction fmt(n) { return (Number(n) || 0).toLocaleString(\u0027en-US\u0027); }\nconst none = \u0027\u003cp class=\"muted\"\u003e\u0027 + L.noData + \u0027\u003c/p\u003e\u0027;\nconst vids = arr(d.tiktokVideos).slice(0, 10);\nconst ads = arr(d.fbAds).slice(0, 9);\nconst posts = arr(d.fbPosts).slice(0, 8);\nlet s = \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.pulse + \u0027\u003c/h2\u003e\u0027;\ns += \u0027\u003ch3\u003e\u0027 + L.tiktok + \u0027\u003c/h3\u003e\u0027 + (vids.length ? \u0027\u003cdiv class=\"tbl\"\u003e\u003ctable\u003e\u003cthead\u003e\u003ctr\u003e\u003cth\u003e\u0027 + L.video + \u0027\u003c/th\u003e\u003cth\u003e\u0027 + L.views + \u0027\u003c/th\u003e\u003cth\u003e\u0027 + L.likes + \u0027\u003c/th\u003e\u003cth\u003e\u0027 + L.tags + \u0027\u003c/th\u003e\u003c/tr\u003e\u003c/thead\u003e\u003ctbody\u003e\u0027 + vids.map(v =\u003e \u0027\u003ctr\u003e\u003ctd\u003e\u0027 + link(v.link, v.text || v.author) + \u0027\u003cbr\u003e\u003csmall class=\"muted\"\u003e@\u0027 + esc(v.author) + \u0027 · \u0027 + esc(String(v.date).slice(0, 10)) + \u0027\u003c/small\u003e\u003c/td\u003e\u003ctd\u003e\u0027 + fmt(v.views) + \u0027\u003c/td\u003e\u003ctd\u003e\u0027 + fmt(v.likes) + \u0027\u003c/td\u003e\u003ctd\u003e\u003csmall\u003e\u0027 + esc(arr(v.hashtags).map(x =\u003e \u0027#\u0027 + x).join(\u0027 \u0027)) + \u0027\u003c/small\u003e\u003c/td\u003e\u003c/tr\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/tbody\u003e\u003c/table\u003e\u003c/div\u003e\u0027 : none);\ns += \u0027\u003ch3\u003e\u0027 + L.ads + \u0027\u003c/h3\u003e\u0027 + (ads.length ? \u0027\u003cdiv class=\"cards\"\u003e\u0027 + ads.map(a =\u003e \u0027\u003cdiv class=\"card\"\u003e\u003ch4\u003e\u0027 + link(a.link, a.page || \u0027Ad\u0027) + \u0027\u003c/h4\u003e\u0027 + (a.title ? \u0027\u003cb\u003e\u0027 + esc(a.title) + \u0027\u003c/b\u003e\u0027 : \u0027\u0027) + \u0027\u003cp\u003e\u0027 + esc(a.text) + \u0027\u003c/p\u003e\u003cp class=\"muted\"\u003e\u0027 + [a.cta, a.start ? L.since + \u0027 \u0027 + a.start : \u0027\u0027, a.platforms].filter(Boolean).map(esc).join(\u0027 · \u0027) + \u0027\u003c/p\u003e\u003c/div\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/div\u003e\u0027 : none);\ns += \u0027\u003ch3\u003e\u0027 + L.posts + \u0027\u003c/h3\u003e\u0027 + (posts.length ? \u0027\u003cul\u003e\u0027 + posts.map(p =\u003e \u0027\u003cli\u003e\u003cb\u003e\u0027 + esc(p.page) + \u0027:\u003c/b\u003e \u0027 + link(p.link, p.text.slice(0, 140) || p.link) + \u0027 \u003csmall class=\"muted\"\u003e\u0027 + fmt(p.likes) + \u0027 · \u0027 + fmt(p.comments) + \u0027 · \u0027 + fmt(p.shares) + \u0027\u003c/small\u003e\u003c/li\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/ul\u003e\u0027 : none);\ns += \u0027\u003c/section\u003e\u0027;\nconst marker = \u0027\u003csection\u003e\u003ch2\u003e4. \u0027;\nconst html = r.html.indexOf(marker) \u003e= 0 ? r.html.replace(marker, () =\u003e s + marker) : r.html.replace(\u0027\u003c/div\u003e\u003c/body\u003e\u0027, () =\u003e s + \u0027\u003c/div\u003e\u003c/body\u003e\u0027);\nreturn [{ json: { ...r, html } }];"
+                                     },
+                      "id":  "f5fb3ada-40e2-4fd9-8498-33e4a21d4634",
+                      "name":  "Add Social Pulse",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       3808,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "content":  "## TikTok + Facebook via Apify\n**Setup (once):** create an Apify account -\u003e Settings -\u003e API \u0026 Integrations -\u003e copy your API token.\nIn n8n create a **Query Auth** credential: Name = `token`, Value = your Apify token. Select it in the 4 Apify nodes.\n\n- **TikTok Videos** (clockworks/tiktok-scraper): keywords / #hashtags from the form (falls back to the industry)\n- **TikTok Comments**: comments on the 5 most-viewed videos -\u003e personas\n- **Facebook Page Posts**: competitor page URLs from the form (returns an error item if none are given)\n- **Facebook Ads** (Meta Ad Library): active ads matching competitor names in the chosen country\n\nEach node continues on error, so the report still generates if a source fails. Apify usage is billed per result.",
+                                         "height":  300,
+                                         "width":  1080,
+                                         "color":  5
+                                     },
+                      "id":  "dc0b9763-b3ad-45fd-933c-f99bbf604806",
+                      "name":  "Apify Setup Note",
+                      "type":  "n8n-nodes-base.stickyNote",
+                      "typeVersion":  1,
+                      "position":  [
+                                       1776,
+                                       -560
+                                   ]
+                  },
+                  {
+                      "id":  "2fc350a8-61fa-47cd-842b-a8ed694db684",
+                      "name":  "Called by Orchestrator",
+                      "type":  "n8n-nodes-base.executeWorkflowTrigger",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       0,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "inputSource":  "passthrough"
+                                     }
+                  },
+                  {
+                      "id":  "65bc0391-b135-4498-90ba-3a8512ef0a90",
+                      "name":  "Get Planning Learnings",
+                      "type":  "n8n-nodes-base.dataTable",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       3136,
+                                       -260
+                                   ],
+                      "parameters":  {
+                                         "resource":  "row",
+                                         "operation":  "get",
+                                         "dataTableId":  {
+                                                             "__rl":  true,
+                                                             "mode":  "id",
+                                                             "value":  "P9neRT94noRtDXED",
+                                                             "cachedResultName":  "marketing_learnings"
+                                                         },
+                                         "limit":  4,
+                                         "orderBy":  true,
+                                         "orderByColumn":  "createdAt",
+                                         "orderByDirection":  "DESC"
+                                     },
+                      "onError":  "continueRegularOutput",
+                      "alwaysOutputData":  true,
+                      "executeOnce":  true
+                  },
+                  {
+                      "id":  "a14d9a75-801c-4586-89e7-81bbaded7989",
+                      "name":  "Add Past Learnings",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       3360,
+                                       -260
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const ctx = $(\u0027Collect Analyses\u0027).first().json;\nconst rows = $input.all().map(i =\u003e i.json).filter(r =\u003e r \u0026\u0026 (r.summary || r.learnings));\nconst digest = rows.map(r =\u003e \u0027- Week \u0027 + (r.week || \u0027\u0027) + \u0027: \u0027 + String(r.summary || \u0027\u0027).slice(0, 400) + \u0027 | Learnings: \u0027 + String(r.learnings || \u0027\u0027).slice(0, 1200)).join(\u0027\\n\u0027);\nconst businessContext = digest ? ctx.businessContext + \u0027\\n\\nPast campaign learnings from our own results (weekly Performance Agent) - use them to prioritise and score opportunities:\\n\u0027 + digest : ctx.businessContext;\nreturn [{ json: { ...ctx, businessContext, learnings_digest: digest } }];"
+                                     }
+                  },
+                  {
+                      "id":  "788e7853-1b83-4e94-98dd-8fb7305c7575",
+                      "name":  "Started From Form?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       4140,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $(\u0027Market Intel Request Form\u0027).isExecuted }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "boolean",
+                                                                                                    "operation":  "true",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        },
+                                         "options":  {
+
+                                                     }
+                                     }
+                  },
+                  {
+                      "id":  "e2c9c79a-507b-4dda-ac9d-d40d7ee27e2a",
+                      "name":  "Return Report",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       4400,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  false,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "r1",
+                                                                                     "name":  "agent",
+                                                                                     "value":  "market_intel",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "r2",
+                                                                                     "name":  "company",
+                                                                                     "value":  "={{ $(\u0027Add Social Pulse\u0027).first().json.company }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "r3",
+                                                                                     "name":  "executive_summary",
+                                                                                     "value":  "={{ $(\u0027Add Social Pulse\u0027).first().json.executive_summary }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "r4",
+                                                                                     "name":  "top_opportunities",
+                                                                                     "value":  "={{ $(\u0027Add Social Pulse\u0027).first().json.top_opportunities }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "r5",
+                                                                                     "name":  "report_json",
+                                                                                     "value":  "={{ $(\u0027Add Social Pulse\u0027).first().json.report_json }}",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         },
+                                         "options":  {
+
+                                                     }
+                                     }
+                  }
+              ],
+    "connections":  {
+                        "Market Intel Request Form":  {
+                                                          "main":  [
+                                                                       [
+                                                                           {
+                                                                               "node":  "Normalize Input",
+                                                                               "type":  "main",
+                                                                               "index":  0
+                                                                           }
+                                                                       ]
+                                                                   ]
+                                                      },
+                        "Normalize Input":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Fetch Google News",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Fetch Google News":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Fetch Reddit Discussions",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Fetch Reddit Discussions":  {
+                                                         "main":  [
+                                                                      [
+                                                                          {
+                                                                              "node":  "Fetch Hacker News",
+                                                                              "type":  "main",
+                                                                              "index":  0
+                                                                          }
+                                                                      ]
+                                                                  ]
+                                                     },
+                        "Build Research Context":  {
+                                                       "main":  [
+                                                                    [
+                                                                        {
+                                                                            "node":  "Market \u0026 Competitor Analysis",
+                                                                            "type":  "main",
+                                                                            "index":  0
+                                                                        }
+                                                                    ]
+                                                                ]
+                                                   },
+                        "Market \u0026 Competitor Analysis":  {
+                                                                  "main":  [
+                                                                               [
+                                                                                   {
+                                                                                       "node":  "Customer \u0026 Persona Insights",
+                                                                                       "type":  "main",
+                                                                                       "index":  0
+                                                                                   }
+                                                                               ]
+                                                                           ]
+                                                              },
+                        "Customer \u0026 Persona Insights":  {
+                                                                 "main":  [
+                                                                              [
+                                                                                  {
+                                                                                      "node":  "Trend Detection",
+                                                                                      "type":  "main",
+                                                                                      "index":  0
+                                                                                  }
+                                                                              ]
+                                                                          ]
+                                                             },
+                        "Trend Detection":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Collect Analyses",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Opportunity Identification":  {
+                                                           "main":  [
+                                                                        [
+                                                                            {
+                                                                                "node":  "Build HTML Report",
+                                                                                "type":  "main",
+                                                                                "index":  0
+                                                                            }
+                                                                        ]
+                                                                    ]
+                                                       },
+                        "Fetch Hacker News":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Prepare Social Inputs",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Prepare Social Inputs":  {
+                                                      "main":  [
+                                                                   [
+                                                                       {
+                                                                           "node":  "Fetch TikTok Videos",
+                                                                           "type":  "main",
+                                                                           "index":  0
+                                                                       }
+                                                                   ]
+                                                               ]
+                                                  },
+                        "Fetch TikTok Videos":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "Fetch TikTok Comments",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "Fetch TikTok Comments":  {
+                                                      "main":  [
+                                                                   [
+                                                                       {
+                                                                           "node":  "Fetch Facebook Page Posts",
+                                                                           "type":  "main",
+                                                                           "index":  0
+                                                                       }
+                                                                   ]
+                                                               ]
+                                                  },
+                        "Fetch Facebook Page Posts":  {
+                                                          "main":  [
+                                                                       [
+                                                                           {
+                                                                               "node":  "Fetch Facebook Ads",
+                                                                               "type":  "main",
+                                                                               "index":  0
+                                                                           }
+                                                                       ]
+                                                                   ]
+                                                      },
+                        "Fetch Facebook Ads":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Build Research Context",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               },
+                        "Build HTML Report":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Add Social Pulse",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Add Social Pulse":  {
+                                                 "main":  [
+                                                              [
+                                                                  {
+                                                                      "node":  "Save Report",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ]
+                                                          ]
+                                             },
+                        "Called by Orchestrator":  {
+                                                       "main":  [
+                                                                    [
+                                                                        {
+                                                                            "node":  "Normalize Input",
+                                                                            "type":  "main",
+                                                                            "index":  0
+                                                                        }
+                                                                    ]
+                                                                ]
+                                                   },
+                        "Collect Analyses":  {
+                                                 "main":  [
+                                                              [
+                                                                  {
+                                                                      "node":  "Get Planning Learnings",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ]
+                                                          ]
+                                             },
+                        "Get Planning Learnings":  {
+                                                       "main":  [
+                                                                    [
+                                                                        {
+                                                                            "node":  "Add Past Learnings",
+                                                                            "type":  "main",
+                                                                            "index":  0
+                                                                        }
+                                                                    ]
+                                                                ]
+                                                   },
+                        "Add Past Learnings":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Opportunity Identification",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               },
+                        "Save Report":  {
+                                            "main":  [
+                                                         [
+                                                             {
+                                                                 "node":  "Started From Form?",
+                                                                 "type":  "main",
+                                                                 "index":  0
+                                                             }
+                                                         ]
+                                                     ]
+                                        },
+                        "Started From Form?":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Show Report",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ],
+                                                                [
+                                                                    {
+                                                                        "node":  "Return Report",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "availableInMCP":  true,
+                     "binaryMode":  "separate"
+                 },
+    "staticData":  null,
+    "meta":  {
+                 "aiBuilderAssisted":  true,
+                 "builderVariant":  "mcp"
+             },
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  {
+
+                },
+    "versionId":  "1836c6cf-382f-4357-87b6-df3ae31f32e0",
+    "activeVersionId":  null,
+    "versionCounter":  6,
+    "triggerCount":  0,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  "Callable by Orchestrator + reads L5 learnings",
+                            "description":  "Adds Execute Workflow trigger (Command Center full cycle), feeds the last 4 weeks of marketing_learnings from L5 into Opportunity Identification, and returns report data instead of the form page when called as a sub-workflow."
+                        }
+}

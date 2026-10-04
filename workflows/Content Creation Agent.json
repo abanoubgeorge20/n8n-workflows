@@ -1,0 +1,738 @@
+{
+    "updatedAt":  "2026-09-30T04:22:16.508Z",
+    "createdAt":  "2026-09-30T04:22:16.508Z",
+    "id":  "JOGB0vqkOVtCONFK",
+    "name":  "Content Creation Agent",
+    "description":  "Content Creation Agent: blog posts, social posts (FB/IG/TikTok/Snapchat), ad copy (Meta/TikTok/Snap/Google Ads), landing page copy and Gemini AI visuals. Form or Orchestrator entry. Returns a downloadable HTML content pack.",
+    "active":  false,
+    "isArchived":  false,
+    "nodes":  [
+                  {
+                      "id":  "9590aa59-c258-4f72-a8fa-520073b1e4d2",
+                      "name":  "Content Brief Form",
+                      "type":  "n8n-nodes-base.formTrigger",
+                      "typeVersion":  2.6,
+                      "position":  [
+                                       0,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "formTitle":  "Content Creation Agent",
+                                         "formDescription":  "Describe the brand and the campaign. The agent writes blog articles, social posts for Facebook / Instagram / TikTok / Snapchat, ad copy (Meta, TikTok, Snapchat, Google Ads), landing page copy and AI visuals, then gives you a downloadable content pack. Takes 1-3 minutes.",
+                                         "formFields":  {
+                                                            "values":  [
+                                                                           {
+                                                                               "fieldLabel":  "Brand / Company name",
+                                                                               "fieldName":  "brand",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Industry",
+                                                                               "fieldName":  "industry",
+                                                                               "placeholder":  "e.g. Professional business training"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Product / service",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "product",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Target audience",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "audience",
+                                                                               "requiredField":  true,
+                                                                               "placeholder":  "Age, profession, needs, pain points..."
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Campaign topic / offer",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "topic",
+                                                                               "placeholder":  "e.g. Early-bird 20% off the MBA intake - ends 15 Oct"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Campaign goal",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "goal",
+                                                                               "requiredField":  true,
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Awareness"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Engagement"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Traffic"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Leads"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Sales"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "What to create",
+                                                                               "fieldType":  "checkbox",
+                                                                               "fieldName":  "content_types",
+                                                                               "requiredField":  true,
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Blog post / article"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Social media posts"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Ad copy"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Visuals (AI images)"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Landing page copy"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Platforms",
+                                                                               "fieldType":  "checkbox",
+                                                                               "fieldName":  "platforms",
+                                                                               "requiredField":  true,
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Facebook"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Instagram"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "TikTok"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Snapchat"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Google Ads"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Number of social posts",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "posts_count",
+                                                                               "defaultValue":  "5",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "3"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "5"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "7"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "10"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Website / landing page URL",
+                                                                               "fieldName":  "website",
+                                                                               "placeholder":  "https://..."
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "SEO keywords (optional)",
+                                                                               "fieldName":  "keywords",
+                                                                               "placeholder":  "comma-separated"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Brand tone",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "tone",
+                                                                               "defaultValue":  "Friendly",
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Professional"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Friendly"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Bold"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Luxury"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Youthful / fun"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Inspirational"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Language",
+                                                                               "fieldType":  "dropdown",
+                                                                               "fieldName":  "language",
+                                                                               "defaultValue":  "Arabic (Egyptian)",
+                                                                               "requiredField":  true,
+                                                                               "fieldOptions":  {
+                                                                                                    "values":  [
+                                                                                                                   {
+                                                                                                                       "option":  "Arabic (Egyptian)"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Arabic (MSA)"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "English"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "option":  "Arabic + English"
+                                                                                                                   }
+                                                                                                               ]
+                                                                                                }
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Extra notes (optional)",
+                                                                               "fieldType":  "textarea",
+                                                                               "fieldName":  "notes"
+                                                                           }
+                                                                       ]
+                                                        },
+                                         "responseMode":  "lastNode",
+                                         "options":  {
+                                                         "appendAttribution":  false,
+                                                         "buttonLabel":  "Create content",
+                                                         "path":  "content-agent"
+                                                     }
+                                     },
+                      "webhookId":  "11086524-4777-429e-9472-c26790720288"
+                  },
+                  {
+                      "id":  "c3307061-2416-4d71-919b-1f888d0cab7e",
+                      "name":  "Normalize Brief",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       240,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  false,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "c1",
+                                                                                     "name":  "mode",
+                                                                                     "value":  "={{ $json.mode ?? \"form\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c2",
+                                                                                     "name":  "brand",
+                                                                                     "value":  "={{ String($json.brand ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c3",
+                                                                                     "name":  "industry",
+                                                                                     "value":  "={{ String($json.industry ?? \"\").trim() || \"not specified\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c4",
+                                                                                     "name":  "product",
+                                                                                     "value":  "={{ String($json.product ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c5",
+                                                                                     "name":  "audience",
+                                                                                     "value":  "={{ String($json.audience ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c6",
+                                                                                     "name":  "topic",
+                                                                                     "value":  "={{ String($json.topic ?? \"\").trim() || \"General brand content - choose the strongest angle\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c7",
+                                                                                     "name":  "goal",
+                                                                                     "value":  "={{ $json.goal ?? \"Awareness\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c8",
+                                                                                     "name":  "content_types",
+                                                                                     "value":  "={{ [].concat($json.content_types ?? [\"Social media posts\"]).join(\", \") }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c9",
+                                                                                     "name":  "platforms",
+                                                                                     "value":  "={{ [].concat($json.platforms ?? [\"Facebook\", \"Instagram\"]).join(\", \") }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c10",
+                                                                                     "name":  "posts_count",
+                                                                                     "value":  "={{ Number($json.posts_count) || 5 }}",
+                                                                                     "type":  "number"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c11",
+                                                                                     "name":  "website",
+                                                                                     "value":  "={{ String($json.website ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c12",
+                                                                                     "name":  "keywords",
+                                                                                     "value":  "={{ String($json.keywords ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c13",
+                                                                                     "name":  "tone",
+                                                                                     "value":  "={{ $json.tone ?? \"Friendly\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c14",
+                                                                                     "name":  "language",
+                                                                                     "value":  "={{ $json.language ?? \"Arabic (Egyptian)\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c15",
+                                                                                     "name":  "notes",
+                                                                                     "value":  "={{ String($json.notes ?? \"\").trim() || \"none\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c16",
+                                                                                     "name":  "campaign_context",
+                                                                                     "value":  "={{ String($json.campaign_context ?? \"\").trim() }}",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         }
+                                     }
+                  },
+                  {
+                      "id":  "c05ff4f3-3daf-404e-9d80-3a277a4db895",
+                      "name":  "Called by Orchestrator",
+                      "type":  "n8n-nodes-base.executeWorkflowTrigger",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       0,
+                                       240
+                                   ],
+                      "parameters":  {
+                                         "inputSource":  "passthrough"
+                                     }
+                  },
+                  {
+                      "id":  "c5965430-df83-4ae4-bc15-2defd0452018",
+                      "name":  "Content Creation Agent",
+                      "type":  "@n8n/n8n-nodes-langchain.googleGemini",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       480,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "resource":  "text",
+                                         "operation":  "message",
+                                         "modelId":  {
+                                                         "__rl":  true,
+                                                         "mode":  "id",
+                                                         "value":  "models/gemini-3-flash-preview"
+                                                     },
+                                         "messages":  {
+                                                          "values":  [
+                                                                         {
+                                                                             "content":  "=BRIEF\nBrand: {{ $json.brand }}\nIndustry: {{ $json.industry }}\nProduct / service: {{ $json.product }}\nTarget audience: {{ $json.audience }}\nCampaign topic / offer: {{ $json.topic }}\nGoal: {{ $json.goal }}\nPlatforms: {{ $json.platforms }}\nWebsite: {{ $json.website || \"not provided\" }}\nSEO keywords: {{ $json.keywords || \"choose the best ones yourself\" }}\nTone: {{ $json.tone }}\nExtra notes: {{ $json.notes }}\n{{ $json.campaign_context ? \"Campaign direction from the marketing director: \" + $json.campaign_context : \"\" }}\n\nCREATE ONLY THESE DELIVERABLES: {{ $json.content_types }}\n- \"Blog post / article\" -\u003e fill \"blog\" (900-1400 words, SEO-optimised, markdown body with ## headings).\n- \"Social media posts\" -\u003e fill \"social_posts\" with exactly {{ $json.posts_count }} posts spread across the chosen platforms (Facebook, Instagram, TikTok, Snapchat only). TikTok and Snapchat posts must include a short vertical-video script (hook in the first 2 seconds, scenes, on-screen text).\n- \"Ad copy\" -\u003e fill \"ad_copy\" with 2 variants per chosen paid platform. Respect limits: Google Ads RSA headlines \u003c= 30 chars (give 5) and descriptions \u003c= 90 chars (give 3); Meta primary text \u003c= 125 chars, headline \u003c= 40; TikTok ad text \u003c= 100 chars; Snapchat headline \u003c= 34 chars.\n- \"Landing page copy\" -\u003e fill \"landing_page\".\n- \"Visuals (AI images)\" -\u003e fill \"visual_prompts\" with 3 detailed English image-generation prompts (subject, setting, style, lighting, composition). Never put text inside the image.\nLeave every deliverable that was NOT requested as null or an empty array.\nUse Google Search to check current trends, hashtags and competitor angles for this market when useful.\n\nJSON shape:\n{\"big_idea\":\"\",\"key_messages\":[\"\"],\"blog\":{\"title\":\"\",\"slug\":\"\",\"meta_title\":\"\",\"meta_description\":\"\",\"focus_keyword\":\"\",\"secondary_keywords\":[\"\"],\"body_markdown\":\"\",\"cta\":\"\"},\"social_posts\":[{\"platform\":\"Facebook|Instagram|TikTok|Snapchat\",\"format\":\"post|carousel|reel|story|video\",\"hook\":\"\",\"caption\":\"\",\"hashtags\":[\"\"],\"cta\":\"\",\"visual_brief\":\"\",\"video_script\":\"\",\"best_time\":\"\"}],\"ad_copy\":[{\"platform\":\"Meta|TikTok|Snapchat|Google Ads\",\"variant\":\"A|B\",\"headlines\":[\"\"],\"primary_text\":\"\",\"descriptions\":[\"\"],\"cta\":\"\"}],\"landing_page\":{\"meta_title\":\"\",\"meta_description\":\"\",\"hero_headline\":\"\",\"hero_subheadline\":\"\",\"primary_cta\":\"\",\"sections\":[{\"title\":\"\",\"body\":\"\"}],\"social_proof\":\"\",\"faq\":[{\"q\":\"\",\"a\":\"\"}]},\"visual_prompts\":[{\"use\":\"\",\"aspect_ratio\":\"1:1|4:5|9:16|16:9\",\"prompt\":\"\"}]}\nReturn ONLY one valid JSON object (no markdown fences, no commentary). Keep JSON keys in English exactly as specified. Write all text values in {{ $json.language }}{{ $json.language === \"Arabic (Egyptian)\" ? \" (natural Egyptian colloquial Arabic that sounds native on social media)\" : \"\" }}, except visual_prompts which are always in English."
+                                                                         }
+                                                                     ]
+                                                      },
+                                         "builtInTools":  {
+                                                              "googleSearch":  true
+                                                          },
+                                         "options":  {
+                                                         "includeMergedResponse":  true,
+                                                         "systemMessage":  "You are a senior content strategist and conversion copywriter for MENA and global brands. You write platform-native content: scroll-stopping hooks, clear benefits, strong CTAs, correct hashtag use, SEO best practice for articles and landing pages. You never invent fake statistics, testimonials or prices.",
+                                                         "maxOutputTokens":  16384,
+                                                         "temperature":  0.8,
+                                                         "maxToolsIterations":  8
+                                                     }
+                                     },
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      },
+                      "retryOnFail":  true,
+                      "maxTries":  3,
+                      "waitBetweenTries":  5000
+                  },
+                  {
+                      "id":  "9f04a971-a2ec-479f-9a3a-27cdaba4b54f",
+                      "name":  "Parse Content",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       720,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "function textOf(j) {\n  if (!j) return \u0027\u0027;\n  if (typeof j.mergedResponse === \u0027string\u0027 \u0026\u0026 j.mergedResponse) return j.mergedResponse;\n  const parts = (j.content \u0026\u0026 j.content.parts) || (j.candidates \u0026\u0026 j.candidates[0] \u0026\u0026 j.candidates[0].content \u0026\u0026 j.candidates[0].content.parts);\n  if (Array.isArray(parts)) return parts.map(p =\u003e p.text || \u0027\u0027).join(\u0027\u0027);\n  if (typeof j.text === \u0027string\u0027) return j.text;\n  return JSON.stringify(j);\n}\nfunction parseJson(t) {\n  const s = String(t || \u0027\u0027).trim().replace(/^\\s*\\x60\\x60\\x60(?:json)?/i, \u0027\u0027).replace(/\\x60\\x60\\x60\\s*$/, \u0027\u0027);\n  const a = s.indexOf(\u0027{\u0027); const b = s.lastIndexOf(\u0027}\u0027);\n  if (a \u003e= 0 \u0026\u0026 b \u003e a) { try { return JSON.parse(s.slice(a, b + 1)); } catch (e) {} }\n  return { parse_error: true, raw: String(t || \u0027\u0027) };\n}\nconst brief = $(\u0027Normalize Brief\u0027).first().json;\nconst content = parseJson(textOf($input.first().json));\nconst wantsVisuals = /Visuals/i.test(brief.content_types);\nreturn [{ json: { ...brief, content, wantsVisuals } }];"
+                                     }
+                  },
+                  {
+                      "id":  "c17568d9-8c6f-4dd5-bb95-f0b6197ef490",
+                      "name":  "Visuals Requested?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       960,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.wantsVisuals }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "boolean",
+                                                                                                    "operation":  "true",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "de591c00-d0ed-4f32-8f57-36fc03305092",
+                      "name":  "Split Visual Prompts",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1200,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const d = $input.first().json;\nlet prompts = Array.isArray(d.content \u0026\u0026 d.content.visual_prompts) ? d.content.visual_prompts.filter(p =\u003e p \u0026\u0026 p.prompt) : [];\nif (!prompts.length) prompts = [{ use: \u0027Hero visual\u0027, aspect_ratio: \u00271:1\u0027, prompt: \u0027Premium marketing photo for \u0027 + d.brand + \u0027: \u0027 + d.product + \u0027. Audience: \u0027 + d.audience + \u0027. Clean composition, natural light, no text.\u0027 }];\nreturn prompts.slice(0, 3).map(p =\u003e ({ json: { use: p.use || \u0027Visual\u0027, aspect_ratio: p.aspect_ratio || \u00271:1\u0027, prompt: p.prompt } }));"
+                                     }
+                  },
+                  {
+                      "id":  "53ce627d-d375-4c29-ae06-6e930671ac71",
+                      "name":  "Generate Visual",
+                      "type":  "@n8n/n8n-nodes-langchain.googleGemini",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       1440,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "resource":  "image",
+                                         "operation":  "generate",
+                                         "modelId":  {
+                                                         "__rl":  true,
+                                                         "mode":  "id",
+                                                         "value":  "models/gemini-3.1-flash-image-preview"
+                                                     },
+                                         "prompt":  "={{ $json.prompt }}. Aspect ratio {{ $json.aspect_ratio }}. High-end advertising quality. Do not render any text, letters or logos in the image.",
+                                         "options":  {
+                                                         "binaryPropertyOutput":  "data"
+                                                     }
+                                     },
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "7a1e418f-4f21-4e08-bc00-8fea62f0e9cf",
+                      "name":  "Build Content Pack",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1680,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const d = $(\u0027Parse Content\u0027).first().json;\nconst c = d.content || {};\nconst ar = /Arabic/i.test(d.language);\nlet prompts = [];\ntry { prompts = $(\u0027Split Visual Prompts\u0027).all().map(i =\u003e i.json); } catch (e) {}\nconst images = [];\nif (d.wantsVisuals) {\n  const items = $input.all();\n  for (let i = 0; i \u003c items.length; i++) {\n    const b = items[i].binary \u0026\u0026 items[i].binary.data;\n    if (!b) continue;\n    try {\n      const buf = await this.helpers.getBinaryDataBuffer(i, \u0027data\u0027);\n      images.push({ mime: b.mimeType || \u0027image/png\u0027, b64: buf.toString(\u0027base64\u0027), use: (prompts[i] \u0026\u0026 prompts[i].use) || \u0027Visual\u0027, prompt: (prompts[i] \u0026\u0026 prompts[i].prompt) || \u0027\u0027 });\n    } catch (e) {}\n  }\n}\nconst L = ar ? { title: \u0027باقة المحتوى\u0027, idea: \u0027الفكرة الرئيسية\u0027, msgs: \u0027الرسائل الأساسية\u0027, blog: \u0027مقال المدونة\u0027, social: \u0027بوستات السوشيال ميديا\u0027, ads: \u0027نصوص الإعلانات\u0027, lp: \u0027نص صفحة الهبوط\u0027, visuals: \u0027الصور\u0027, copy: \u0027نسخ\u0027, script: \u0027سكريبت الفيديو\u0027, visual: \u0027وصف الصورة\u0027, time: \u0027أفضل وقت\u0027, faq: \u0027أسئلة شائعة\u0027 } : { title: \u0027Content Pack\u0027, idea: \u0027Big idea\u0027, msgs: \u0027Key messages\u0027, blog: \u0027Blog article\u0027, social: \u0027Social media posts\u0027, ads: \u0027Ad copy\u0027, lp: \u0027Landing page copy\u0027, visuals: \u0027Visuals\u0027, copy: \u0027Copy\u0027, script: \u0027Video script\u0027, visual: \u0027Visual brief\u0027, time: \u0027Best time\u0027, faq: \u0027FAQ\u0027 };\nfunction esc(v) { return String(v == null ? \u0027\u0027 : v).replace(/\u0026/g, \u0027\u0026amp;\u0027).replace(/\u003c/g, \u0027\u0026lt;\u0027).replace(/\u003e/g, \u0027\u0026gt;\u0027).replace(/\"/g, \u0027\u0026quot;\u0027); }\nfunction arr(v) { return Array.isArray(v) ? v : (v ? [v] : []); }\nfunction inline(s) { return esc(s).replace(/\\*\\*(.+?)\\*\\*/g, \u0027\u003cb\u003e$1\u003c/b\u003e\u0027); }\nfunction md(t) {\n  const lines = String(t || \u0027\u0027).split(/\\r?\\n/); let out = \u0027\u0027; let inList = false;\n  for (const raw of lines) {\n    const l = raw.trim();\n    if (/^[-*] /.test(l)) { if (!inList) { out += \u0027\u003cul\u003e\u0027; inList = true; } out += \u0027\u003cli\u003e\u0027 + inline(l.slice(2)) + \u0027\u003c/li\u003e\u0027; continue; }\n    if (inList) { out += \u0027\u003c/ul\u003e\u0027; inList = false; }\n    if (!l) continue;\n    const h = l.match(/^(#{1,4})\\s+(.*)$/);\n    if (h) { const n = Math.min(4, h[1].length + 1); out += \u0027\u003ch\u0027 + n + \u0027\u003e\u0027 + inline(h[2]) + \u0027\u003c/h\u0027 + n + \u0027\u003e\u0027; } else out += \u0027\u003cp\u003e\u0027 + inline(l) + \u0027\u003c/p\u003e\u0027;\n  }\n  if (inList) out += \u0027\u003c/ul\u003e\u0027;\n  return out;\n}\nlet n = 0;\nfunction copyBox(text) { n++; return \u0027\u003cdiv class=\"cp\"\u003e\u003cbutton onclick=\"cp(\\\u0027t\u0027 + n + \u0027\\\u0027)\"\u003e\u0027 + L.copy + \u0027\u003c/button\u003e\u003cdiv id=\"t\u0027 + n + \u0027\" class=\"txt\"\u003e\u0027 + esc(text).replace(/\\n/g, \u0027\u003cbr\u003e\u0027) + \u0027\u003c/div\u003e\u003c/div\u003e\u0027; }\nlet h = \u0027\u0027;\nh += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.idea + \u0027\u003c/h2\u003e\u003cp class=\"big\"\u003e\u0027 + esc(c.big_idea) + \u0027\u003c/p\u003e\u0027 + (arr(c.key_messages).length ? \u0027\u003ch3\u003e\u0027 + L.msgs + \u0027\u003c/h3\u003e\u003cul\u003e\u0027 + arr(c.key_messages).map(m =\u003e \u0027\u003cli\u003e\u0027 + esc(m) + \u0027\u003c/li\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/ul\u003e\u0027 : \u0027\u0027) + (c.parse_error ? \u0027\u003cpre\u003e\u0027 + esc(c.raw) + \u0027\u003c/pre\u003e\u0027 : \u0027\u0027) + \u0027\u003c/section\u003e\u0027;\nconst posts = arr(c.social_posts);\nif (posts.length) {\n  h += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.social + \u0027 (\u0027 + posts.length + \u0027)\u003c/h2\u003e\u003cdiv class=\"cards\"\u003e\u0027 + posts.map(p =\u003e {\n    const full = [p.hook, p.caption, p.cta, arr(p.hashtags).map(x =\u003e String(x).startsWith(\u0027#\u0027) ? x : \u0027#\u0027 + x).join(\u0027 \u0027)].filter(Boolean).join(\u0027\\n\\n\u0027);\n    return \u0027\u003cdiv class=\"card\"\u003e\u003cdiv class=\"tags\"\u003e\u003cspan class=\"tag p-\u0027 + esc(String(p.platform).toLowerCase()) + \u0027\"\u003e\u0027 + esc(p.platform) + \u0027\u003c/span\u003e\u003cspan class=\"tag\"\u003e\u0027 + esc(p.format) + \u0027\u003c/span\u003e\u0027 + (p.best_time ? \u0027\u003cspan class=\"tag\"\u003e\u0027 + L.time + \u0027: \u0027 + esc(p.best_time) + \u0027\u003c/span\u003e\u0027 : \u0027\u0027) + \u0027\u003c/div\u003e\u0027 + copyBox(full) + (p.video_script ? \u0027\u003cdetails\u003e\u003csummary\u003e\u0027 + L.script + \u0027\u003c/summary\u003e\u0027 + copyBox(p.video_script) + \u0027\u003c/details\u003e\u0027 : \u0027\u0027) + (p.visual_brief ? \u0027\u003cp class=\"muted\"\u003e\u003cb\u003e\u0027 + L.visual + \u0027:\u003c/b\u003e \u0027 + esc(p.visual_brief) + \u0027\u003c/p\u003e\u0027 : \u0027\u0027) + \u0027\u003c/div\u003e\u0027;\n  }).join(\u0027\u0027) + \u0027\u003c/div\u003e\u003c/section\u003e\u0027;\n}\nconst ads = arr(c.ad_copy);\nif (ads.length) {\n  h += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.ads + \u0027\u003c/h2\u003e\u003cdiv class=\"cards\"\u003e\u0027 + ads.map(a =\u003e \u0027\u003cdiv class=\"card\"\u003e\u003cdiv class=\"tags\"\u003e\u003cspan class=\"tag\"\u003e\u0027 + esc(a.platform) + \u0027\u003c/span\u003e\u003cspan class=\"tag\"\u003e\u0027 + esc(a.variant) + \u0027\u003c/span\u003e\u003c/div\u003e\u003cb\u003eHeadlines\u003c/b\u003e\u0027 + copyBox(arr(a.headlines).join(\u0027\\n\u0027)) + (a.primary_text ? \u0027\u003cb\u003ePrimary text\u003c/b\u003e\u0027 + copyBox(a.primary_text) : \u0027\u0027) + (arr(a.descriptions).length ? \u0027\u003cb\u003eDescriptions\u003c/b\u003e\u0027 + copyBox(arr(a.descriptions).join(\u0027\\n\u0027)) : \u0027\u0027) + \u0027\u003cp class=\"muted\"\u003eCTA: \u0027 + esc(a.cta) + \u0027\u003c/p\u003e\u003c/div\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/div\u003e\u003c/section\u003e\u0027;\n}\nconst b = c.blog;\nif (b \u0026\u0026 (b.title || b.body_markdown)) {\n  h += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.blog + \u0027\u003c/h2\u003e\u003cdiv class=\"meta\"\u003e\u003cdiv\u003e\u003cb\u003eMeta title:\u003c/b\u003e \u0027 + esc(b.meta_title) + \u0027\u003c/div\u003e\u003cdiv\u003e\u003cb\u003eMeta description:\u003c/b\u003e \u0027 + esc(b.meta_description) + \u0027\u003c/div\u003e\u003cdiv\u003e\u003cb\u003eSlug:\u003c/b\u003e /\u0027 + esc(b.slug) + \u0027\u003c/div\u003e\u003cdiv\u003e\u003cb\u003eFocus keyword:\u003c/b\u003e \u0027 + esc(b.focus_keyword) + \u0027 · \u0027 + esc(arr(b.secondary_keywords).join(\u0027, \u0027)) + \u0027\u003c/div\u003e\u003c/div\u003e\u003carticle\u003e\u003ch1\u003e\u0027 + esc(b.title) + \u0027\u003c/h1\u003e\u0027 + md(b.body_markdown) + (b.cta ? \u0027\u003cp class=\"cta\"\u003e\u0027 + esc(b.cta) + \u0027\u003c/p\u003e\u0027 : \u0027\u0027) + \u0027\u003c/article\u003e\u003cdetails\u003e\u003csummary\u003eMarkdown\u003c/summary\u003e\u0027 + copyBox(b.body_markdown) + \u0027\u003c/details\u003e\u003c/section\u003e\u0027;\n}\nconst lp = c.landing_page;\nif (lp \u0026\u0026 lp.hero_headline) {\n  h += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.lp + \u0027\u003c/h2\u003e\u003cdiv class=\"meta\"\u003e\u003cdiv\u003e\u003cb\u003eMeta title:\u003c/b\u003e \u0027 + esc(lp.meta_title) + \u0027\u003c/div\u003e\u003cdiv\u003e\u003cb\u003eMeta description:\u003c/b\u003e \u0027 + esc(lp.meta_description) + \u0027\u003c/div\u003e\u003c/div\u003e\u003cdiv class=\"hero\"\u003e\u003ch1\u003e\u0027 + esc(lp.hero_headline) + \u0027\u003c/h1\u003e\u003cp\u003e\u0027 + esc(lp.hero_subheadline) + \u0027\u003c/p\u003e\u003cspan class=\"btn\"\u003e\u0027 + esc(lp.primary_cta) + \u0027\u003c/span\u003e\u003c/div\u003e\u0027 + arr(lp.sections).map(s =\u003e \u0027\u003ch3\u003e\u0027 + esc(s.title) + \u0027\u003c/h3\u003e\u003cp\u003e\u0027 + esc(s.body) + \u0027\u003c/p\u003e\u0027).join(\u0027\u0027) + (lp.social_proof ? \u0027\u003cblockquote\u003e\u0027 + esc(lp.social_proof) + \u0027\u003c/blockquote\u003e\u0027 : \u0027\u0027) + (arr(lp.faq).length ? \u0027\u003ch3\u003e\u0027 + L.faq + \u0027\u003c/h3\u003e\u0027 + arr(lp.faq).map(f =\u003e \u0027\u003cdetails\u003e\u003csummary\u003e\u0027 + esc(f.q) + \u0027\u003c/summary\u003e\u003cp\u003e\u0027 + esc(f.a) + \u0027\u003c/p\u003e\u003c/details\u003e\u0027).join(\u0027\u0027) : \u0027\u0027) + \u0027\u003c/section\u003e\u0027;\n}\nif (images.length) {\n  h += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.visuals + \u0027\u003c/h2\u003e\u003cdiv class=\"cards\"\u003e\u0027 + images.map(im =\u003e \u0027\u003cfigure class=\"card\"\u003e\u003cimg src=\"data:\u0027 + im.mime + \u0027;base64,\u0027 + im.b64 + \u0027\" alt=\"\u0027 + esc(im.use) + \u0027\"\u003e\u003cfigcaption\u003e\u003cb\u003e\u0027 + esc(im.use) + \u0027\u003c/b\u003e\u003cbr\u003e\u003csmall class=\"muted\"\u003e\u0027 + esc(im.prompt) + \u0027\u003c/small\u003e\u003c/figcaption\u003e\u003c/figure\u003e\u0027).join(\u0027\u0027) + \u0027\u003c/div\u003e\u003c/section\u003e\u0027;\n} else if (arr(c.visual_prompts).length) {\n  h += \u0027\u003csection\u003e\u003ch2\u003e\u0027 + L.visuals + \u0027\u003c/h2\u003e\u0027 + arr(c.visual_prompts).map(v =\u003e \u0027\u003cp\u003e\u003cb\u003e\u0027 + esc(v.use) + \u0027 (\u0027 + esc(v.aspect_ratio) + \u0027)\u003c/b\u003e\u003c/p\u003e\u0027 + copyBox(v.prompt)).join(\u0027\u0027) + \u0027\u003c/section\u003e\u0027;\n}\nconst css = \u0027:root{--bg:#f6f7fb;--card:#fff;--ink:#1d2433;--muted:#667085;--line:#e4e7ec;--acc:#3b5bdb}@media (prefers-color-scheme:dark){:root{--bg:#0f131a;--card:#171c26;--ink:#e6e9ef;--muted:#98a2b3;--line:#2a3140;--acc:#7c9cff}}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 system-ui,-apple-system,Segoe UI,Tahoma,sans-serif}.wrap{max-width:1100px;margin:0 auto;padding:24px 16px}header{border-bottom:3px solid var(--acc);margin-bottom:16px;padding-bottom:10px}header h1{margin:0}section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0}h2{color:var(--acc);margin:0 0 12px}.big{font-size:19px;font-weight:600}.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}.card{border:1px solid var(--line);border-radius:10px;padding:14px;margin:0}.tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}.tag{border:1px solid var(--line);border-radius:99px;padding:1px 10px;font-size:12px}.p-facebook{background:#1877f2;color:#fff}.p-instagram{background:#c13584;color:#fff}.p-tiktok{background:#111;color:#fff}.p-snapchat{background:#fffc00;color:#111}.cp{background:var(--bg);border-radius:8px;padding:10px;margin:6px 0}.cp button{float:inline-end;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:6px;cursor:pointer;font-size:12px}.muted{color:var(--muted)}.meta{background:var(--bg);border-radius:8px;padding:10px;font-size:14px;margin-bottom:12px}article h1{font-size:24px}.hero{background:var(--bg);border-radius:10px;padding:20px;text-align:center}.btn{display:inline-block;background:var(--acc);color:#fff;border-radius:8px;padding:8px 18px}img{width:100%;border-radius:8px}blockquote{border-inline-start:3px solid var(--acc);margin:10px 0;padding:4px 12px;color:var(--muted)}details{margin:6px 0}summary{cursor:pointer;color:var(--acc)}pre{white-space:pre-wrap}\u0027;\nconst js = \u0027function cp(id){var t=document.getElementById(id).innerText;navigator.clipboard.writeText(t);}\u0027;\nconst html = \u0027\u003c!DOCTYPE html\u003e\u003chtml lang=\"\u0027 + (ar ? \u0027ar\u0027 : \u0027en\u0027) + \u0027\" dir=\"\u0027 + (ar ? \u0027rtl\u0027 : \u0027ltr\u0027) + \u0027\"\u003e\u003chead\u003e\u003cmeta charset=\"utf-8\"\u003e\u003cmeta name=\"viewport\" content=\"width=device-width,initial-scale=1\"\u003e\u003ctitle\u003e\u0027 + esc(L.title + \u0027 - \u0027 + d.brand) + \u0027\u003c/title\u003e\u003cstyle\u003e\u0027 + css + \u0027\u003c/style\u003e\u003c/head\u003e\u003cbody\u003e\u003cdiv class=\"wrap\"\u003e\u003cheader\u003e\u003ch1\u003e\u0027 + esc(L.title) + \u0027: \u0027 + esc(d.brand) + \u0027\u003c/h1\u003e\u003cdiv class=\"muted\"\u003e\u0027 + esc(d.goal) + \u0027 · \u0027 + esc(d.platforms) + \u0027 · \u0027 + $now.toFormat(\u0027yyyy-MM-dd HH:mm\u0027) + \u0027\u003c/div\u003e\u003c/header\u003e\u0027 + h + \u0027\u003c/div\u003e\u003cscript\u003e\u0027 + js + \u0027\u003c/script\u003e\u003c/body\u003e\u003c/html\u003e\u0027;\nconst fileName = \u0027content-pack-\u0027 + (String(d.brand || \u0027brand\u0027).toLowerCase().replace(/[^a-z0-9]+/g, \u0027-\u0027).replace(/^-|-$/g, \u0027\u0027) || \u0027brand\u0027) + \u0027-\u0027 + $now.toFormat(\u0027yyyyMMdd-HHmm\u0027) + \u0027.html\u0027;\nconst binary = { data: await this.helpers.prepareBinaryData(Buffer.from(html, \u0027utf8\u0027), fileName, \u0027text/html\u0027) };\nreturn [{ json: { mode: d.mode, brand: d.brand, goal: d.goal, platforms: d.platforms, language: d.language, big_idea: c.big_idea || \u0027\u0027, content: c, images_generated: images.length, file_name: fileName }, binary }];"
+                                     }
+                  },
+                  {
+                      "id":  "0e40f2b1-5ed7-4788-8907-e09322104a9d",
+                      "name":  "Started From Form?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1920,
+                                       120
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.mode }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "string",
+                                                                                                    "operation":  "equals"
+                                                                                                },
+                                                                                   "rightValue":  "form"
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "ebe4cb6b-9ccd-4f60-86b5-15064d089624",
+                      "name":  "Download Content Pack",
+                      "type":  "n8n-nodes-base.form",
+                      "typeVersion":  2.5,
+                      "position":  [
+                                       2160,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "operation":  "completion",
+                                         "respondWith":  "returnBinary",
+                                         "completionTitle":  "Your content pack is ready",
+                                         "completionMessage":  "The HTML file is downloading. Open it in your browser - every caption, script and ad copy has a Copy button.",
+                                         "inputDataFieldName":  "data"
+                                     },
+                      "webhookId":  "fe0760d8-7b73-4699-b9f8-924a6669d0b1"
+                  },
+                  {
+                      "id":  "6376a18c-e7c0-4954-a91e-88c7f1e61583",
+                      "name":  "Return Content",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       2160,
+                                       240
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  true,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "r1",
+                                                                                     "name":  "agent",
+                                                                                     "value":  "content",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         }
+                                     }
+                  },
+                  {
+                      "id":  "707dd27d-219e-42c9-87af-53350d6bed5b",
+                      "name":  "Sticky Note 19e6b747",
+                      "type":  "n8n-nodes-base.stickyNote",
+                      "typeVersion":  1,
+                      "position":  [
+                                       -50,
+                                       -50
+                                   ],
+                      "parameters":  {
+                                         "content":  "## Content Creation Agent\n**Two entry points:** the form (standalone) or the Orchestrator (Execute Workflow).\n\n1. Gemini writes blog articles, social posts (Facebook / Instagram / TikTok / Snapchat), ad copy (Meta, TikTok, Snapchat, Google Ads) and landing page copy, using Google Search for trends.\n2. If \"Visuals\" is ticked, Gemini (Nano Banana) generates up to 3 images.\n3. Everything is packed into a downloadable HTML file with Copy buttons.\n\nNothing is published from here - publishing happens in the **Social Media Agent** after your approval.",
+                                         "color":  4,
+                                         "width":  1020,
+                                         "height":  320
+                                     }
+                  }
+              ],
+    "connections":  {
+                        "Content Brief Form":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Normalize Brief",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               },
+                        "Normalize Brief":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Content Creation Agent",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Called by Orchestrator":  {
+                                                       "main":  [
+                                                                    [
+                                                                        {
+                                                                            "node":  "Normalize Brief",
+                                                                            "type":  "main",
+                                                                            "index":  0
+                                                                        }
+                                                                    ]
+                                                                ]
+                                                   },
+                        "Content Creation Agent":  {
+                                                       "main":  [
+                                                                    [
+                                                                        {
+                                                                            "node":  "Parse Content",
+                                                                            "type":  "main",
+                                                                            "index":  0
+                                                                        }
+                                                                    ]
+                                                                ]
+                                                   },
+                        "Parse Content":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "Visuals Requested?",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          },
+                        "Visuals Requested?":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Split Visual Prompts",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ],
+                                                                [
+                                                                    {
+                                                                        "node":  "Build Content Pack",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               },
+                        "Split Visual Prompts":  {
+                                                     "main":  [
+                                                                  [
+                                                                      {
+                                                                          "node":  "Generate Visual",
+                                                                          "type":  "main",
+                                                                          "index":  0
+                                                                      }
+                                                                  ]
+                                                              ]
+                                                 },
+                        "Generate Visual":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Build Content Pack",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Build Content Pack":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Started From Form?",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               },
+                        "Started From Form?":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Download Content Pack",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ],
+                                                                [
+                                                                    {
+                                                                        "node":  "Return Content",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "availableInMCP":  true
+                 },
+    "staticData":  null,
+    "meta":  {
+                 "aiBuilderAssisted":  true,
+                 "builderVariant":  "mcp"
+             },
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  null,
+    "versionId":  "b27f8f39-1713-4d20-b65b-28ce14b67215",
+    "activeVersionId":  null,
+    "versionCounter":  1,
+    "triggerCount":  0,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  "Initial Content Creation Agent",
+                            "description":  "Created with 13 nodes: Content Brief Form, Normalize Brief, Called by Orchestrator, Content Creation Agent, Parse Content and 8 more"
+                        }
+}

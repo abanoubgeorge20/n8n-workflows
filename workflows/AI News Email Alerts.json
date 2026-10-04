@@ -1,0 +1,379 @@
+{
+    "updatedAt":  "2026-09-27T15:36:44.205Z",
+    "createdAt":  "2026-09-27T15:25:51.011Z",
+    "id":  "g33aR1tc0HyxSCFp",
+    "name":  "AI News Email Alerts",
+    "description":  "Every 3 hours: reads AI news RSS feeds, dedupes, Gemini writes an Arabic digest, sends via Gmail.",
+    "active":  false,
+    "isArchived":  false,
+    "nodes":  [
+                  {
+                      "parameters":  {
+                                         "rule":  {
+                                                      "interval":  [
+                                                                       {
+                                                                           "field":  "hours",
+                                                                           "hoursInterval":  3
+                                                                       }
+                                                                   ]
+                                                  }
+                                     },
+                      "id":  "d3a39957-058c-4ca1-a854-bd58e5c6eb82",
+                      "name":  "Every 3 Hours",
+                      "type":  "n8n-nodes-base.scheduleTrigger",
+                      "typeVersion":  1.3,
+                      "position":  [
+                                       0,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "feeds",
+                                                                                     "name":  "feeds",
+                                                                                     "type":  "array",
+                                                                                     "value":  "={{ [\"https://openai.com/news/rss.xml\", \"https://deepmind.google/blog/rss.xml\", \"https://blog.google/technology/ai/rss/\", \"https://huggingface.co/blog/feed.xml\", \"https://techcrunch.com/category/artificial-intelligence/feed/\", \"https://www.theverge.com/rss/ai-artificial-intelligence/index.xml\", \"https://venturebeat.com/category/ai/feed/\", \"https://www.technologyreview.com/topic/artificial-intelligence/feed\"] }}"
+                                                                                 }
+                                                                             ]
+                                                         },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "301e3a04-af29-42da-8b83-e62e392c1ff6",
+                      "name":  "AI News Sources",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       224,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "fieldToSplitOut":  "feeds",
+                                         "options":  {
+                                                         "destinationFieldName":  "url"
+                                                     }
+                                     },
+                      "id":  "015b6bef-eeba-4a22-9a1b-a83ede7e5131",
+                      "name":  "One Item Per Feed",
+                      "type":  "n8n-nodes-base.splitOut",
+                      "typeVersion":  1,
+                      "position":  [
+                                       448,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "url":  "={{ $json.url }}",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "ba4a7e20-01fe-4df3-a9e2-2be37a22f8c5",
+                      "name":  "Read RSS Feed",
+                      "type":  "n8n-nodes-base.rssFeedRead",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       672,
+                                       304
+                                   ],
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose",
+                                                                            "version":  3
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.isoDate }}",
+                                                                                   "rightValue":  "={{ $now.minus(1, \"days\").toISO() }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "dateTime",
+                                                                                                    "operation":  "after"
+                                                                                                },
+                                                                                   "id":  "58403fc0-5f01-441a-a3b4-c29b5332f625"
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        },
+                                         "looseTypeValidation":  true,
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "facf6425-a7ca-4cc8-a32f-ed976e9128fa",
+                      "name":  "Published In Last 24h",
+                      "type":  "n8n-nodes-base.filter",
+                      "typeVersion":  2.3,
+                      "position":  [
+                                       880,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "operation":  "removeItemsSeenInPreviousExecutions",
+                                         "dedupeValue":  "={{ $json.link }}",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "1ee4db59-713a-4abd-821b-3bfbe97fedef",
+                      "name":  "Skip Already Sent",
+                      "type":  "n8n-nodes-base.removeDuplicates",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1104,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "maxItems":  40
+                                     },
+                      "id":  "f97a09ca-4774-4523-bb6e-803ffc370026",
+                      "name":  "Max 40 Articles",
+                      "type":  "n8n-nodes-base.limit",
+                      "typeVersion":  1,
+                      "position":  [
+                                       1328,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "aggregate":  "aggregateAllItemData",
+                                         "include":  "specifiedFields",
+                                         "fieldsToInclude":  "title, link, contentSnippet, isoDate",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "b5ab067e-6498-44ea-8b06-f05d4ed51013",
+                      "name":  "Collect Articles",
+                      "type":  "n8n-nodes-base.aggregate",
+                      "typeVersion":  1,
+                      "position":  [
+                                       1552,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "promptType":  "define",
+                                         "text":  "=These are new AI news articles (JSON):\n{{ JSON.stringify($json.data.map(i =\u003e ({ title: i.title, link: i.link, snippet: (i.contentSnippet || \"\").slice(0, 400), date: i.isoDate }))) }}",
+                                         "messages":  {
+                                                          "messageValues":  [
+                                                                                {
+                                                                                    "message":  "You write a clean HTML email newsletter in Arabic (dir=\"rtl\") about the latest AI news. Group related articles and put the most important news (new model releases, major product launches, big funding/research) first. For each article give: a bold Arabic headline, a 1-2 sentence Arabic summary explaining what is new and why it matters, and a link \"اقرأ المزيد\" to the original URL. Keep technical names (model/company names) in English. Use simple inline CSS only. Return ONLY the HTML body content, no markdown code fences, no explanations."
+                                                                                }
+                                                                            ]
+                                                      },
+                                         "batching":  {
+
+                                                      }
+                                     },
+                      "id":  "d0761be7-ffa1-4f5a-a998-75e3dbcfb51f",
+                      "name":  "Write Arabic Digest",
+                      "type":  "@n8n/n8n-nodes-langchain.chainLlm",
+                      "typeVersion":  1.9,
+                      "position":  [
+                                       1760,
+                                       304
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "options":  {
+                                                         "maxOutputTokens":  8192,
+                                                         "temperature":  0.3
+                                                     }
+                                     },
+                      "id":  "14e97970-a930-4e7f-ac8a-b7182b1d1693",
+                      "name":  "Gemini Model",
+                      "type":  "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       1760,
+                                       528
+                                   ],
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      }
+                  },
+                  {
+                      "parameters":  {
+                                         "sendTo":  "your-email@example.com",
+                                         "subject":  "=🤖 جديد الذكاء الاصطناعي — {{ $(\"Collect Articles\").first().json.data.length }} خبر — {{ $now.toFormat(\"dd/MM HH:mm\") }}",
+                                         "message":  "={{ $json.text.replace(/```html|```/g, \"\") }}",
+                                         "options":  {
+                                                         "appendAttribution":  false,
+                                                         "senderName":  "AI News Bot"
+                                                     }
+                                     },
+                      "id":  "0bc1113d-278d-45e6-b46c-8785395e92a0",
+                      "name":  "Send Digest Email",
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       2000,
+                                       304
+                                   ],
+                      "webhookId":  "251772af-728e-4273-8e3d-eda4bc49bb58"
+                  }
+              ],
+    "connections":  {
+                        "Every 3 Hours":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "AI News Sources",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          },
+                        "AI News Sources":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "One Item Per Feed",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "One Item Per Feed":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Read RSS Feed",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Read RSS Feed":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "Published In Last 24h",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          },
+                        "Published In Last 24h":  {
+                                                      "main":  [
+                                                                   [
+                                                                       {
+                                                                           "node":  "Skip Already Sent",
+                                                                           "type":  "main",
+                                                                           "index":  0
+                                                                       }
+                                                                   ]
+                                                               ]
+                                                  },
+                        "Skip Already Sent":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Max 40 Articles",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Max 40 Articles":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Collect Articles",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Collect Articles":  {
+                                                 "main":  [
+                                                              [
+                                                                  {
+                                                                      "node":  "Write Arabic Digest",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ]
+                                                          ]
+                                             },
+                        "Write Arabic Digest":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "Send Digest Email",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "Gemini Model":  {
+                                             "ai_languageModel":  [
+                                                                      [
+                                                                          {
+                                                                              "node":  "Write Arabic Digest",
+                                                                              "type":  "ai_languageModel",
+                                                                              "index":  0
+                                                                          }
+                                                                      ]
+                                                                  ]
+                                         }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "availableInMCP":  true,
+                     "binaryMode":  "separate"
+                 },
+    "staticData":  null,
+    "meta":  {
+                 "aiBuilderAssisted":  true,
+                 "builderVariant":  "mcp"
+             },
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  {
+
+                },
+    "versionId":  "67eaee9a-43d1-477e-ac06-38aac2b1af31",
+    "activeVersionId":  null,
+    "versionCounter":  9,
+    "triggerCount":  0,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  null,
+                            "description":  null
+                        }
+}

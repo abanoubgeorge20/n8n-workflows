@@ -1,0 +1,450 @@
+{
+    "updatedAt":  "2026-09-30T04:57:24.000Z",
+    "createdAt":  "2026-09-28T22:39:43.295Z",
+    "id":  "StratPlanAgent01",
+    "name":  "Strategic Planning Agent",
+    "description":  null,
+    "active":  false,
+    "isArchived":  true,
+    "nodes":  [
+                  {
+                      "parameters":  {
+                                         "formTitle":  "Strategic Marketing Plan",
+                                         "formDescription":  "اكتب البيانات بأي لغة، والخطة هتطلع بنفس اللغة. / Fill in the brief in any language — the plan is written in the same language.",
+                                         "formFields":  {
+                                                            "values":  [
+                                                                           {
+                                                                               "fieldLabel":  "Brand / Business name",
+                                                                               "requiredField":  true
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Product or service",
+                                                                               "fieldType":  "textarea",
+                                                                               "requiredField":  true,
+                                                                               "placeholder":  "What do you sell, price range, what makes it different"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Target market \u0026 audience",
+                                                                               "fieldType":  "textarea",
+                                                                               "requiredField":  true,
+                                                                               "placeholder":  "Country/city, B2B or B2C, who buys, who decides"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Main competitors",
+                                                                               "fieldType":  "textarea"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Business goal",
+                                                                               "fieldType":  "textarea",
+                                                                               "requiredField":  true,
+                                                                               "placeholder":  "e.g. 300 new students in 6 months, launch a new product, grow leads 40%"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Total budget (with currency)",
+                                                                               "requiredField":  true,
+                                                                               "placeholder":  "e.g. 500,000 EGP"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Planning period",
+                                                                               "requiredField":  true,
+                                                                               "placeholder":  "e.g. Oct 2026 – Mar 2027"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Current channels, assets \u0026 results",
+                                                                               "fieldType":  "textarea",
+                                                                               "placeholder":  "Social pages, website, CRM, sales team, past campaign results"
+                                                                           },
+                                                                           {
+                                                                               "fieldLabel":  "Constraints / notes",
+                                                                               "fieldType":  "textarea"
+                                                                           }
+                                                                       ]
+                                                        },
+                                         "responseMode":  "lastNode",
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "a1000000-0000-4000-8000-000000000001",
+                      "name":  "Brief Form",
+                      "type":  "n8n-nodes-base.formTrigger",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       0,
+                                       0
+                                   ],
+                      "webhookId":  "b7c1f6c2-3d1e-4c55-9d0a-5f2e8a1c0001"
+                  },
+                  {
+                      "parameters":  {
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "c1000000-0000-4000-8000-000000000001",
+                                                                                     "name":  "brand",
+                                                                                     "value":  "={{ $json[\u0027Brand / Business name\u0027] }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c1000000-0000-4000-8000-000000000002",
+                                                                                     "name":  "brief",
+                                                                                     "value":  "=BRAND: {{ $json[\u0027Brand / Business name\u0027] }}\nPRODUCT / SERVICE: {{ $json[\u0027Product or service\u0027] }}\nTARGET MARKET \u0026 AUDIENCE: {{ $json[\u0027Target market \u0026 audience\u0027] }}\nCOMPETITORS: {{ $json[\u0027Main competitors\u0027] || \u0027not provided\u0027 }}\nBUSINESS GOAL: {{ $json[\u0027Business goal\u0027] }}\nTOTAL BUDGET: {{ $json[\u0027Total budget (with currency)\u0027] }}\nPLANNING PERIOD: {{ $json[\u0027Planning period\u0027] }}\nCURRENT CHANNELS / ASSETS / RESULTS: {{ $json[\u0027Current channels, assets \u0026 results\u0027] || \u0027not provided\u0027 }}\nCONSTRAINTS / NOTES: {{ $json[\u0027Constraints / notes\u0027] || \u0027none\u0027 }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "c1000000-0000-4000-8000-000000000003",
+                                                                                     "name":  "rules",
+                                                                                     "value":  "LANGUAGE: Detect the language of the BRIEF and write your whole answer in that language. If it is Arabic, write in clear Arabic and keep standard marketing terms in English in parentheses where useful (e.g. الوعي (Awareness)).\nFORMAT: Markdown. Use ## headings and tables. Be specific to this brand — no generic filler.\nHONESTY: Never invent real market statistics. When you use a benchmark or estimate, mark it as an assumption (e.g. \"assumption\" / \"افتراض\").\nCONSISTENCY: Build on the previous sections you are given; do not contradict them.",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "id":  "a1000000-0000-4000-8000-000000000002",
+                      "name":  "Brief",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       220,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "promptType":  "define",
+                                         "text":  "=BRIEF:\n{{ $(\u0027Brief\u0027).first().json.brief }}\n\nWrite the POSITIONING \u0026 MESSAGING section.",
+                                         "messages":  {
+                                                          "messageValues":  [
+                                                                                {
+                                                                                    "type":  "SystemMessagePromptTemplate",
+                                                                                    "message":  "=You are a senior brand strategist.\n{{ $(\u0027Brief\u0027).first().json.rules }}\n\nProduce the Positioning \u0026 Messaging section with:\n1. Market \u0026 competitor snapshot (3-5 bullets: where the gap is).\n2. Target segments + 2-3 personas (needs, pains, objections, where they spend time, decision triggers).\n3. Positioning statement (For [target] who [need], [brand] is the [category] that [key benefit] because [reason to believe]).\n4. Value proposition + 3 differentiators vs. competitors.\n5. Messaging pillars (3-4), each with proof points.\n6. Message matrix table: persona × key message × proof × CTA.\n7. Tone of voice (do / don\u0027t) and 3 tagline options."
+                                                                                }
+                                                                            ]
+                                                      }
+                                     },
+                      "id":  "a1000000-0000-4000-8000-000000000003",
+                      "name":  "Positioning \u0026 Messaging",
+                      "type":  "@n8n/n8n-nodes-langchain.chainLlm",
+                      "typeVersion":  1.5,
+                      "position":  [
+                                       440,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "promptType":  "define",
+                                         "text":  "=BRIEF:\n{{ $(\u0027Brief\u0027).first().json.brief }}\n\nPOSITIONING \u0026 MESSAGING (already decided):\n{{ $(\u0027Positioning \u0026 Messaging\u0027).first().json.text }}\n\nWrite the CHANNEL MIX \u0026 BUDGET ALLOCATION section.",
+                                         "messages":  {
+                                                          "messageValues":  [
+                                                                                {
+                                                                                    "type":  "SystemMessagePromptTemplate",
+                                                                                    "message":  "=You are a media planner and performance marketer.\n{{ $(\u0027Brief\u0027).first().json.rules }}\n\nProduce the Channel Mix \u0026 Budget Allocation section with:\n1. Funnel map: which channels serve Awareness / Consideration / Conversion / Retention and why they fit these personas and this market.\n2. Budget table: channel | funnel role | % of budget | amount (in the brief\u0027s currency) | expected outcome. Percentages MUST sum to 100% and amounts MUST sum to the total budget — double-check the math.\n3. Keep a 10-15% test \u0026 optimization reserve as its own row.\n4. Monthly budget phasing table across the planning period (ramp-up, peak, sustain).\n5. Channels deliberately NOT used and why.\n6. Reallocation rules (when to move money between channels)."
+                                                                                }
+                                                                            ]
+                                                      }
+                                     },
+                      "id":  "a1000000-0000-4000-8000-000000000004",
+                      "name":  "Channel Mix \u0026 Budget",
+                      "type":  "@n8n/n8n-nodes-langchain.chainLlm",
+                      "typeVersion":  1.5,
+                      "position":  [
+                                       660,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "promptType":  "define",
+                                         "text":  "=BRIEF:\n{{ $(\u0027Brief\u0027).first().json.brief }}\n\nPOSITIONING \u0026 MESSAGING:\n{{ $(\u0027Positioning \u0026 Messaging\u0027).first().json.text }}\n\nCHANNEL MIX \u0026 BUDGET:\n{{ $(\u0027Channel Mix \u0026 Budget\u0027).first().json.text }}\n\nWrite the CAMPAIGN PLANNING section.",
+                                         "messages":  {
+                                                          "messageValues":  [
+                                                                                {
+                                                                                    "type":  "SystemMessagePromptTemplate",
+                                                                                    "message":  "=You are a creative campaign director.\n{{ $(\u0027Brief\u0027).first().json.rules }}\n\nProduce the Campaign Planning section: 2-4 campaigns that together cover the funnel and fit the budget above. For each campaign:\n- Name \u0026 big idea\n- Objective (tied to the business goal) and funnel stage\n- Target persona(s) and key message (from the message matrix)\n- Offer / hook and CTA\n- Channels + formats (e.g. Reels, Search ads, email sequence, events)\n- Asset list (what needs to be produced)\n- Budget (must match the channel budget table)\n- Flight dates\n- A/B tests to run\nEnd with a summary table: campaign | stage | dates | budget | primary KPI."
+                                                                                }
+                                                                            ]
+                                                      }
+                                     },
+                      "id":  "a1000000-0000-4000-8000-000000000005",
+                      "name":  "Campaign Planning",
+                      "type":  "@n8n/n8n-nodes-langchain.chainLlm",
+                      "typeVersion":  1.5,
+                      "position":  [
+                                       880,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "promptType":  "define",
+                                         "text":  "=BRIEF:\n{{ $(\u0027Brief\u0027).first().json.brief }}\n\nCHANNEL MIX \u0026 BUDGET:\n{{ $(\u0027Channel Mix \u0026 Budget\u0027).first().json.text }}\n\nCAMPAIGNS:\n{{ $(\u0027Campaign Planning\u0027).first().json.text }}\n\nToday is {{ $now.toFormat(\u0027yyyy-MM-dd\u0027) }}. Write the CALENDAR \u0026 MILESTONES section.",
+                                         "messages":  {
+                                                          "messageValues":  [
+                                                                                {
+                                                                                    "type":  "SystemMessagePromptTemplate",
+                                                                                    "message":  "=You are a marketing program manager.\n{{ $(\u0027Brief\u0027).first().json.rules }}\n\nProduce the Calendar \u0026 Milestones section with:\n1. Phase overview (Prep / Launch / Scale / Optimize) with dates.\n2. Week-by-week (or month-by-month if the period is longer than 4 months) calendar table: period | campaign | channels | key activities | deliverables | owner role.\n3. Milestones table: milestone | date | success criteria.\n4. Production lead times and dependencies (e.g. creatives ready 2 weeks before launch, tracking set up before spend).\n5. Relevant seasonal / cultural / local dates in the target market inside the period (e.g. Ramadan, back-to-school, holidays) and how to use them.\n6. Review checkpoints (weekly, monthly, end of period)."
+                                                                                }
+                                                                            ]
+                                                      }
+                                     },
+                      "id":  "a1000000-0000-4000-8000-000000000006",
+                      "name":  "Calendar \u0026 Milestones",
+                      "type":  "@n8n/n8n-nodes-langchain.chainLlm",
+                      "typeVersion":  1.5,
+                      "position":  [
+                                       1100,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "promptType":  "define",
+                                         "text":  "=BRIEF:\n{{ $(\u0027Brief\u0027).first().json.brief }}\n\nCHANNEL MIX \u0026 BUDGET:\n{{ $(\u0027Channel Mix \u0026 Budget\u0027).first().json.text }}\n\nCAMPAIGNS:\n{{ $(\u0027Campaign Planning\u0027).first().json.text }}\n\nCALENDAR \u0026 MILESTONES:\n{{ $(\u0027Calendar \u0026 Milestones\u0027).first().json.text }}\n\nWrite the KPIs \u0026 TARGETS section.",
+                                         "messages":  {
+                                                          "messageValues":  [
+                                                                                {
+                                                                                    "type":  "SystemMessagePromptTemplate",
+                                                                                    "message":  "=You are a marketing analytics lead.\n{{ $(\u0027Brief\u0027).first().json.rules }}\n\nProduce the KPIs \u0026 Targets section with:\n1. North Star metric tied directly to the business goal.\n2. Funnel math: work backwards from the goal (e.g. goal → sales → leads → clicks → impressions) using stated conversion-rate assumptions, and check it is achievable with the budget (CAC / cost per lead implied).\n3. KPI table per funnel stage: KPI | definition | target | measurement tool.\n4. Per-channel targets table: channel | budget | primary KPI | target | target CPL/CPA/ROAS.\n5. Per-campaign KPI targets matching the campaign plan.\n6. Monthly target ramp across the period.\n7. Tracking setup checklist (pixels, UTMs, CRM stages, dashboard).\n8. Reporting cadence and decision rules (e.g. pause an ad set if CPL \u003e X for 7 days).\n9. Top risks \u0026 mitigations.\nFinish with a 5-bullet executive summary of the whole plan."
+                                                                                }
+                                                                            ]
+                                                      }
+                                     },
+                      "id":  "a1000000-0000-4000-8000-000000000007",
+                      "name":  "KPIs \u0026 Targets",
+                      "type":  "@n8n/n8n-nodes-langchain.chainLlm",
+                      "typeVersion":  1.5,
+                      "position":  [
+                                       1320,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "model":  {
+                                                       "__rl":  true,
+                                                       "mode":  "list",
+                                                       "value":  "claude-sonnet-5",
+                                                       "cachedResultName":  "Claude Sonnet 5"
+                                                   },
+                                         "options":  {
+                                                         "maxTokensToSample":  8000,
+                                                         "temperature":  0.5
+                                                     }
+                                     },
+                      "id":  "a1000000-0000-4000-8000-000000000008",
+                      "name":  "Claude",
+                      "type":  "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+                      "typeVersion":  1.3,
+                      "position":  [
+                                       880,
+                                       260
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "const section = (node) =\u003e $(node).first().json.text.trim();\nconst brand = $(\u0027Brief\u0027).first().json.brand;\nconst date = new Date().toISOString().slice(0, 10);\n\nconst markdown = [\n  `# ${brand} — Strategic Marketing Plan`,\n  `_${date}_`,\n  \u0027---\u0027,\n  section(\u0027Positioning \u0026 Messaging\u0027),\n  \u0027---\u0027,\n  section(\u0027Channel Mix \u0026 Budget\u0027),\n  \u0027---\u0027,\n  section(\u0027Campaign Planning\u0027),\n  \u0027---\u0027,\n  section(\u0027Calendar \u0026 Milestones\u0027),\n  \u0027---\u0027,\n  section(\u0027KPIs \u0026 Targets\u0027),\n].join(\u0027\\n\\n\u0027);\n\nreturn [{ json: { brand, markdown } }];"
+                                     },
+                      "id":  "a1000000-0000-4000-8000-000000000009",
+                      "name":  "Assemble Plan",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1540,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "mode":  "markdownToHtml",
+                                         "markdown":  "={{ $json.markdown }}",
+                                         "destinationKey":  "html",
+                                         "options":  {
+                                                         "tables":  true
+                                                     }
+                                     },
+                      "id":  "a1000000-0000-4000-8000-000000000010",
+                      "name":  "To HTML",
+                      "type":  "n8n-nodes-base.markdown",
+                      "typeVersion":  1,
+                      "position":  [
+                                       1760,
+                                       0
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "operation":  "completion",
+                                         "respondWith":  "showText",
+                                         "responseText":  "=\u003cdiv dir=\"auto\" style=\"max-width:960px;margin:24px auto;padding:0 16px;font-family:system-ui,Segoe UI,Tahoma,sans-serif;line-height:1.6;text-align:start\"\u003e\u003cstyle\u003etable{border-collapse:collapse;width:100%;margin:12px 0;display:block;overflow-x:auto}th,td{border:1px solid #ccc;padding:6px 10px;vertical-align:top}th{background:#f3f3f3}h1,h2,h3{line-height:1.3}\u003c/style\u003e{{ $json.html }}\u003c/div\u003e"
+                                     },
+                      "id":  "a1000000-0000-4000-8000-000000000011",
+                      "name":  "Show Plan",
+                      "type":  "n8n-nodes-base.form",
+                      "typeVersion":  1,
+                      "position":  [
+                                       1980,
+                                       0
+                                   ],
+                      "webhookId":  "b7c1f6c2-3d1e-4c55-9d0a-5f2e8a1c0002"
+                  }
+              ],
+    "connections":  {
+                        "Brief Form":  {
+                                           "main":  [
+                                                        [
+                                                            {
+                                                                "node":  "Brief",
+                                                                "type":  "main",
+                                                                "index":  0
+                                                            }
+                                                        ]
+                                                    ]
+                                       },
+                        "Brief":  {
+                                      "main":  [
+                                                   [
+                                                       {
+                                                           "node":  "Positioning \u0026 Messaging",
+                                                           "type":  "main",
+                                                           "index":  0
+                                                       }
+                                                   ]
+                                               ]
+                                  },
+                        "Positioning \u0026 Messaging":  {
+                                                             "main":  [
+                                                                          [
+                                                                              {
+                                                                                  "node":  "Channel Mix \u0026 Budget",
+                                                                                  "type":  "main",
+                                                                                  "index":  0
+                                                                              }
+                                                                          ]
+                                                                      ]
+                                                         },
+                        "Channel Mix \u0026 Budget":  {
+                                                          "main":  [
+                                                                       [
+                                                                           {
+                                                                               "node":  "Campaign Planning",
+                                                                               "type":  "main",
+                                                                               "index":  0
+                                                                           }
+                                                                       ]
+                                                                   ]
+                                                      },
+                        "Campaign Planning":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Calendar \u0026 Milestones",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Calendar \u0026 Milestones":  {
+                                                           "main":  [
+                                                                        [
+                                                                            {
+                                                                                "node":  "KPIs \u0026 Targets",
+                                                                                "type":  "main",
+                                                                                "index":  0
+                                                                            }
+                                                                        ]
+                                                                    ]
+                                                       },
+                        "KPIs \u0026 Targets":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "Assemble Plan",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "Assemble Plan":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "To HTML",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          },
+                        "To HTML":  {
+                                        "main":  [
+                                                     [
+                                                         {
+                                                             "node":  "Show Plan",
+                                                             "type":  "main",
+                                                             "index":  0
+                                                         }
+                                                     ]
+                                                 ]
+                                    },
+                        "Claude":  {
+                                       "ai_languageModel":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Positioning \u0026 Messaging",
+                                                                        "type":  "ai_languageModel",
+                                                                        "index":  0
+                                                                    },
+                                                                    {
+                                                                        "node":  "Channel Mix \u0026 Budget",
+                                                                        "type":  "ai_languageModel",
+                                                                        "index":  0
+                                                                    },
+                                                                    {
+                                                                        "node":  "Campaign Planning",
+                                                                        "type":  "ai_languageModel",
+                                                                        "index":  0
+                                                                    },
+                                                                    {
+                                                                        "node":  "Calendar \u0026 Milestones",
+                                                                        "type":  "ai_languageModel",
+                                                                        "index":  0
+                                                                    },
+                                                                    {
+                                                                        "node":  "KPIs \u0026 Targets",
+                                                                        "type":  "ai_languageModel",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                   }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1"
+                 },
+    "staticData":  null,
+    "meta":  null,
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  {
+
+                },
+    "versionId":  "d1942aea-38cd-4229-bc72-11e1a2c69da6",
+    "activeVersionId":  null,
+    "versionCounter":  1,
+    "triggerCount":  0,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  null,
+                            "description":  null
+                        }
+}

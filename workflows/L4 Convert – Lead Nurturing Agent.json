@@ -1,0 +1,1103 @@
+{
+    "updatedAt":  "2026-10-01T04:33:38.897Z",
+    "createdAt":  "2026-10-01T04:05:29.615Z",
+    "id":  "WTrlLLhZTvFuWFW7",
+    "name":  "L4 Convert – Lead Nurturing Agent",
+    "description":  "Scores and segments engaged leads with Gemini, sends personalized WhatsApp/email outreach, runs a 3-step drip campaign for cold leads, and hands hot leads off to sales in HubSpot.",
+    "active":  false,
+    "isArchived":  false,
+    "nodes":  [
+                  {
+                      "id":  "97b01852-bb3a-4b4b-89e7-c4582d480684",
+                      "name":  "New Engaged Lead",
+                      "type":  "n8n-nodes-base.webhook",
+                      "typeVersion":  2.1,
+                      "position":  [
+                                       0,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "httpMethod":  "POST",
+                                         "path":  "lead-nurturing",
+                                         "responseMode":  "onReceived"
+                                     },
+                      "webhookId":  "128944ae-92ce-4257-acb9-c6e214be1eb1"
+                  },
+                  {
+                      "id":  "09cbf257-6dda-4efa-ab19-9f2d2ff56fd1",
+                      "name":  "Normalize Lead Data",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       220,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  false,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "n1",
+                                                                                     "name":  "name",
+                                                                                     "value":  "={{ $json.body?.name ?? $json.name ?? \"there\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n2",
+                                                                                     "name":  "email",
+                                                                                     "value":  "={{ $json.body?.email ?? $json.email ?? \"\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n3",
+                                                                                     "name":  "phone",
+                                                                                     "value":  "={{ $json.body?.phone ?? $json.phone ?? \"\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n4",
+                                                                                     "name":  "company",
+                                                                                     "value":  "={{ $json.body?.company ?? $json.company ?? \"\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n5",
+                                                                                     "name":  "source",
+                                                                                     "value":  "={{ $json.body?.source ?? $json.source ?? \"unknown\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n6",
+                                                                                     "name":  "message",
+                                                                                     "value":  "={{ $json.body?.message ?? $json.message ?? \"\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n7",
+                                                                                     "name":  "engagement",
+                                                                                     "value":  "={{ $json.body?.engagement ?? $json.engagement ?? \"\" }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "n8",
+                                                                                     "name":  "preferredChannel",
+                                                                                     "value":  "={{ $json.body?.preferredChannel ?? $json.preferredChannel ?? \"email\" }}",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         },
+                                         "parameters":  {
+                                                            "assignments":  {
+                                                                                "assignments":  {
+                                                                                                    "8":  {
+                                                                                                              "id":  "n9",
+                                                                                                              "name":  "campaign",
+                                                                                                              "value":  "={{ $json.body?.campaign ?? $json.campaign ?? \"\" }}",
+                                                                                                              "type":  "string"
+                                                                                                          }
+                                                                                                }
+                                                                            }
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "d1d13e27-8ba7-4a2d-857a-997e386b3fa8",
+                      "name":  "Lead Scoring \u0026 Segmentation",
+                      "type":  "@n8n/n8n-nodes-langchain.agent",
+                      "typeVersion":  3.1,
+                      "position":  [
+                                       440,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "promptType":  "define",
+                                         "text":  "=Lead data:\nName: {{ $json.name }}\nEmail: {{ $json.email }}\nPhone: {{ $json.phone }}\nCompany: {{ $json.company }}\nSource: {{ $json.source }}\nMessage: {{ $json.message }}\nEngagement: {{ $json.engagement }}\nPreferred channel: {{ $json.preferredChannel }}",
+                                         "hasOutputParser":  true,
+                                         "options":  {
+                                                         "systemMessage":  "You are a Lead Nurturing Agent. Your job is to turn engagement into qualified leads.\n\n1. Score the lead from 0 to 100 based on buying intent, engagement depth, and fit.\n2. Segment: \"hot\" (score \u003e= 70, ready for sales), \"warm\" (40-69, needs personalized outreach), \"cold\" (\u003c 40, needs a drip campaign).\n3. channel: \"whatsapp\" if the lead prefers WhatsApp and has a phone number, otherwise \"email\".\n4. Write a short, friendly, personalized outreach message (outreachSubject + outreachMessage) referencing what the lead did or asked.\n5. Write a 3-step educational drip email sequence (drip1..drip3 subject/body) that builds trust and ends with a soft call to action.\n\nWrite all messages in the same language the lead used (Arabic or English). Keep messages under 120 words. Use simple HTML line breaks (\u003cbr\u003e) in email bodies. Always include a one-sentence reasoning.\n\nExamples:\n- \"Asked for price, visited pricing page 2x\" -\u003e score 85, hot\n- \"Downloaded a free guide, opened 1 email\" -\u003e score 50, warm\n- \"Followed on Instagram, no interaction\" -\u003e score 20, cold"
+                                                     }
+                                     }
+                  },
+                  {
+                      "id":  "3743e6fa-1c75-46e4-9ada-ea417bc7eb69",
+                      "name":  "Gemini Model",
+                      "type":  "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       380,
+                                       520
+                                   ],
+                      "parameters":  {
+                                         "modelName":  "models/gemini-3-flash-preview",
+                                         "options":  {
+                                                         "temperature":  0.2
+                                                     }
+                                     },
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      }
+                  },
+                  {
+                      "id":  "803404e3-ad68-454b-b2a7-0b102179b7ac",
+                      "name":  "Lead Score Parser",
+                      "type":  "@n8n/n8n-nodes-langchain.outputParserStructured",
+                      "typeVersion":  1.3,
+                      "position":  [
+                                       560,
+                                       520
+                                   ],
+                      "parameters":  {
+                                         "schemaType":  "fromJson",
+                                         "jsonSchemaExample":  "{ \"score\": 82, \"segment\": \"hot\", \"channel\": \"whatsapp\", \"reasoning\": \"Asked about pricing and visited pricing page twice\", \"outreachSubject\": \"Your diploma details\", \"outreachMessage\": \"Hi Sara, ...\", \"drip1Subject\": \"Subject 1\", \"drip1Body\": \"Body 1\", \"drip2Subject\": \"Subject 2\", \"drip2Body\": \"Body 2\", \"drip3Subject\": \"Subject 3\", \"drip3Body\": \"Body 3\" }"
+                                     }
+                  },
+                  {
+                      "id":  "0c6fb6dd-49fd-4147-bbd5-4111d7cec201",
+                      "name":  "Build Lead Profile",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       780,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "includeOtherFields":  false,
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "p1",
+                                                                                     "name":  "name",
+                                                                                     "value":  "={{ $(\"Normalize Lead Data\").item.json.name }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p2",
+                                                                                     "name":  "email",
+                                                                                     "value":  "={{ $(\"Normalize Lead Data\").item.json.email }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p3",
+                                                                                     "name":  "phone",
+                                                                                     "value":  "={{ $(\"Normalize Lead Data\").item.json.phone }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p4",
+                                                                                     "name":  "company",
+                                                                                     "value":  "={{ $(\"Normalize Lead Data\").item.json.company }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p5",
+                                                                                     "name":  "source",
+                                                                                     "value":  "={{ $(\"Normalize Lead Data\").item.json.source }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p6",
+                                                                                     "name":  "message",
+                                                                                     "value":  "={{ $(\"Normalize Lead Data\").item.json.message }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p7",
+                                                                                     "name":  "score",
+                                                                                     "value":  "={{ $json.output.score }}",
+                                                                                     "type":  "number"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p8",
+                                                                                     "name":  "segment",
+                                                                                     "value":  "={{ ($json.output.segment ?? \"\").toLowerCase() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p9",
+                                                                                     "name":  "channel",
+                                                                                     "value":  "={{ ($json.output.channel ?? \"email\").toLowerCase() }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p10",
+                                                                                     "name":  "reasoning",
+                                                                                     "value":  "={{ $json.output.reasoning }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p11",
+                                                                                     "name":  "outreachSubject",
+                                                                                     "value":  "={{ $json.output.outreachSubject }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p12",
+                                                                                     "name":  "outreachMessage",
+                                                                                     "value":  "={{ $json.output.outreachMessage }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p13",
+                                                                                     "name":  "drip1Subject",
+                                                                                     "value":  "={{ $json.output.drip1Subject }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p14",
+                                                                                     "name":  "drip1Body",
+                                                                                     "value":  "={{ $json.output.drip1Body }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p15",
+                                                                                     "name":  "drip2Subject",
+                                                                                     "value":  "={{ $json.output.drip2Subject }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p16",
+                                                                                     "name":  "drip2Body",
+                                                                                     "value":  "={{ $json.output.drip2Body }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p17",
+                                                                                     "name":  "drip3Subject",
+                                                                                     "value":  "={{ $json.output.drip3Subject }}",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "p18",
+                                                                                     "name":  "drip3Body",
+                                                                                     "value":  "={{ $json.output.drip3Body }}",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         },
+                                         "parameters":  {
+                                                            "assignments":  {
+                                                                                "assignments":  {
+                                                                                                    "18":  {
+                                                                                                               "id":  "p19",
+                                                                                                               "name":  "campaign",
+                                                                                                               "value":  "={{ $(\"Normalize Lead Data\").item.json.campaign }}",
+                                                                                                               "type":  "string"
+                                                                                                           }
+                                                                                                }
+                                                                            }
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "d2d335eb-0a58-41c1-8ddc-7a8cbc92d928",
+                      "name":  "Route by Segment",
+                      "type":  "n8n-nodes-base.switch",
+                      "typeVersion":  3.2,
+                      "position":  [
+                                       1130,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "rules":  {
+                                                       "values":  [
+                                                                      {
+                                                                          "outputKey":  "Hot",
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  false,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "loose"
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "leftValue":  "={{ $json.segment }}",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "string",
+                                                                                                                                     "operation":  "equals"
+                                                                                                                                 },
+                                                                                                                    "rightValue":  "hot"
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         }
+                                                                      },
+                                                                      {
+                                                                          "outputKey":  "Warm",
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  false,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "loose"
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "leftValue":  "={{ $json.segment }}",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "string",
+                                                                                                                                     "operation":  "equals"
+                                                                                                                                 },
+                                                                                                                    "rightValue":  "warm"
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         }
+                                                                      },
+                                                                      {
+                                                                          "outputKey":  "Cold",
+                                                                          "conditions":  {
+                                                                                             "options":  {
+                                                                                                             "caseSensitive":  false,
+                                                                                                             "leftValue":  "",
+                                                                                                             "typeValidation":  "loose"
+                                                                                                         },
+                                                                                             "conditions":  [
+                                                                                                                {
+                                                                                                                    "leftValue":  "={{ $json.segment }}",
+                                                                                                                    "operator":  {
+                                                                                                                                     "type":  "string",
+                                                                                                                                     "operation":  "equals"
+                                                                                                                                 },
+                                                                                                                    "rightValue":  "cold"
+                                                                                                                }
+                                                                                                            ],
+                                                                                             "combinator":  "and"
+                                                                                         }
+                                                                      }
+                                                                  ]
+                                                   },
+                                         "options":  {
+                                                         "fallbackOutput":  "extra",
+                                                         "renameFallbackOutput":  "Manual Review"
+                                                     }
+                                     }
+                  },
+                  {
+                      "id":  "7270fe1d-d137-472f-acd9-f94ea596fda2",
+                      "name":  "Upsert CRM Contact",
+                      "type":  "n8n-nodes-base.hubspot",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1260,
+                                       60
+                                   ],
+                      "parameters":  {
+                                         "resource":  "contact",
+                                         "operation":  "upsert",
+                                         "authentication":  "appToken",
+                                         "email":  "={{ $json.email }}",
+                                         "additionalFields":  {
+                                                                  "firstName":  "={{ $json.name }}",
+                                                                  "companyName":  "={{ $json.company }}",
+                                                                  "phoneNumber":  "={{ $json.phone }}",
+                                                                  "message":  "=Score: {{ $json.score }} | {{ $json.reasoning }}"
+                                                              }
+                                     }
+                  },
+                  {
+                      "id":  "454a3d5e-186a-4846-aa7a-40c20b0b09de",
+                      "name":  "Create Sales Deal",
+                      "type":  "n8n-nodes-base.hubspot",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1480,
+                                       60
+                                   ],
+                      "parameters":  {
+                                         "resource":  "deal",
+                                         "operation":  "create",
+                                         "authentication":  "appToken",
+                                         "stage":  "\u003c__PLACEHOLDER_VALUE__HubSpot deal stage ID (e.g. appointmentscheduled)__\u003e",
+                                         "additionalFields":  {
+                                                                  "dealName":  "={{ $(\"Build Lead Profile\").item.json.name }} - {{ $(\"Build Lead Profile\").item.json.company }}",
+                                                                  "description":  "=Lead score: {{ $(\"Build Lead Profile\").item.json.score }}\nSource: {{ $(\"Build Lead Profile\").item.json.source }}\nReason: {{ $(\"Build Lead Profile\").item.json.reasoning }}\nMessage: {{ $(\"Build Lead Profile\").item.json.message }}",
+                                                                  "associatedVids":  [
+                                                                                         "={{ $json.vid }}"
+                                                                                     ]
+                                                              }
+                                     }
+                  },
+                  {
+                      "id":  "637d2dca-c0e0-4370-9da5-4a44cbe981da",
+                      "name":  "Notify Sales Team",
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1700,
+                                       60
+                                   ],
+                      "parameters":  {
+                                         "resource":  "message",
+                                         "operation":  "send",
+                                         "sendTo":  "\u003c__PLACEHOLDER_VALUE__Sales team email (e.g. sales@yourcompany.com)__\u003e",
+                                         "subject":  "=🔥 Hot lead ready: {{ $(\"Build Lead Profile\").item.json.name }} (score {{ $(\"Build Lead Profile\").item.json.score }})",
+                                         "emailType":  "html",
+                                         "message":  "=\u003cb\u003eName:\u003c/b\u003e {{ $(\"Build Lead Profile\").item.json.name }}\u003cbr\u003e\u003cb\u003eEmail:\u003c/b\u003e {{ $(\"Build Lead Profile\").item.json.email }}\u003cbr\u003e\u003cb\u003ePhone:\u003c/b\u003e {{ $(\"Build Lead Profile\").item.json.phone }}\u003cbr\u003e\u003cb\u003eCompany:\u003c/b\u003e {{ $(\"Build Lead Profile\").item.json.company }}\u003cbr\u003e\u003cb\u003eSource:\u003c/b\u003e {{ $(\"Build Lead Profile\").item.json.source }}\u003cbr\u003e\u003cb\u003eScore:\u003c/b\u003e {{ $(\"Build Lead Profile\").item.json.score }}\u003cbr\u003e\u003cb\u003eWhy:\u003c/b\u003e {{ $(\"Build Lead Profile\").item.json.reasoning }}\u003cbr\u003e\u003cb\u003eLead message:\u003c/b\u003e {{ $(\"Build Lead Profile\").item.json.message }}\u003cbr\u003e\u003cbr\u003eDeal created in HubSpot. Please follow up within 1 hour.",
+                                         "options":  {
+                                                         "appendAttribution":  false
+                                                     }
+                                     },
+                      "webhookId":  "42dbaae0-d4ad-419e-9108-ef178b5cdbb3"
+                  },
+                  {
+                      "id":  "5a2d3e96-7ee1-4c39-9d6a-4e3368be8b08",
+                      "name":  "WhatsApp or Email?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1260,
+                                       260
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  false,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.channel }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "string",
+                                                                                                    "operation":  "equals"
+                                                                                                },
+                                                                                   "rightValue":  "whatsapp"
+                                                                               },
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.phone }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "string",
+                                                                                                    "operation":  "notEmpty",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "67c6ec68-0dfd-484b-b28b-268e0262cf02",
+                      "name":  "Personalized WhatsApp",
+                      "type":  "n8n-nodes-base.whatsApp",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       1480,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "resource":  "message",
+                                         "operation":  "send",
+                                         "phoneNumberId":  "\u003c__PLACEHOLDER_VALUE__Your WhatsApp Business phone number ID__\u003e",
+                                         "recipientPhoneNumber":  "={{ $json.phone }}",
+                                         "messageType":  "text",
+                                         "textBody":  "={{ $json.outreachMessage.replaceAll(\"\u003cbr\u003e\", \"\\n\") }}"
+                                     },
+                      "webhookId":  "3ac42d1c-899b-4938-8f47-28e5b6bf8ced"
+                  },
+                  {
+                      "id":  "6be58832-4618-46da-a0d5-076a80038e5a",
+                      "name":  "Personalized Email",
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1480,
+                                       340
+                                   ],
+                      "parameters":  {
+                                         "resource":  "message",
+                                         "operation":  "send",
+                                         "sendTo":  "={{ $json.email }}",
+                                         "subject":  "={{ $json.outreachSubject }}",
+                                         "emailType":  "html",
+                                         "message":  "={{ $json.outreachMessage }}",
+                                         "options":  {
+                                                         "appendAttribution":  false
+                                                     }
+                                     },
+                      "webhookId":  "e1fb7e82-bf21-436f-adb2-68ab6b2f7a62"
+                  },
+                  {
+                      "id":  "ee85825b-7a4f-4d81-8c05-f4e61913110d",
+                      "name":  "Drip Email 1",
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1260,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "resource":  "message",
+                                         "operation":  "send",
+                                         "sendTo":  "={{ $json.email }}",
+                                         "subject":  "={{ $json.drip1Subject }}",
+                                         "emailType":  "html",
+                                         "message":  "={{ $json.drip1Body }}",
+                                         "options":  {
+                                                         "appendAttribution":  false
+                                                     }
+                                     },
+                      "webhookId":  "8e0cac65-2db7-4223-8909-140129d9ff5a"
+                  },
+                  {
+                      "id":  "ffa74ab4-a693-4677-9ce8-89ea0abcc2f0",
+                      "name":  "Wait 3 Days",
+                      "type":  "n8n-nodes-base.wait",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       1480,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "resume":  "timeInterval",
+                                         "amount":  3,
+                                         "unit":  "days"
+                                     },
+                      "webhookId":  "6637ae35-d2a7-4fc9-8e59-59c29cf90bc7"
+                  },
+                  {
+                      "id":  "2b8f638c-e792-41ba-a42d-37c28c9f7487",
+                      "name":  "Drip Email 2",
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1700,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "resource":  "message",
+                                         "operation":  "send",
+                                         "sendTo":  "={{ $(\"Build Lead Profile\").item.json.email }}",
+                                         "subject":  "={{ $(\"Build Lead Profile\").item.json.drip2Subject }}",
+                                         "emailType":  "html",
+                                         "message":  "={{ $(\"Build Lead Profile\").item.json.drip2Body }}",
+                                         "options":  {
+                                                         "appendAttribution":  false
+                                                     }
+                                     },
+                      "webhookId":  "3647aadc-35eb-4390-9efe-a7fbb21cc50c"
+                  },
+                  {
+                      "id":  "0333a2ab-84c9-4092-8b0a-5c4be5437e8f",
+                      "name":  "Wait 4 Days",
+                      "type":  "n8n-nodes-base.wait",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       1920,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "resume":  "timeInterval",
+                                         "amount":  4,
+                                         "unit":  "days"
+                                     },
+                      "webhookId":  "da3cbd71-9879-4273-a865-3bffa877315b"
+                  },
+                  {
+                      "id":  "78f78376-9d5c-40c5-a5a5-8ae8523dfa62",
+                      "name":  "Drip Email 3",
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       2140,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "resource":  "message",
+                                         "operation":  "send",
+                                         "sendTo":  "={{ $(\"Build Lead Profile\").item.json.email }}",
+                                         "subject":  "={{ $(\"Build Lead Profile\").item.json.drip3Subject }}",
+                                         "emailType":  "html",
+                                         "message":  "={{ $(\"Build Lead Profile\").item.json.drip3Body }}",
+                                         "options":  {
+                                                         "appendAttribution":  false
+                                                     }
+                                     },
+                      "webhookId":  "dd20932c-71c1-431d-9bec-6cbc380b01f6"
+                  },
+                  {
+                      "id":  "572b22aa-b424-4c2f-8853-76639b7e45d7",
+                      "name":  "Flag for Manual Review",
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1260,
+                                       700
+                                   ],
+                      "parameters":  {
+                                         "resource":  "message",
+                                         "operation":  "send",
+                                         "sendTo":  "\u003c__PLACEHOLDER_VALUE__Sales ops email for unclassified leads__\u003e",
+                                         "subject":  "=Lead needs manual review: {{ $json.name }}",
+                                         "emailType":  "html",
+                                         "message":  "=The AI could not classify this lead.\u003cbr\u003e\u003cb\u003eEmail:\u003c/b\u003e {{ $json.email }}\u003cbr\u003e\u003cb\u003ePhone:\u003c/b\u003e {{ $json.phone }}\u003cbr\u003e\u003cb\u003eSegment returned:\u003c/b\u003e {{ $json.segment }}\u003cbr\u003e\u003cb\u003eReason:\u003c/b\u003e {{ $json.reasoning }}",
+                                         "options":  {
+                                                         "appendAttribution":  false
+                                                     }
+                                     },
+                      "webhookId":  "77e1a4da-541b-4e96-92c4-1f762a6e018f"
+                  },
+                  {
+                      "id":  "5a355ee9-db0f-4287-a176-56d7bcc16778",
+                      "name":  "Sticky Note 22f32cf9",
+                      "type":  "n8n-nodes-base.stickyNote",
+                      "typeVersion":  1,
+                      "position":  [
+                                       -40,
+                                       -60
+                                   ],
+                      "parameters":  {
+                                         "content":  "## L4 CONVERT – Lead Nurturing Agent\nTurn engagement into qualified leads.\n\n1. **Lead scoring \u0026 segmentation** – Gemini scores 0-100 → hot / warm / cold\n2. **Personalized outreach** – warm leads get WhatsApp or Email\n3. **Drip campaigns** – cold leads get a 3-email sequence over 7 days\n4. **Handoff to sales (CRM)** – hot leads → HubSpot contact + deal + sales alert\n\nPOST leads to the webhook with: name, email, phone, company, source, message, engagement, preferredChannel",
+                                         "color":  4,
+                                         "width":  560,
+                                         "height":  300
+                                     }
+                  },
+                  {
+                      "id":  "ce046601-76e2-4d8a-91c7-7c9ad604a279",
+                      "name":  "Called by Agents",
+                      "type":  "n8n-nodes-base.executeWorkflowTrigger",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       0,
+                                       100
+                                   ],
+                      "parameters":  {
+                                         "inputSource":  "passthrough"
+                                     }
+                  },
+                  {
+                      "id":  "5e477ef8-071f-4948-b500-79c80e588ad0",
+                      "name":  "Log Lead",
+                      "type":  "n8n-nodes-base.dataTable",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       1000,
+                                       -140
+                                   ],
+                      "parameters":  {
+                                         "resource":  "row",
+                                         "operation":  "insert",
+                                         "dataTableId":  {
+                                                             "__rl":  true,
+                                                             "mode":  "id",
+                                                             "value":  "JjM7RfK0wo68Lq2p",
+                                                             "cachedResultName":  "leads"
+                                                         },
+                                         "columns":  {
+                                                         "mappingMode":  "defineBelow",
+                                                         "value":  {
+                                                                       "name":  "={{ $json.name }}",
+                                                                       "email":  "={{ $json.email }}",
+                                                                       "phone":  "={{ $json.phone }}",
+                                                                       "company":  "={{ $json.company }}",
+                                                                       "source":  "={{ $json.source }}",
+                                                                       "campaign":  "={{ $json.campaign }}",
+                                                                       "message":  "={{ $json.message }}",
+                                                                       "score":  "={{ $json.score }}",
+                                                                       "segment":  "={{ $json.segment }}",
+                                                                       "channel":  "={{ $json.channel }}",
+                                                                       "reasoning":  "={{ $json.reasoning }}",
+                                                                       "status":  "={{ !$json.email \u0026\u0026 !$json.phone ? \"no_contact\" : ({ hot: \"handed_to_sales\", warm: \"outreach_sent\", cold: \"drip_started\" }[$json.segment] || \"manual_review\") }}"
+                                                                   },
+                                                         "schema":  [
+                                                                        {
+                                                                            "id":  "name",
+                                                                            "displayName":  "name",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "email",
+                                                                            "displayName":  "email",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "phone",
+                                                                            "displayName":  "phone",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "company",
+                                                                            "displayName":  "company",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "source",
+                                                                            "displayName":  "source",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "campaign",
+                                                                            "displayName":  "campaign",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "message",
+                                                                            "displayName":  "message",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "score",
+                                                                            "displayName":  "score",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "number",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "segment",
+                                                                            "displayName":  "segment",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "channel",
+                                                                            "displayName":  "channel",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "reasoning",
+                                                                            "displayName":  "reasoning",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "status",
+                                                                            "displayName":  "status",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        }
+                                                                    ]
+                                                     },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "8148cd0a-544e-480a-9ac3-aee20a5ed051",
+                      "name":  "Has Contact Info?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1000,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "loose"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.email }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "string",
+                                                                                                    "operation":  "notEmpty",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               },
+                                                                               {
+                                                                                   "leftValue":  "={{ $json.phone }}",
+                                                                                   "operator":  {
+                                                                                                    "type":  "string",
+                                                                                                    "operation":  "notEmpty",
+                                                                                                    "singleValue":  true
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "or"
+                                                        },
+                                         "options":  {
+
+                                                     }
+                                     }
+                  }
+              ],
+    "connections":  {
+                        "New Engaged Lead":  {
+                                                 "main":  [
+                                                              [
+                                                                  {
+                                                                      "node":  "Normalize Lead Data",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ]
+                                                          ]
+                                             },
+                        "Normalize Lead Data":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "Lead Scoring \u0026 Segmentation",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "Lead Scoring \u0026 Segmentation":  {
+                                                                 "main":  [
+                                                                              [
+                                                                                  {
+                                                                                      "node":  "Build Lead Profile",
+                                                                                      "type":  "main",
+                                                                                      "index":  0
+                                                                                  }
+                                                                              ]
+                                                                          ]
+                                                             },
+                        "Gemini Model":  {
+                                             "ai_languageModel":  [
+                                                                      [
+                                                                          {
+                                                                              "node":  "Lead Scoring \u0026 Segmentation",
+                                                                              "type":  "ai_languageModel",
+                                                                              "index":  0
+                                                                          }
+                                                                      ]
+                                                                  ]
+                                         },
+                        "Lead Score Parser":  {
+                                                  "ai_outputParser":  [
+                                                                          [
+                                                                              {
+                                                                                  "node":  "Lead Scoring \u0026 Segmentation",
+                                                                                  "type":  "ai_outputParser",
+                                                                                  "index":  0
+                                                                              }
+                                                                          ]
+                                                                      ]
+                                              },
+                        "Route by Segment":  {
+                                                 "main":  [
+                                                              [
+                                                                  {
+                                                                      "node":  "Upsert CRM Contact",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ],
+                                                              [
+                                                                  {
+                                                                      "node":  "WhatsApp or Email?",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ],
+                                                              [
+                                                                  {
+                                                                      "node":  "Drip Email 1",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ],
+                                                              [
+                                                                  {
+                                                                      "node":  "Flag for Manual Review",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ]
+                                                          ]
+                                             },
+                        "Upsert CRM Contact":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Create Sales Deal",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               },
+                        "Create Sales Deal":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Notify Sales Team",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "WhatsApp or Email?":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Personalized WhatsApp",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ],
+                                                                [
+                                                                    {
+                                                                        "node":  "Personalized Email",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               },
+                        "Drip Email 1":  {
+                                             "main":  [
+                                                          [
+                                                              {
+                                                                  "node":  "Wait 3 Days",
+                                                                  "type":  "main",
+                                                                  "index":  0
+                                                              }
+                                                          ]
+                                                      ]
+                                         },
+                        "Wait 3 Days":  {
+                                            "main":  [
+                                                         [
+                                                             {
+                                                                 "node":  "Drip Email 2",
+                                                                 "type":  "main",
+                                                                 "index":  0
+                                                             }
+                                                         ]
+                                                     ]
+                                        },
+                        "Drip Email 2":  {
+                                             "main":  [
+                                                          [
+                                                              {
+                                                                  "node":  "Wait 4 Days",
+                                                                  "type":  "main",
+                                                                  "index":  0
+                                                              }
+                                                          ]
+                                                      ]
+                                         },
+                        "Wait 4 Days":  {
+                                            "main":  [
+                                                         [
+                                                             {
+                                                                 "node":  "Drip Email 3",
+                                                                 "type":  "main",
+                                                                 "index":  0
+                                                             }
+                                                         ]
+                                                     ]
+                                        },
+                        "Called by Agents":  {
+                                                 "main":  [
+                                                              [
+                                                                  {
+                                                                      "node":  "Normalize Lead Data",
+                                                                      "type":  "main",
+                                                                      "index":  0
+                                                                  }
+                                                              ]
+                                                          ]
+                                             },
+                        "Build Lead Profile":  {
+                                                   "main":  [
+                                                                [
+                                                                    {
+                                                                        "node":  "Log Lead",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    },
+                                                                    {
+                                                                        "node":  "Has Contact Info?",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                            ]
+                                               },
+                        "Has Contact Info?":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Route by Segment",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                           ]
+                                              }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "availableInMCP":  true
+                 },
+    "staticData":  null,
+    "meta":  {
+                 "aiBuilderAssisted":  true,
+                 "builderVariant":  "mcp"
+             },
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  null,
+    "versionId":  "52cf21f6-945c-4c06-b599-456edde78d13",
+    "activeVersionId":  null,
+    "versionCounter":  3,
+    "triggerCount":  0,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  "Log leads to shared table, skip no-contact outreach",
+                            "description":  "Added nodes: Log Lead, Has Contact Info?\nUpdated nodes: Build Lead Profile\nConnections: 3 added, 1 removed"
+                        }
+}

@@ -1,0 +1,695 @@
+{
+    "updatedAt":  "2026-10-01T04:34:17.118Z",
+    "createdAt":  "2026-10-01T04:22:58.616Z",
+    "id":  "vrunBRho5cC4imfz",
+    "name":  "L5 Learn - Marketing Performance Agent",
+    "description":  "Weekly: pulls GA4, Google Ads, Meta Ads, TikTok Ads -\u003e KPIs, attribution \u0026 ROI, A/B z-tests -\u003e Gemini agent insights \u0026 recommendations -\u003e email report + store learnings for planning.",
+    "active":  false,
+    "isArchived":  false,
+    "nodes":  [
+                  {
+                      "id":  "1bcdfb99-c013-4b99-bced-2dd9dc69954f",
+                      "name":  "Weekly Monday 09:00",
+                      "type":  "n8n-nodes-base.scheduleTrigger",
+                      "typeVersion":  1.3,
+                      "position":  [
+                                       0,
+                                       400
+                                   ],
+                      "parameters":  {
+                                         "rule":  {
+                                                      "interval":  [
+                                                                       {
+                                                                           "field":  "weeks",
+                                                                           "weeksInterval":  1,
+                                                                           "triggerAtDay":  [
+                                                                                                1
+                                                                                            ],
+                                                                           "triggerAtHour":  9,
+                                                                           "triggerAtMinute":  0
+                                                                       }
+                                                                   ]
+                                                  }
+                                     }
+                  },
+                  {
+                      "id":  "bf6bbe7b-76b1-46b8-ab45-4667cd5d796d",
+                      "name":  "GA4 Channel Performance",
+                      "type":  "n8n-nodes-base.googleAnalytics",
+                      "typeVersion":  2,
+                      "position":  [
+                                       300,
+                                       100
+                                   ],
+                      "parameters":  {
+                                         "resource":  "report",
+                                         "operation":  "get",
+                                         "propertyType":  "ga4",
+                                         "propertyId":  {
+                                                            "__rl":  true,
+                                                            "mode":  "id",
+                                                            "value":  "\u003c__PLACEHOLDER_VALUE__GA4 Property ID__\u003e"
+                                                        },
+                                         "dateRange":  "last7days",
+                                         "metricsGA4":  {
+                                                            "metricValues":  [
+                                                                                 {
+                                                                                     "listName":  "sessions"
+                                                                                 },
+                                                                                 {
+                                                                                     "listName":  "totalUsers"
+                                                                                 },
+                                                                                 {
+                                                                                     "listName":  "other",
+                                                                                     "name":  "keyEvents"
+                                                                                 },
+                                                                                 {
+                                                                                     "listName":  "other",
+                                                                                     "name":  "totalRevenue"
+                                                                                 }
+                                                                             ]
+                                                        },
+                                         "dimensionsGA4":  {
+                                                               "dimensionValues":  [
+                                                                                       {
+                                                                                           "listName":  "sourceMedium"
+                                                                                       },
+                                                                                       {
+                                                                                           "listName":  "campaignName"
+                                                                                       }
+                                                                                   ]
+                                                           },
+                                         "returnAll":  true,
+                                         "simple":  true
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "7de7e7c2-f06c-4ff8-97e6-bbf9e88a39cc",
+                      "name":  "Collect All Sources",
+                      "type":  "n8n-nodes-base.merge",
+                      "typeVersion":  3.2,
+                      "position":  [
+                                       600,
+                                       400
+                                   ],
+                      "parameters":  {
+                                         "mode":  "append",
+                                         "numberInputs":  4
+                                     }
+                  },
+                  {
+                      "id":  "26cd6e13-13cc-442e-9548-73b97e8cc681",
+                      "name":  "Google Ads Campaigns",
+                      "type":  "n8n-nodes-base.googleAds",
+                      "typeVersion":  1,
+                      "position":  [
+                                       300,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "resource":  "campaign",
+                                         "operation":  "getAll",
+                                         "managerCustomerId":  "\u003c__PLACEHOLDER_VALUE__Google Ads Manager Customer ID__\u003e",
+                                         "clientCustomerId":  "\u003c__PLACEHOLDER_VALUE__Google Ads Client Customer ID__\u003e",
+                                         "additionalOptions":  {
+                                                                   "dateRange":  "LAST_7_DAYS",
+                                                                   "campaignStatus":  "ENABLED"
+                                                               }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "4b0a8045-67b7-4143-bef7-08cf85b897d8",
+                      "name":  "Meta Ads Insights",
+                      "type":  "n8n-nodes-base.facebookGraphApi",
+                      "typeVersion":  1,
+                      "position":  [
+                                       300,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "hostUrl":  "graph.facebook.com",
+                                         "httpRequestMethod":  "GET",
+                                         "graphApiVersion":  "v23.0",
+                                         "node":  "\u003c__PLACEHOLDER_VALUE__Meta Ad Account ID (act_XXXXXXXX)__\u003e",
+                                         "edge":  "insights",
+                                         "options":  {
+                                                         "queryParametersJson":  "{\"level\":\"campaign\",\"date_preset\":\"last_7d\",\"fields\":\"campaign_name,spend,impressions,clicks,actions,action_values\",\"limit\":\"500\"}"
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "e14445fb-d89e-4887-a094-d3cb20f24531",
+                      "name":  "TikTok Ads Report",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       300,
+                                       700
+                                   ],
+                      "parameters":  {
+                                         "method":  "GET",
+                                         "url":  "https://business-api.tiktok.com/open_api/v1.3/report/integrated/get/",
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpHeaderAuth",
+                                         "sendQuery":  true,
+                                         "specifyQuery":  "keypair",
+                                         "queryParameters":  {
+                                                                 "parameters":  [
+                                                                                    {
+                                                                                        "name":  "advertiser_id",
+                                                                                        "value":  "\u003c__PLACEHOLDER_VALUE__TikTok Advertiser ID__\u003e"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "report_type",
+                                                                                        "value":  "BASIC"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "data_level",
+                                                                                        "value":  "AUCTION_CAMPAIGN"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "dimensions",
+                                                                                        "value":  "[\"campaign_id\"]"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "metrics",
+                                                                                        "value":  "[\"campaign_name\",\"spend\",\"impressions\",\"clicks\",\"conversion\",\"complete_payment_roas\"]"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "start_date",
+                                                                                        "value":  "={{ $now.minus({ days: 7 }).toFormat(\"yyyy-MM-dd\") }}"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "end_date",
+                                                                                        "value":  "={{ $now.minus({ days: 1 }).toFormat(\"yyyy-MM-dd\") }}"
+                                                                                    },
+                                                                                    {
+                                                                                        "name":  "page_size",
+                                                                                        "value":  "1000"
+                                                                                    }
+                                                                                ]
+                                                             }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "f0f21422-d0d6-41a8-b128-fef942969add",
+                      "name":  "Compute KPIs, Attribution \u0026 A/B Stats",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       850,
+                                       400
+                                   ],
+                      "parameters":  {
+                                         "mode":  "runOnceForAllItems",
+                                         "language":  "javaScript",
+                                         "jsCode":  "const safe = (name) =\u003e { try { return $(name).all().map(i =\u003e i.json).filter(j =\u003e !j.error); } catch (e) { return []; } };\nconst num = (v) =\u003e { const n = parseFloat(v); return isNaN(n) ? 0 : n; };\nconst rows = [];\nfor (const c of safe(\u0027Google Ads Campaigns\u0027)) {\n  rows.push({ platform: \u0027Google Ads\u0027, campaign: c.name, spend: num(c.costMicros) / 1e6, impressions: num(c.impressions), clicks: num(c.interactions), conversions: num(c.conversions), revenue: num(c.conversionsValue) });\n}\nfor (const r of safe(\u0027Meta Ads Insights\u0027)) {\n  for (const c of (r.data || [])) {\n    const conv = (c.actions || []).filter(a =\u003e a.action_type === \u0027purchase\u0027 || a.action_type === \u0027lead\u0027).reduce((s, a) =\u003e s + num(a.value), 0);\n    const rev = (c.action_values || []).filter(a =\u003e a.action_type === \u0027purchase\u0027).reduce((s, a) =\u003e s + num(a.value), 0);\n    rows.push({ platform: \u0027Meta Ads\u0027, campaign: c.campaign_name, spend: num(c.spend), impressions: num(c.impressions), clicks: num(c.clicks), conversions: conv, revenue: rev });\n  }\n}\nfor (const r of safe(\u0027TikTok Ads Report\u0027)) {\n  for (const c of ((r.data \u0026\u0026 r.data.list) || [])) {\n    const m = c.metrics || {};\n    const spend = num(m.spend);\n    rows.push({ platform: \u0027TikTok Ads\u0027, campaign: m.campaign_name || (c.dimensions || {}).campaign_id, spend, impressions: num(m.impressions), clicks: num(m.clicks), conversions: num(m.conversion), revenue: spend * num(m.complete_payment_roas) });\n  }\n}\nconst ga4 = safe(\u0027GA4 Channel Performance\u0027);\nconst ga4ByCampaign = {};\nfor (const g of ga4) {\n  const k = g.campaignName || \u0027(not set)\u0027;\n  ga4ByCampaign[k] = ga4ByCampaign[k] || { sessions: 0, keyEvents: 0, revenue: 0 };\n  ga4ByCampaign[k].sessions += num(g.sessions); ga4ByCampaign[k].keyEvents += num(g.keyEvents); ga4ByCampaign[k].revenue += num(g.totalRevenue);\n}\nfor (const r of rows) {\n  const g = ga4ByCampaign[r.campaign];\n  r.ga4_sessions = g ? g.sessions : 0; r.ga4_conversions = g ? g.keyEvents : 0; r.ga4_revenue = g ? g.revenue : 0;\n  if (!r.revenue \u0026\u0026 r.ga4_revenue) r.revenue = r.ga4_revenue;\n  if (!r.conversions \u0026\u0026 r.ga4_conversions) r.conversions = r.ga4_conversions;\n  r.ctr = r.impressions ? +(r.clicks / r.impressions * 100).toFixed(2) : 0;\n  r.cvr = r.clicks ? +(r.conversions / r.clicks * 100).toFixed(2) : 0;\n  r.cpa = r.conversions ? +(r.spend / r.conversions).toFixed(2) : null;\n  r.roas = r.spend ? +(r.revenue / r.spend).toFixed(2) : null;\n  r.roi_pct = r.spend ? +((r.revenue - r.spend) / r.spend * 100).toFixed(1) : null;\n}\nconst totals = rows.reduce((t, r) =\u003e ({ spend: t.spend + r.spend, revenue: t.revenue + r.revenue, conversions: t.conversions + r.conversions }), { spend: 0, revenue: 0, conversions: 0 });\nconst byPlatform = {};\nfor (const r of rows) {\n  const p = byPlatform[r.platform] = byPlatform[r.platform] || { spend: 0, revenue: 0, conversions: 0 };\n  p.spend += r.spend; p.revenue += r.revenue; p.conversions += r.conversions;\n}\nconst attribution = Object.entries(byPlatform).map(([platform, p]) =\u003e ({\n  platform, spend: +p.spend.toFixed(2), revenue: +p.revenue.toFixed(2), conversions: p.conversions,\n  spend_share_pct: totals.spend ? +(p.spend / totals.spend * 100).toFixed(1) : 0,\n  revenue_share_pct: totals.revenue ? +(p.revenue / totals.revenue * 100).toFixed(1) : 0,\n  conversion_share_pct: totals.conversions ? +(p.conversions / totals.conversions * 100).toFixed(1) : 0,\n  roas: p.spend ? +(p.revenue / p.spend).toFixed(2) : null\n}));\nconst channelMix = {};\nfor (const g of ga4) {\n  const k = g.sourceMedium || \u0027(direct)\u0027;\n  channelMix[k] = channelMix[k] || { sessions: 0, conversions: 0, revenue: 0 };\n  channelMix[k].sessions += num(g.sessions); channelMix[k].conversions += num(g.keyEvents); channelMix[k].revenue += num(g.totalRevenue);\n}\nconst abGroups = {};\nfor (const r of rows) {\n  const m = /AB:([^:]+):([A-Za-z0-9]+)/.exec(r.campaign || \u0027\u0027);\n  if (!m) continue;\n  (abGroups[m[1]] = abGroups[m[1]] || []).push({ variant: m[2], platform: r.platform, clicks: r.clicks, conversions: r.conversions, spend: r.spend, cvr: r.cvr, cpa: r.cpa });\n}\nconst abTests = Object.entries(abGroups).map(([test, variants]) =\u003e {\n  const sorted = [...variants].sort((a, b) =\u003e (b.conversions / (b.clicks || 1)) - (a.conversions / (a.clicks || 1)));\n  let z = null, significant = false;\n  if (sorted.length \u003e= 2) {\n    const [a, b] = sorted; const p1 = a.conversions / (a.clicks || 1), p2 = b.conversions / (b.clicks || 1);\n    const p = (a.conversions + b.conversions) / ((a.clicks + b.clicks) || 1);\n    const se = Math.sqrt(p * (1 - p) * (1 / (a.clicks || 1) + 1 / (b.clicks || 1)));\n    z = se ? +((p1 - p2) / se).toFixed(2) : null; significant = z !== null \u0026\u0026 Math.abs(z) \u003e= 1.96;\n  }\n  return { test, variants, leader: sorted[0] ? sorted[0].variant : null, z_score: z, significant_95: significant, min_clicks_reached: variants.every(v =\u003e v.clicks \u003e= 300) };\n});\nreturn [{ json: {\n  period: \u0027last 7 days\u0027, generated_at: new Date().toISOString(),\n  totals: { spend: +totals.spend.toFixed(2), revenue: +totals.revenue.toFixed(2), conversions: totals.conversions, roas: totals.spend ? +(totals.revenue / totals.spend).toFixed(2) : null, roi_pct: totals.spend ? +((totals.revenue - totals.spend) / totals.spend * 100).toFixed(1) : null },\n  attribution, channel_mix_ga4: channelMix, campaigns: rows.sort((a, b) =\u003e b.spend - a.spend), ab_tests: abTests\n} }];"
+                                     },
+                      "executeOnce":  true
+                  },
+                  {
+                      "id":  "b23cfd6c-d50d-40f3-95eb-c0dbaf4577a6",
+                      "name":  "Marketing Performance Agent",
+                      "type":  "@n8n/n8n-nodes-langchain.agent",
+                      "typeVersion":  3.1,
+                      "position":  [
+                                       1250,
+                                       400
+                                   ],
+                      "parameters":  {
+                                         "promptType":  "define",
+                                         "text":  "=Analyze this weekly cross-channel marketing performance data (Google Ads, Meta Ads, TikTok Ads, GA4):\n\n{{ JSON.stringify($json, null, 2) }}",
+                                         "hasOutputParser":  true,
+                                         "options":  {
+                                                         "systemMessage":  "You are the L5 LEARN Marketing Performance Agent. Your job is to analyze results and drive continuous improvement. Cover five areas:\n1) Campaign \u0026 channel analytics: judge each platform (Google Ads, Meta Ads, TikTok Ads) and top campaigns on CTR, CVR, CPA, ROAS; give each platform a verdict of scale, maintain, optimize or cut.\n2) Attribution \u0026 ROI: compare spend share vs revenue/conversion share per platform, compare platform-reported numbers against GA4, and explain the overall ROI.\n3) Insights \u0026 recommendations: give 3-6 concrete, data-backed insights and prioritized actions (budget shifts with %, creative, audience, bidding).\n4) A/B testing management: for each test in ab_tests, decide declare_winner (only if significant_95 and min_clicks_reached are true), keep_running, or stop_and_redesign, with a reason.\n5) Feed learnings to planning: produce reusable learnings for the next planning cycle, each tagged with apply_to (budget_allocation, creative, audience, channel_mix, testing_roadmap) and confidence.\nNever invent numbers that are not in the data. If a source is missing or empty, say so.\nAlso write email_html: a clean HTML email (inline styles, tables for KPIs) summarising everything for the marketing team."
+                                                     },
+                                         "parameters":  {
+                                                            "options":  {
+                                                                            "systemMessage":  "You are the L5 LEARN Marketing Performance Agent. Your job is to analyze results and drive continuous improvement. Cover six areas:\n1) Campaign \u0026 channel analytics: judge each platform (Google Ads, Meta Ads, TikTok Ads) and top campaigns on CTR, CVR, CPA, ROAS; give each platform a verdict of scale, maintain, optimize or cut.\n2) Attribution \u0026 ROI: compare spend share vs revenue/conversion share per platform, compare platform-reported numbers against GA4, and explain the overall ROI.\n3) Lead quality (crm_leads, from the L4 Lead Nurturing Agent): report leads by source, segment and campaign, the true cost per lead and cost per hot lead, and compare CRM lead volume with platform-reported conversions. Flag sources that bring many cold leads.\n4) Insights \u0026 recommendations: give 3-6 concrete, data-backed insights and prioritized actions (budget shifts with %, creative, audience, bidding).\n5) A/B testing management: for each test in ab_tests, decide declare_winner (only if significant_95 and min_clicks_reached are true), keep_running, or stop_and_redesign, with a reason.\n6) Feed learnings to planning: produce reusable learnings for the next planning cycle (they are read by the Market Intelligence, Strategic Planning and Marketing Director agents), each tagged with apply_to (budget_allocation, creative, audience, channel_mix, testing_roadmap, lead_quality) and confidence.\nNever invent numbers that are not in the data. If a source is missing or empty, say so.\nAlso write email_html: a clean HTML email (inline styles, tables for KPIs) summarising everything for the marketing team."
+                                                                        }
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "61fdbe4a-05fd-424d-ada0-329e69c07ad9",
+                      "name":  "Gemini Model",
+                      "type":  "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       1050,
+                                       650
+                                   ],
+                      "parameters":  {
+                                         "modelName":  "models/gemini-3.1-pro-preview",
+                                         "options":  {
+                                                         "temperature":  0.3,
+                                                         "maxOutputTokens":  8192
+                                                     }
+                                     },
+                      "credentials":  {
+                                          "googlePalmApi":  {
+                                                                "id":  "CBXHr3xRlBw2Snwn",
+                                                                "name":  "Google Gemini(PaLM) Api account"
+                                                            }
+                                      }
+                  },
+                  {
+                      "id":  "010610bf-08ea-4eba-bb58-32e1a081f070",
+                      "name":  "Performance Report Schema",
+                      "type":  "@n8n/n8n-nodes-langchain.outputParserStructured",
+                      "typeVersion":  1.3,
+                      "position":  [
+                                       1250,
+                                       650
+                                   ],
+                      "parameters":  {
+                                         "schemaType":  "fromJson",
+                                         "jsonSchemaExample":  "{ \"executive_summary\": \"text\", \"channel_analytics\": [{ \"platform\": \"Meta Ads\", \"verdict\": \"scale\", \"note\": \"text\" }], \"attribution_roi\": \"text\", \"insights\": [\"text\"], \"recommendations\": [{ \"action\": \"text\", \"platform\": \"TikTok Ads\", \"expected_impact\": \"text\", \"priority\": \"high\" }], \"ab_test_decisions\": [{ \"test\": \"Hero\", \"decision\": \"declare_winner\", \"winner\": \"A\", \"reason\": \"text\" }], \"planning_learnings\": [{ \"learning\": \"text\", \"apply_to\": \"budget_allocation\", \"confidence\": \"high\" }], \"email_html\": \"\u003ch2\u003eWeekly report\u003c/h2\u003e\" }"
+                                     }
+                  },
+                  {
+                      "id":  "049206d0-084b-4fd9-ae95-2a63d7f6828d",
+                      "name":  "Email Weekly Report",
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1450,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "resource":  "message",
+                                         "operation":  "send",
+                                         "sendTo":  "\u003c__PLACEHOLDER_VALUE__Marketing team email(s), comma separated__\u003e",
+                                         "subject":  "=Weekly Marketing Performance Report - {{ $now.toFormat(\"dd MMM yyyy\") }}",
+                                         "emailType":  "html",
+                                         "message":  "={{ $json.output.email_html }}",
+                                         "options":  {
+                                                         "appendAttribution":  false
+                                                     }
+                                     },
+                      "onError":  "continueRegularOutput",
+                      "webhookId":  "351ec699-450c-45b8-8a52-86f25f9b9704"
+                  },
+                  {
+                      "id":  "d4f2da9e-d1a7-4dc8-8f8d-43d61a5a57bd",
+                      "name":  "Feed Learnings to Planning",
+                      "type":  "n8n-nodes-base.dataTable",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       1450,
+                                       500
+                                   ],
+                      "parameters":  {
+                                         "resource":  "row",
+                                         "operation":  "insert",
+                                         "dataTableId":  {
+                                                             "__rl":  true,
+                                                             "mode":  "id",
+                                                             "value":  "P9neRT94noRtDXED",
+                                                             "cachedResultName":  "marketing_learnings"
+                                                         },
+                                         "columns":  {
+                                                         "mappingMode":  "defineBelow",
+                                                         "value":  {
+                                                                       "week":  "={{ $now.toFormat(\"yyyy-MM-dd\") }}",
+                                                                       "summary":  "={{ $json.output.executive_summary }}",
+                                                                       "learnings":  "={{ JSON.stringify($json.output.planning_learnings) }}",
+                                                                       "recommendations":  "={{ JSON.stringify($json.output.recommendations) }}",
+                                                                       "ab_decisions":  "={{ JSON.stringify($json.output.ab_test_decisions) }}",
+                                                                       "total_spend":  "={{ $(\u0027Compute KPIs, Attribution \u0026 A/B Stats\u0027).item.json.totals.spend }}",
+                                                                       "total_revenue":  "={{ $(\u0027Compute KPIs, Attribution \u0026 A/B Stats\u0027).item.json.totals.revenue }}",
+                                                                       "roas":  "={{ $(\u0027Compute KPIs, Attribution \u0026 A/B Stats\u0027).item.json.totals.roas }}"
+                                                                   },
+                                                         "schema":  [
+                                                                        {
+                                                                            "id":  "week",
+                                                                            "displayName":  "week",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "summary",
+                                                                            "displayName":  "summary",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "learnings",
+                                                                            "displayName":  "learnings",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "recommendations",
+                                                                            "displayName":  "recommendations",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "ab_decisions",
+                                                                            "displayName":  "ab_decisions",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "string",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "total_spend",
+                                                                            "displayName":  "total_spend",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "number",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "total_revenue",
+                                                                            "displayName":  "total_revenue",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "number",
+                                                                            "canBeUsedToMatch":  true
+                                                                        },
+                                                                        {
+                                                                            "id":  "roas",
+                                                                            "displayName":  "roas",
+                                                                            "required":  false,
+                                                                            "defaultMatch":  false,
+                                                                            "display":  true,
+                                                                            "type":  "number",
+                                                                            "canBeUsedToMatch":  true
+                                                                        }
+                                                                    ]
+                                                     },
+                                         "parameters":  {
+                                                            "columns":  {
+                                                                            "value":  {
+                                                                                          "total_spend":  "={{ $(\u0027Compute KPIs, Attribution \u0026 A/B Stats\u0027).first().json.totals.spend }}",
+                                                                                          "total_revenue":  "={{ $(\u0027Compute KPIs, Attribution \u0026 A/B Stats\u0027).first().json.totals.revenue }}",
+                                                                                          "roas":  "={{ $(\u0027Compute KPIs, Attribution \u0026 A/B Stats\u0027).first().json.totals.roas }}"
+                                                                                      }
+                                                                        }
+                                                        }
+                                     },
+                      "onError":  "continueRegularOutput"
+                  },
+                  {
+                      "id":  "b94f5322-31cd-46d9-95e4-71c2d08fe185",
+                      "name":  "Sticky Note fb58b07a",
+                      "type":  "n8n-nodes-base.stickyNote",
+                      "typeVersion":  1,
+                      "position":  [
+                                       250,
+                                       50
+                                   ],
+                      "parameters":  {
+                                         "content":  "## 1. Campaign \u0026 channel data\nPulls last 7 days from GA4, Google Ads, Meta Ads and TikTok Ads (TikTok via Business API, header `Access-Token`).\nFill in the account IDs in each node.",
+                                         "color":  4,
+                                         "width":  300,
+                                         "height":  800
+                                     }
+                  },
+                  {
+                      "id":  "2cc08200-150b-4d90-b3cc-d2ab0d1c67ce",
+                      "name":  "Sticky Note 96aa0d42",
+                      "type":  "n8n-nodes-base.stickyNote",
+                      "typeVersion":  1,
+                      "position":  [
+                                       800,
+                                       350
+                                   ],
+                      "parameters":  {
+                                         "content":  "## 2. Attribution, ROI \u0026 A/B stats\nNormalizes all platforms, computes CTR / CVR / CPA / ROAS / ROI, spend vs revenue share, and a z-test for A/B tests.\nA/B naming convention: `AB:\u003cTestName\u003e:\u003cVariant\u003e` in the campaign name.",
+                                         "color":  5,
+                                         "width":  300,
+                                         "height":  200
+                                     }
+                  },
+                  {
+                      "id":  "47e491ca-18d9-434b-8e65-ff78865d853d",
+                      "name":  "Sticky Note de044407",
+                      "type":  "n8n-nodes-base.stickyNote",
+                      "typeVersion":  1,
+                      "position":  [
+                                       1050,
+                                       350
+                                   ],
+                      "parameters":  {
+                                         "content":  "## 3. Insights \u0026 recommendations\nGemini agent turns the numbers into verdicts, actions, A/B decisions and planning learnings.",
+                                         "color":  6,
+                                         "width":  300,
+                                         "height":  200
+                                     }
+                  },
+                  {
+                      "id":  "b236a975-5a86-47cc-8624-8cf485a38a45",
+                      "name":  "Sticky Note f97cb350",
+                      "type":  "n8n-nodes-base.stickyNote",
+                      "typeVersion":  1,
+                      "position":  [
+                                       1400,
+                                       250
+                                   ],
+                      "parameters":  {
+                                         "content":  "## 4. Feed learnings to planning\nEmails the report and stores learnings in the `marketing_learnings` data table for the planning agent.",
+                                         "color":  3,
+                                         "width":  300,
+                                         "height":  400
+                                     }
+                  },
+                  {
+                      "id":  "fe91f36f-cbce-47b9-90e3-6b87f8ee41ed",
+                      "name":  "Get CRM Leads",
+                      "type":  "n8n-nodes-base.dataTable",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       975,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "resource":  "row",
+                                         "operation":  "get",
+                                         "dataTableId":  {
+                                                             "__rl":  true,
+                                                             "mode":  "id",
+                                                             "value":  "JjM7RfK0wo68Lq2p",
+                                                             "cachedResultName":  "leads"
+                                                         },
+                                         "returnAll":  true
+                                     },
+                      "onError":  "continueRegularOutput",
+                      "alwaysOutputData":  true,
+                      "executeOnce":  true
+                  },
+                  {
+                      "id":  "e557ebf3-4be3-4523-a502-5d7216deec7c",
+                      "name":  "Add CRM Leads",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1100,
+                                       200
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "const base = $(\u0027Compute KPIs, Attribution \u0026 A/B Stats\u0027).first().json;\nconst since = $now.minus({ days: 7 });\nconst rows = $input.all().map(i =\u003e i.json).filter(r =\u003e r \u0026\u0026 r.segment \u0026\u0026 (!r.createdAt || DateTime.fromISO(String(r.createdAt)) \u003e= since));\nconst count = (key) =\u003e rows.reduce((m, r) =\u003e { const k = r[key] || \u0027(none)\u0027; m[k] = (m[k] || 0) + 1; return m; }, {});\nconst hot = rows.filter(r =\u003e r.segment === \u0027hot\u0027).length;\nconst spend = (base.totals \u0026\u0026 base.totals.spend) || 0;\nconst crm_leads = {\n  source: \u0027L4 Lead Nurturing Agent (leads table)\u0027,\n  total_leads: rows.length,\n  hot_leads: hot,\n  avg_score: rows.length ? +(rows.reduce((s, r) =\u003e s + (Number(r.score) || 0), 0) / rows.length).toFixed(1) : null,\n  by_segment: count(\u0027segment\u0027),\n  by_source: count(\u0027source\u0027),\n  by_campaign: count(\u0027campaign\u0027),\n  by_status: count(\u0027status\u0027),\n  true_cost_per_lead: rows.length \u0026\u0026 spend ? +(spend / rows.length).toFixed(2) : null,\n  cost_per_hot_lead: hot \u0026\u0026 spend ? +(spend / hot).toFixed(2) : null\n};\nreturn [{ json: { ...base, crm_leads } }];"
+                                     }
+                  }
+              ],
+    "connections":  {
+                        "Weekly Monday 09:00":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "GA4 Channel Performance",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     },
+                                                                     {
+                                                                         "node":  "Google Ads Campaigns",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     },
+                                                                     {
+                                                                         "node":  "Meta Ads Insights",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     },
+                                                                     {
+                                                                         "node":  "TikTok Ads Report",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "GA4 Channel Performance":  {
+                                                        "main":  [
+                                                                     [
+                                                                         {
+                                                                             "node":  "Collect All Sources",
+                                                                             "type":  "main",
+                                                                             "index":  0
+                                                                         }
+                                                                     ]
+                                                                 ]
+                                                    },
+                        "Collect All Sources":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "Compute KPIs, Attribution \u0026 A/B Stats",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "Google Ads Campaigns":  {
+                                                     "main":  [
+                                                                  [
+                                                                      {
+                                                                          "node":  "Collect All Sources",
+                                                                          "type":  "main",
+                                                                          "index":  1
+                                                                      }
+                                                                  ]
+                                                              ]
+                                                 },
+                        "Meta Ads Insights":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Collect All Sources",
+                                                                       "type":  "main",
+                                                                       "index":  2
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "TikTok Ads Report":  {
+                                                  "main":  [
+                                                               [
+                                                                   {
+                                                                       "node":  "Collect All Sources",
+                                                                       "type":  "main",
+                                                                       "index":  3
+                                                                   }
+                                                               ]
+                                                           ]
+                                              },
+                        "Marketing Performance Agent":  {
+                                                            "main":  [
+                                                                         [
+                                                                             {
+                                                                                 "node":  "Email Weekly Report",
+                                                                                 "type":  "main",
+                                                                                 "index":  0
+                                                                             },
+                                                                             {
+                                                                                 "node":  "Feed Learnings to Planning",
+                                                                                 "type":  "main",
+                                                                                 "index":  0
+                                                                             }
+                                                                         ]
+                                                                     ]
+                                                        },
+                        "Gemini Model":  {
+                                             "ai_languageModel":  [
+                                                                      [
+                                                                          {
+                                                                              "node":  "Marketing Performance Agent",
+                                                                              "type":  "ai_languageModel",
+                                                                              "index":  0
+                                                                          }
+                                                                      ]
+                                                                  ]
+                                         },
+                        "Performance Report Schema":  {
+                                                          "ai_outputParser":  [
+                                                                                  [
+                                                                                      {
+                                                                                          "node":  "Marketing Performance Agent",
+                                                                                          "type":  "ai_outputParser",
+                                                                                          "index":  0
+                                                                                      }
+                                                                                  ]
+                                                                              ]
+                                                      },
+                        "Compute KPIs, Attribution \u0026 A/B Stats":  {
+                                                                           "main":  [
+                                                                                        [
+                                                                                            {
+                                                                                                "node":  "Get CRM Leads",
+                                                                                                "type":  "main",
+                                                                                                "index":  0
+                                                                                            }
+                                                                                        ]
+                                                                                    ]
+                                                                       },
+                        "Get CRM Leads":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "Add CRM Leads",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          },
+                        "Add CRM Leads":  {
+                                              "main":  [
+                                                           [
+                                                               {
+                                                                   "node":  "Marketing Performance Agent",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                                       ]
+                                          }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "availableInMCP":  true
+                 },
+    "staticData":  null,
+    "meta":  {
+                 "aiBuilderAssisted":  true,
+                 "builderVariant":  "mcp"
+             },
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  null,
+    "versionId":  "a004df87-b0c3-4cc0-b9ce-876d163b8935",
+    "activeVersionId":  null,
+    "versionCounter":  3,
+    "triggerCount":  0,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  "Use .first() for totals in Feed Learnings",
+                            "description":  "Updated nodes: Feed Learnings to Planning"
+                        }
+}

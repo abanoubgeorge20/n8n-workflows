@@ -1,0 +1,84 @@
+{
+    "updatedAt":  "2026-10-01T04:37:19.606Z",
+    "createdAt":  "2026-10-01T04:37:19.606Z",
+    "id":  "vXRajoxMuusl0Zvn",
+    "name":  "Governance – Error Alerts (all agents)",
+    "description":  "Governance layer: one shared error workflow for all marketing agents. Emails an alert with the failed agent, node, error and a link to the execution.",
+    "active":  false,
+    "isArchived":  false,
+    "nodes":  [
+                  {
+                      "id":  "9be777f8-a173-4d71-bf07-31beae0ab4bc",
+                      "name":  "When Any Agent Fails",
+                      "type":  "n8n-nodes-base.errorTrigger",
+                      "typeVersion":  1,
+                      "position":  [
+                                       0,
+                                       0
+                                   ],
+                      "parameters":  {
+
+                                     }
+                  },
+                  {
+                      "id":  "2cc63e56-b86f-46ce-973c-376e0487a3d9",
+                      "name":  "Email Failure Alert",
+                      "type":  "n8n-nodes-base.gmail",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       260,
+                                       0
+                                   ],
+                      "parameters":  {
+                                         "resource":  "message",
+                                         "operation":  "send",
+                                         "sendTo":  "\u003c__PLACEHOLDER_VALUE__Your alerts email (e.g. marketing-ops@yourcompany.com)__\u003e",
+                                         "subject":  "=⚠️ Marketing system: \"{{ $json.workflow.name }}\" failed",
+                                         "emailType":  "html",
+                                         "message":  "=\u003cb\u003eAgent:\u003c/b\u003e {{ $json.workflow.name }}\u003cbr\u003e\u003cb\u003eFailed node:\u003c/b\u003e {{ $json.execution.lastNodeExecuted }}\u003cbr\u003e\u003cb\u003eError:\u003c/b\u003e {{ $json.execution.error.message }}\u003cbr\u003e\u003cb\u003eTime:\u003c/b\u003e {{ $now.toFormat(\"yyyy-MM-dd HH:mm\") }}\u003cbr\u003e\u003cbr\u003e\u003ca href=\"{{ $json.execution.url }}\"\u003eOpen the failed execution\u003c/a\u003e",
+                                         "options":  {
+                                                         "appendAttribution":  false
+                                                     }
+                                     },
+                      "webhookId":  "524776b7-948e-4d60-ac4e-81602eb7084c"
+                  }
+              ],
+    "connections":  {
+                        "When Any Agent Fails":  {
+                                                     "main":  [
+                                                                  [
+                                                                      {
+                                                                          "node":  "Email Failure Alert",
+                                                                          "type":  "main",
+                                                                          "index":  0
+                                                                      }
+                                                                  ]
+                                                              ]
+                                                 }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "availableInMCP":  true
+                 },
+    "staticData":  null,
+    "meta":  {
+                 "aiBuilderAssisted":  true,
+                 "builderVariant":  "mcp"
+             },
+    "nodeGroups":  [
+
+                   ],
+    "pinData":  null,
+    "versionId":  "72e38d68-9c94-47b3-9ebf-f650ba1d4fda",
+    "activeVersionId":  null,
+    "versionCounter":  1,
+    "triggerCount":  0,
+    "sourceWorkflowId":  null,
+    "tags":  [
+
+             ],
+    "versionMetadata":  {
+                            "name":  "Shared error alerts for all agents",
+                            "description":  "Created with 2 nodes: When Any Agent Fails, Email Failure Alert"
+                        }
+}
