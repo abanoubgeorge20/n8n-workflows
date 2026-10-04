@@ -5,6 +5,7 @@ A multi-agent marketing system built with **n8n** and **Google Gemini**. A centr
 ![n8n](https://img.shields.io/badge/n8n-workflows-EA4B71?logo=n8n&logoColor=white)
 ![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-4285F4?logo=googlegemini&logoColor=white)
 ![Workflows](https://img.shields.io/badge/workflows-11-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ![Marketing Command Center (Orchestrator)](screenshots/00-orchestrator.png)
 
@@ -102,6 +103,50 @@ Earlier versions and test workflows, kept for reference.
 ![L5 Performance Agent](screenshots/08-performance-agent.png)
 </details>
 
+## Requirements
+
+- **n8n** 1.x or later (self-hosted or cloud), with **Data Tables** enabled
+- A **Google Gemini API key**, needed by every agent except Error Alerts
+
+### Credentials per workflow
+
+✅ = required · ➖ = optional (that step is skipped if it's not set)
+
+| Credential | 00 Orch. | 01 Plan | 02 Intel | 03 Content | 04 SEO | 05 Paid | 06 Social | 07 Leads | 08 Perf. | 09 Errors | AI News |
+|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Google Gemini API | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | | ✅ |
+| Gmail (OAuth2) | | | | | | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Meta Graph API (Facebook / Instagram) | | ➖ | | | | ➖ | ✅ | | ✅ | | |
+| TikTok Business API (Header Auth `Access-Token`) | | ➖ | | | | ➖ | ➖ | | ✅ | | |
+| Snapchat Ads (OAuth2) | | | | | | ➖ | | | | | |
+| Google Ads (OAuth2 + developer token) | | | | | ➖ | ➖ | | | ✅ | | |
+| Google Analytics 4 (OAuth2) | | | | | | | | | ✅ | | |
+| Apify (Query Auth `token`) | | ➖ | ✅ | | | | | | | | |
+| HubSpot | | | | | | | | ✅ | | | |
+| WhatsApp Business Cloud | | | | | | | | ✅ | | | |
+
+The Paid Media Agent works with any ad platform you connect (Meta, TikTok, Snapchat, Google Ads), but it needs at least one.
+
+Free public sources that need no key: Google News RSS, Reddit, Hacker News (Algolia), PageSpeed Insights.
+
+### Data tables
+
+Create these tables in n8n (**Overview → Data tables**) before running the system, then re-select them in the data table nodes after import:
+
+| Table | Written by | Read by |
+|---|---|---|
+| `strategy_briefs` | 01 Strategic Planning | 01 Strategic Planning |
+| `strategies` | 01 Strategic Planning | 00 Orchestrator |
+| `market_intel_reports` | 02 Market Intelligence | 01 Strategic Planning |
+| `marketing_learnings` | 08 Performance | 00, 01, 02 |
+| `paid_media_actions_log` | 05 Paid Media | 05 Paid Media |
+| `social_comment_log` | 06 Social Media | 06 Social Media |
+| `leads` | 07 Lead Nurturing | 08 Performance |
+
+### Setup values
+
+Some workflows have a **Settings** node where you fill in account IDs, for example `meta_ad_account_id`, `facebook_page_id`, `tiktok_advertiser_id`, `google_ads_customer_id` and `approval_email`. The sticky notes inside each workflow list exactly what to fill in.
+
 ## How to import
 
 1. In n8n, open **Workflows → Import from File** and pick a `.json` file.
@@ -109,3 +154,7 @@ Earlier versions and test workflows, kept for reference.
 3. Fill in the setup values described in the sticky notes inside each workflow (account IDs, page IDs, emails).
 4. For the full system, import every file in `marketing-system/`, then open the Orchestrator and re-select each sub-workflow in its **Execute Workflow** nodes, because workflow IDs change on import.
 5. Replace `your-email@example.com` with your own address where it appears.
+
+## License
+
+Released under the [MIT License](LICENSE). You're free to use, modify and share these workflows.
